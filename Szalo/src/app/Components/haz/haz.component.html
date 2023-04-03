@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-10">
+        <h3>A Miskolc 51/46 helyrajzi számú ház szobái!</h3>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-secondary" (click)="goToPage('/home')">Vissza</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">Szoba ID</div>
+    <div class="col-md-2">Ár</div>
+    <div class="col-md-2">Férőhely</div>
+    <div class="col-md-2">Lakó(k)</div>
+</div>
+<div *ngFor="let szoba of szobak">
+    <div class="row">
+        <div class="col-md-2">
+            <p [title]="szoba.SzID + ' details'">
+                {{szoba.SzID}}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p [title]="szoba.Ar">
+                {{szoba.Ar}} Ft
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p [title]="szoba.Ferohely">
+                {{szoba.Ferohely}}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p [title]="szoba.Lako">
+                {{szoba.Lako}}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary">Szerkesztés</button>
+        </div>
+    </div>
+</div>
+

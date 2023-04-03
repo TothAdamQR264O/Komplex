@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-10">
+        <h3>Üdvözöljük (a Főbérlő neve)!</h3>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-secondary" (click)="goToPage('/')">Vissza</button>
+    </div>
+</div>
+
+<div *ngFor="let haz of hazak">
+    <div class="row">
+        <div class="col-md-10">
+            <p [title]="haz.Hszam + ' details'">
+                {{haz.Hszam}}
+            </p>
+        </div>
+        <div class="col-md-1">
+            <p [title]="haz.Szobakszama">
+                {{haz.Szobakszama}}
+            </p>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-secondary" (click)="goToPage('/house')">Megtekintés</button>
+        </div>
+    </div>
+    
+    
+</div>
