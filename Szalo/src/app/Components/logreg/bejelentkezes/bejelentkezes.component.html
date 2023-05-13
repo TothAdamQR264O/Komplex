@@ -1,0 +1,36 @@
+<div class="bg-danger">
+    <div class="jumbotron text-center">
+        <h1 class="bg-primary">Üdvözlégy az Albin</h1>
+        <p>Lépj be főbérlőként vagy bérlőként a megfelelő gombra kattintva!</p> 
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="user-interface">
+            
+        
+            <div *ngFor="let user of userArr">
+                <input type="radio" name="user" value="{{user.value}}" (change)="onRadioChange($event)">
+                <label>{{user.label}}</label>
+            </div>
+        
+        
+            <div class="form-group">
+                <label for="usr">Name:</label>
+                <input type="text" class="form-control" id="usr">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd">
+            </div>
+        
+            <p></p>
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-secondary" (click)="goToPage()">Bejelentkezés</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

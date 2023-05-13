@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FoberloComponent } from './foberlo.component';
+import { LakasComponent } from './lakas.component';
 
-describe('FoberloComponent', () => {
-  let component: FoberloComponent;
-  let fixture: ComponentFixture<FoberloComponent>;
+describe('LakasComponent', () => {
+  let component: LakasComponent;
+  let fixture: ComponentFixture<LakasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FoberloComponent ]
+      declarations: [ LakasComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FoberloComponent);
+    fixture = TestBed.createComponent(LakasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
