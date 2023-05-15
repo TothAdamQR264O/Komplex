@@ -1,5 +1,6 @@
 import { AppDataSource } from "./data-source";
 import { User } from "./entity/User";
+import { Haz } from "./entity/Haz";
 import express from 'express';
 import { getRoutes } from "./routes";
 

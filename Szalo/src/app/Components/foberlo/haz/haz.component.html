@@ -1,1 +1,19 @@
-<p>haz works!</p>
+<div class="jumbotron text-center">
+    <div class="bg-primary">
+        <h3>Üdvözöljük (a Főbérlő neve)!</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <button class="btn btn-secondary" (click)="goToPage('/')">Kilépés</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3" *ngFor="let haz of hazak">
+        <h5>
+            {{ haz.cim }}
+        </h5>
+    </div>
+</div>

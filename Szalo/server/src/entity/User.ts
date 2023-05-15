@@ -1,18 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
+import { UserDTO } from "../../../models"
+import { Product } from "./Product";
 
 @Entity()
-export class User {
+export class User implements UserDTO{
 
     @PrimaryGeneratedColumn()
-    id: number
+    id: number;
 
     @Column()
-    firstName: string
+    firstName: string;
 
     @Column()
-    lastName: string
+    lastName: string;
 
-    @Column()
-    age: number
+    @OneToMany(() => Product, product => product.uploader)
+    products: Product[];
 
 }
