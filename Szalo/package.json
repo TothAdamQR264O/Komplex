@@ -7,7 +7,8 @@
     "start:server": "cd server && ts-node-dev src/index.ts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "private": true,
   "dependencies": {
@@ -26,7 +27,10 @@
     "ngx-toastr": "^17.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.12.0"
+    "zone.js": "~0.12.0",
+    "typeorm": "0.3.15",
+    "reflect-metadata": "^0.1.13",
+    "mysql": "^2.14.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.1",
