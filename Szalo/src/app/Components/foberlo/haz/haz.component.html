@@ -1,19 +1,90 @@
-<div class="jumbotron text-center">
-    <div class="bg-primary">
-        <h3>Üdvözöljük (a Főbérlő neve)!</h3>
-    </div>
-    <div class="row">
-        <div class="col-md-10"></div>
-        <div class="col-md-2">
-            <button class="btn btn-secondary" (click)="goToPage('/')">Kilépés</button>
-        </div>
-    </div>
-</div>
-
-<div class="row">
+<div class="row"  *ngIf="changeVisable()">
     <div class="col-md-6 mb-3" *ngFor="let haz of hazak">
         <h5>
             {{ haz.cim }}
         </h5>
     </div>
+    <div class="text-center">
+        <button class="btn btn-outline-primary" (click)="creatHouse()">+</button>
+    </div>
+</div>
+
+<div class="row justify-content-center" *ngIf="!changeVisable()">
+    <div class="col-md-12">
+        <h4>Ház felivitel</h4>
+        <hr>
+    </div>
+    
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <form [formGroup]="hazForm" *ngIf="!changeVisable()">
+            <div class="mb-3">
+                <label for="hrsz" class="form-label">Helyrajzi szám</label>
+                <input type="text" class="form-control" id="hrsz" name="hrsz" placeholder="12345/1/A/1" formControlName="hrsz">
+            </div>
+            <div class="mb-3">
+                <label for="cim" class="form-label">Cím</label>
+                <input type="text" class="form-control" id="cim" name="cim" placeholder="3724 Msikolc Köröm dülő 25" formControlName="cim">
+            </div>
+            <div class="mb-3">
+                <label for="reszi" class="form-label">Reszi</label>
+                <input type="number" class="form-control" id="reszi" name="reszi" placeholder="4000" formControlName="reszi">
+            </div>
+            <div class="mb-3">
+                <label for="furdo" class="form-label">Fördőszobák száma</label>
+                <input type="number" class="form-control" id="furdo" name="furdo" placeholder="2" formControlName="furdo">
+            </div>
+            <div class="mb-3">
+                <label for="wc" class="form-label">WC-k száma</label>
+                <input type="number" class="form-control" id="wc" name="wc" placeholder="1" formControlName="wc">
+            </div>
+            <div class="mb-3">
+                <label for="viz" class="form-label">Víz</label>
+                <select name="viz" id="viz" class="form-select" formControlName="viz">
+                    <option value="Nincs">Nincs</option>
+                    <option value="Van">Van</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="melegviz" class="form-label">Meleg víz</label>
+                <select name="melegviz" id="melegviz" class="form-select" formControlName="melegviz">
+                    <option value="Nincs">Nincs</option>
+                    <option value="Van">Van</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="internet" class="form-label">Internet</label>
+                <select name="internet" id="internet" class="form-select" formControlName="internet">
+                    <option value="Nincs">Nincs</option>
+                    <option value="Van">Van</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="tv" class="form-label">TV</label>
+                <select name="tv" id="tv" class="form-select" formControlName="tv">
+                    <option value="Nincs">Nincs</option>
+                    <option value="Van">Van</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="mosogep" class="form-label">Mosógép</label>
+                <select name="mosogep" id="mosogep" class="form-select" formControlName="mosogep">
+                    <option value="Nincs">Nincs</option>
+                    <option value="Van">Van</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="tuzhely" class="form-label">Tuzhely</label>
+                <input type="text" class="form-control" id="tuzhely" name="tuzhely" placeholder="Központi" formControlName="tuzhely">
+            </div>
+            <div class="mb-3">
+                <label for="meret" class="form-label">Méret</label>
+                <input type="number" class="form-control" id="meret" name="meret" placeholder="30" formControlName="meret">
+            </div>
+            <div class="text-end">
+                <button class="btn btn-outline-primary" (click)="saveHouse()">Mentés</button>
+            </div>
+        </form>
 </div>

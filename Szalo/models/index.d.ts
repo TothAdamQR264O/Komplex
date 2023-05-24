@@ -1,23 +1,24 @@
-export interface UserDTO {
-    id: number;
-    firstName: string;
-    lastName: string;
+export interface LoginDTO {
+    email: string;
+    password: string;
 }
 
-export interface ProductDTO {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    imgUrl: string;
-    brand: string;
-    uploader: null | UserDTO;
+export interface AccessTokenDTO {
+    accessToken: string;
+}
+
+export interface FoberloDTO {
+    szemszamfb: string;
+    namefb: string;
+    email: string;
+    szamlaszamfb: string;
+    password: string;
+    telfb: number;
 }
 
 export interface HazDTO {
     hrsz: string;
     cim: string;
-    tulaj: string;
     reszi: number;
     furdo: number;
     wc: number;
@@ -28,13 +29,23 @@ export interface HazDTO {
     tuzhely: string;
     mosogep: string;
     meret: number;
+    tulaj: FoberloDTO;
 }
 
-export interface FoberloDTO {
-    szemszamfb: string;
-    namefb: string;
-    emailfb: string;
-    szamlaszamfb: string;
-    jelszofb: string;
-    telfb: number;
+export interface SzobaDTO {
+    szid: number;
+    ar: number;
+    meret: number;
+    ferohely: number;
+    hrsz: HazDTO;
+}
+
+export interface BerloDTO {
+    szemszamb: string;
+    nameb: string;
+    email: string;
+    szamlaszamb: string;
+    password: string;
+    telb: number;
+    szid: SzobaDTO;
 }

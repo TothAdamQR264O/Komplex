@@ -1,5 +1,7 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 import { HazDTO } from '../../../models';
+import { Foberlo } from './Foberlo';
+import { Szoba } from './Szoba';
 
 @Entity()
 export class Haz implements HazDTO {
@@ -8,9 +10,6 @@ export class Haz implements HazDTO {
 
     @Column({ type: 'text' })
     cim: string;
-
-    @Column({ type: 'text'})
-    tulaj: string;
 
     @Column({ type: 'float' })
     reszi: number;
@@ -41,4 +40,10 @@ export class Haz implements HazDTO {
 
     @Column({ type: 'float'})
     meret: number;
+
+    @ManyToOne(() => Foberlo, (foberlo) => foberlo.hazak, { eager: true })
+    tulaj: Foberlo;
+
+    @OneToMany(() => Szoba, szoba => szoba.hrsz)
+    szoba: Szoba[];
 }

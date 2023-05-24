@@ -11,9 +11,11 @@ import { BejelentkezesComponent } from './Components/logreg/bejelentkezes/bejele
 import { RegisztralasComponent } from './Components/logreg/regisztralas/regisztralas.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { AccessTokenInterceptor } from './services/access-token.interceptor';
+import { UnauthorizedInterceptor } from './services/unauthorized.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,18 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenInterceptor,
+      multi: true
+    },
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: UnauthorizedInterceptor,
+        multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

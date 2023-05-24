@@ -1,3 +1,38 @@
+body,html{
+  width:100%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+html{
+    background-color: #CCCCFF;
+}
+
+.container {
+    padding: 1em;
+    max-width:750px;
+    min-height:100vh;
+    width:90%;
+    margin: auto;
+    box-sizing:border-box;
+    background-color:#CCCCFF;
+}
+
+.row {
+    margin:0;
+    padding-left:20px;
+    background-color:#CCCCFF;
+}
+
+.user-interface {
+  background-color: #CCCCFF;
+}
+
+.function-box {
+  margin-top: 90px;
+  margin-bottom: 80px;
+  background-color:#CCCCFF;
+}
+
 /* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
 
 /* position */

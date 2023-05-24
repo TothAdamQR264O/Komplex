@@ -1,1 +1,77 @@
-<p>regisztralas works!</p>
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <h4>Regisztráció</h4>
+        <hr>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <div *ngFor="let user of userArr">
+            <input type="radio" name="user" value="{{user.value}}" (change)="onRadioChange($event)">
+            <label>{{user.label}}</label>
+        </div>
+
+        <form [formGroup]="foberloForm" *ngIf="changeUserVisable()">
+            <div class="mb-3">
+                <label for="namefb" class="form-label">Főbérlő Név</label>
+                <input type="text" class="form-control" id="namefb" name="namefb" placeholder="Példa Béla" formControlName="namefb">
+            </div>
+            <div class="mb-3">
+                <label for="szemszamfb" class="form-label">Személyi szám</label>
+                <input type="text" class="form-control" id="szemszamfb" name="szemszamfb" placeholder="123456AA" formControlName="szemszamfb">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="pelda@bela.hu" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Jelszó</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Példa12" formControlName="password">
+            </div>
+            <div class="mb-3">
+                <label for="szamlaszamfb" class="form-label">Számlaszám</label>
+                <input type="text" class="form-control" id="szamlaszamfb" name="szamlaszamfb" placeholder="12345678-12345678-12345678" formControlName="szamlaszamfb">
+            </div>
+            <div class="mb-3">
+                <label for="telfb" class="form-label">Telefonszám</label>
+                <input type="text" class="form-control" id="telfb" name="telfb" placeholder="301234567" formControlName="telfb">
+            </div>
+            <div class="text-end">
+                <button class="btn btn-outline-primary"
+                    (click)="saveUser()">Mentés</button>
+            </div>
+        </form>
+
+        <form [formGroup]="berloForm" *ngIf="!changeUserVisable()">
+            <div class="mb-3">
+                <label for="nameb" class="form-label">Bérlő Név</label>
+                <input type="text" class="form-control" id="nameb" name="nameb" placeholder="Példa Béla" formControlName="nameb">
+            </div>
+            <div class="mb-3">
+                <label for="szemszamb" class="form-label">Személyi szám</label>
+                <input type="text" class="form-control" id="szemszamb" name="szemszamb" placeholder="123456AA" formControlName="szemszamb">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="pelda@bela.hu" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Jelszó</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Példa12" formControlName="password">
+            </div>
+            <div class="mb-3">
+                <label for="szamlaszamb" class="form-label">Számlaszám</label>
+                <input type="text" class="form-control" id="szamlaszamb" name="szamlaszamb" placeholder="12345678-12345678-12345678" formControlName="szamlaszamb">
+            </div>
+            <div class="mb-3">
+                <label for="telb" class="form-label">Telefonszám</label>
+                <input type="text" class="form-control" id="telb" name="telb" placeholder="301234567" formControlName="telb">
+            </div>
+            <div class="text-end">
+                <button class="btn btn-outline-primary"
+                    (click)="saveUser()">Mentés</button>
+            </div>
+        </form>
+    </div>
+</div>
