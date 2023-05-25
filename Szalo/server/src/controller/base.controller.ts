@@ -16,7 +16,20 @@ export abstract class Controller {
         try {
             const entity = await this.repository.findOneBy({ id: req.params.id });
             if (!entity) {
-                return this.handleError(res, null, 404, 'No entity found with this id.');
+                return this.handleError(res, null, 404, 'Nem található entitás ezzel az azonosítóval.');
+            }
+
+            res.json(entity);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    getOneOnEmil = async (req, res) => {
+        try {
+            const entity = await this.repository.findOneBy({ email: req.params.email });
+            if (!entity) {
+                return this.handleError(res, null, 404, 'Nem található entitás ezzel az emailel.');
             }
 
             res.json(entity);
@@ -43,7 +56,7 @@ export abstract class Controller {
         try {
             let entity = await this.repository.findOneBy({ id: req.body.id });
             if (!entity || !req.body.id) {
-                return this.handleError(res, null, 404, 'No entity found with this id.');
+                return this.handleError(res, null, 404, 'Nem található entitás ezzel az azonosítóval.');
             }
 
             entity = this.repository.create(req.body as object);
@@ -59,7 +72,7 @@ export abstract class Controller {
         try {
             const entity = await this.repository.findOneBy({ id: req.params.id });
             if (!entity) {
-                return this.handleError(res, null, 404, 'No entity found with this id.');
+                return this.handleError(res, null, 404, 'Nem található entitás ezzel az azonosítóval.');
             }
 
             await this.repository.delete(entity.id);
@@ -69,7 +82,7 @@ export abstract class Controller {
         }
     }
 
-    handleError(res, err = null, status = 500, message = 'Database error occurred.') {
+    handleError(res, err = null, status = 500, message = 'Adatbázis hiba történt.') {
         if (err) {
             console.error(err);
         }

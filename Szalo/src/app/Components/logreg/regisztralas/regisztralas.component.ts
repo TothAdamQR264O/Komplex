@@ -17,7 +17,6 @@ export class RegisztralasComponent {
 
   foberloForm = this.formBuilder.group({
     namefb: this.formBuilder.control(''),
-    szemszamfb: this.formBuilder.control(''),
     email: this.formBuilder.control(''),
     password: this.formBuilder.control(''),
     szamlaszamfb: this.formBuilder.control(''),
@@ -26,7 +25,6 @@ export class RegisztralasComponent {
 
   berloForm = this.formBuilder.group({
     nameb: this.formBuilder.control(''),
-    szemszamb: this.formBuilder.control(''),
     email: this.formBuilder.control(''),
     password: this.formBuilder.control(''),
     szamlaszamb: this.formBuilder.control(''),
@@ -64,28 +62,45 @@ export class RegisztralasComponent {
     }
   }
 
-  saveUser() {
-      if (this.changeVisable) {
-        const foberlo = this.foberloForm.value as FoberloDTO;
-        this.foberloService.create(foberlo).subscribe({
-          next: (foberlo) => {
-            this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
-          },
-          error: (err) => {
-            this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
-          }
-        });
+  valueValidate(): boolean{
+    this.valide = true;
+    if(this.changeVisable){
+      if(!this.foberloForm.value.email || !this.foberloForm.value.namefb || !this.foberloForm.value.password || !this.foberloForm.value.szamlaszamfb || !this.foberloForm.value.telfb){
+        this.valide = false;
       }
-      else if (!this.changeVisable){
-        const berlo = this.berloForm.value as BerloDTO;
-        this.berloService.create(berlo).subscribe({
-          next: (berlo) => {
-            this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
-          },
-          error: (err) => {
-            this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
-          }
-        });
+    }
+    else{
+      if(!this.berloForm.value.email || !this.berloForm.value.nameb || !this.berloForm.value.password || !this.berloForm.value.szamlaszamb || !this.berloForm.value.telb){
+        this.valide = false;
+      }
+    }
+    return this.valide;
+  }
+
+  saveUser() {
+      if(this.valueValidate()){
+        if (this.changeVisable) {
+          const foberlo = this.foberloForm.value as FoberloDTO;
+          this.foberloService.create(foberlo).subscribe({
+            next: (foberlo) => {
+              this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
+            },
+            error: (err) => {
+              this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
+            }
+          });
+        }
+        else if (!this.changeVisable){
+          const berlo = this.berloForm.value as BerloDTO;
+          this.berloService.create(berlo).subscribe({
+            next: (berlo) => {
+              this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
+            },
+            error: (err) => {
+              this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
+            }
+          });
+        }
       }
   }
 

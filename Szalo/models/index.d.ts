@@ -8,15 +8,16 @@ export interface AccessTokenDTO {
 }
 
 export interface FoberloDTO {
-    szemszamfb: string;
+    id: number;
     namefb: string;
     email: string;
-    szamlaszamfb: string;
     password: string;
+    szamlaszamfb: string;
     telfb: number;
 }
 
 export interface HazDTO {
+    id: number;
     hrsz: string;
     cim: string;
     reszi: number;
@@ -26,26 +27,25 @@ export interface HazDTO {
     melegviz: string;
     internet: string;
     tv: string;
-    tuzhely: string;
     mosogep: string;
     meret: number;
     tulaj: FoberloDTO;
 }
 
 export interface SzobaDTO {
-    szid: number;
+    id: number;
     ar: number;
     meret: number;
     ferohely: number;
-    hrsz: HazDTO;
+    hid: HazDTO;
 }
 
 export interface BerloDTO {
-    szemszamb: string;
+    id: number;
     nameb: string;
     email: string;
-    szamlaszamb: string;
     password: string;
+    szamlaszamb: string;
     telb: number;
     szid: SzobaDTO;
 }

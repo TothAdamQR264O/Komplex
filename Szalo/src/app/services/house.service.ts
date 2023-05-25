@@ -13,8 +13,8 @@ export class HouseService {
     return this.http.get<HazDTO[]>('/api/home');
   }
 
-  getOne(hrsz: number){
-    return this.http.get<HazDTO>('/api/home/' + hrsz);
+  getOne(id: number){
+    return this.http.get<HazDTO>('/api/home/' + id);
   }
 
   create(haz: HazDTO){
@@ -25,7 +25,7 @@ export class HouseService {
     return this.http.put<HazDTO>('/api/home', haz);
   }
 
-  delete(hrsz: number){
-    return this.http.delete('/api/home/' + hrsz);
+  delete(id: number){
+    return this.http.delete('/api/home/' + id);
   }
 }

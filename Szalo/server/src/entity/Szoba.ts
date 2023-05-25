@@ -6,7 +6,7 @@ import { Haz } from './Haz';
 @Entity()
 export class Szoba implements SzobaDTO {
     @PrimaryGeneratedColumn()
-    szid: number;
+    id: number;
 
     @Column({ type: 'float' })
     ar: number;
@@ -18,7 +18,7 @@ export class Szoba implements SzobaDTO {
     ferohely: number;
 
     @ManyToOne(() => Haz, (haz) => haz.szoba, { eager: true })
-    hrsz: Haz;
+    hid: Haz;
 
     @OneToMany(() => Berlo, berlo => berlo.szid)
     berlo: Berlo[];

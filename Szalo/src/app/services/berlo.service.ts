@@ -17,8 +17,8 @@ export class BerloService {
     return this.http.post<AccessTokenDTO>('/api/berlo/login', data);
   }
 
-  getOne(szemszamb: string) {
-    return this.http.get<BerloDTO>('/api/berlo' + szemszamb);
+  getOne(id: string) {
+    return this.http.get<BerloDTO>('/api/berlo' + id);
   }
 
   create(berlo: BerloDTO) {
@@ -29,7 +29,7 @@ export class BerloService {
     return this.http.put<BerloDTO>('/api/berlo', berlo);
   }
 
-  delete(szemszamb: string) {
-    return this.http.delete<BerloDTO>('/api/berlo' + szemszamb);
+  delete(id: string) {
+    return this.http.delete<BerloDTO>('/api/berlo' + id);
   }
 }

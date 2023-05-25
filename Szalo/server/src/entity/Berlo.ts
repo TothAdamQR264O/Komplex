@@ -1,23 +1,23 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { BerloDTO } from '../../../models';
 import { Szoba } from './Szoba';
 
 @Entity()
 export class Berlo implements BerloDTO{
-    @PrimaryColumn()
-    szemszamb: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-    @Column({ type: 'text' })
+    @Column({ type: "varchar", length: 50 })
     nameb: string;
 
-    @Column({ unique: true })
+    @Column({ type: "varchar", unique: true })
     email: string;
 
-    @Column({ type: 'text' })
-    szamlaszamb: string;
-
-    @Column({ select: false })
+    @Column({ type: "varchar", select: false })
     password: string;
+
+    @Column({ type: "varchar", length: 26 })
+    szamlaszamb: string;
     
     @Column()
     telb: number;

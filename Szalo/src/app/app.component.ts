@@ -9,7 +9,8 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Szalo';
+  title = 'Szaló';
+  email = localStorage.getItem('email');
 
   constructor(
     private router: Router,
@@ -19,6 +20,7 @@ export class AppComponent {
 
   logout() {
     this.authService.removeToken();
+    localStorage.removeItem('email');
     this.router.navigateByUrl('/');
     this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
   }

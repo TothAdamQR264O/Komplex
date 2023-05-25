@@ -1,24 +1,24 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { FoberloDTO } from '../../../models';
 import { Haz } from './Haz';
 
 @Entity()
 export class Foberlo implements FoberloDTO{
-    @PrimaryColumn()
-    szemszamfb: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-    @Column({ type: 'text' })
+    @Column({ type: "varchar", length: 50 })
     namefb: string;
 
-    @Column({ unique: true })
+    @Column({ type: "varchar", unique: true })
     email: string;
 
-    @Column({ type: 'text' })
+    @Column({ type: "varchar", select: false })
+    password: string;
+
+    @Column({ type: "varchar", length: 26 })
     szamlaszamfb: string;
 
-    @Column({ select: false })
-    password: string;
-    
     @Column()
     telfb: number;
 

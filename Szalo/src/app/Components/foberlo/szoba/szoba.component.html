@@ -1,1 +1,55 @@
-<p>szoba works!</p>
+<div class="row"  *ngIf="changeVisable()">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Ár</th>
+            <th scope="col">Férőhely</th>
+            <th scope="col">Szerkesztés</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let szoba of szobak">
+            <th scope="col">{{ szoba.id }}</th>
+            <th scope="col">{{ szoba.ar }}</th>
+            <th scope="col">{{ szoba.ferohely }}</th>
+            <th scope="col"><button class="btn btn-outline-primary" >Szerkesztés</button></th>
+          </tr>
+        </tbody>
+      </table>
+    <div class="text-center">
+        <button class="btn btn-outline-primary" (click)="creatRoom()">+</button>
+    </div>
+</div>
+
+<div class="row justify-content-center" *ngIf="!changeVisable()">
+    <div class="col-md-12">
+        <h4>SZoba felivitel</h4>
+        <hr>
+    </div>
+    
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <form [formGroup]="szobaForm" *ngIf="!changeVisable()">
+            <div class="mb-3">
+                <label for="ar" class="form-label">Ár</label>
+                <input type="number" class="form-control" id="ar" name="ar" placeholder="60000" formControlName="ar">
+            </div>
+            <div class="mb-3">
+                <label for="meret" class="form-label">Méret</label>
+                <input type="number" class="form-control" id="meret" name="meret" placeholder="25" formControlName="meret">
+            </div>
+            <div class="mb-3">
+                <label for="ferohely" class="form-label">Férőhely</label>
+                <input type="number" class="form-control" id="ferohely" name="ferohely" placeholder="2" formControlName="ferohely">
+            </div>
+            <div class="text-start">
+                <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
+            </div>
+            <div class="text-end">
+                <button class="btn btn-outline-primary" (click)="saveRoom()">Mentés</button>
+            </div>
+        </form>
+</div>

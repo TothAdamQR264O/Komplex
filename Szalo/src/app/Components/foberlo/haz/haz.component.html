@@ -1,9 +1,25 @@
 <div class="row"  *ngIf="changeVisable()">
+    <!--
     <div class="col-md-6 mb-3" *ngFor="let haz of hazak">
-        <h5>
-            {{ haz.cim }}
-        </h5>
+            <p>{{ haz.cim }}</p>
     </div>
+    -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Helyrajzi szám</th>
+            <th scope="col">Cím</th>
+            <th scope="col">Szobák</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let haz of hazak">
+            <th scope="col">{{ haz.hrsz }}</th>
+            <th scope="col">{{ haz.cim }}</th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheRooms()">Szobák</button></th>
+          </tr>
+        </tbody>
+      </table>
     <div class="text-center">
         <button class="btn btn-outline-primary" (click)="creatHouse()">+</button>
     </div>
@@ -76,12 +92,11 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="tuzhely" class="form-label">Tuzhely</label>
-                <input type="text" class="form-control" id="tuzhely" name="tuzhely" placeholder="Központi" formControlName="tuzhely">
-            </div>
-            <div class="mb-3">
                 <label for="meret" class="form-label">Méret</label>
                 <input type="number" class="form-control" id="meret" name="meret" placeholder="30" formControlName="meret">
+            </div>
+            <div class="text-start">
+                <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
             </div>
             <div class="text-end">
                 <button class="btn btn-outline-primary" (click)="saveHouse()">Mentés</button>

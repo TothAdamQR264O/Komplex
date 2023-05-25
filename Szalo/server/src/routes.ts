@@ -20,6 +20,7 @@ export function getRoutes() {
 
     router.get('/foberlo', foberloController.getAll);
     router.get('/foberlo/:id', foberloController.getOne);
+    router.get('/foberlo/:email', foberloController.getOneOnEmil);
     router.post('/foberlo', foberloController.create);
     router.put('/foberlo', checkUser, foberloController.update);
     router.delete('/foberlo/:id', checkUser, foberloController.delete);

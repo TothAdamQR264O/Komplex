@@ -1,14 +1,17 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { HazDTO } from '../../../models';
 import { Foberlo } from './Foberlo';
 import { Szoba } from './Szoba';
 
 @Entity()
 export class Haz implements HazDTO {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
     hrsz: string;
 
-    @Column({ type: 'text' })
+    @Column({ type: "varchar" })
     cim: string;
 
     @Column({ type: 'float' })
@@ -20,22 +23,19 @@ export class Haz implements HazDTO {
     @Column()
     wc: number;
 
-    @Column({ type: 'text'})
+    @Column({ type: "varchar", length: 5 })
     viz: string;
 
-    @Column({ type: 'text'})
+    @Column({ type: "varchar", length: 5 })
     melegviz: string;
 
-    @Column({ type: 'text'})
+    @Column({ type: "varchar", length: 5 })
     internet: string;
 
-    @Column({ type: 'text'})
+    @Column({ type: "varchar", length: 5 })
     tv: string;
 
-    @Column({ type: 'text'})
-    tuzhely: string;
-
-    @Column({ type: 'text'})
+    @Column({ type: "varchar", length: 5 })
     mosogep: string;
 
     @Column({ type: 'float'})
@@ -44,6 +44,6 @@ export class Haz implements HazDTO {
     @ManyToOne(() => Foberlo, (foberlo) => foberlo.hazak, { eager: true })
     tulaj: Foberlo;
 
-    @OneToMany(() => Szoba, szoba => szoba.hrsz)
+    @OneToMany(() => Szoba, szoba => szoba.hid)
     szoba: Szoba[];
 }
