@@ -1,39 +1,6 @@
-<div class="row"  *ngIf="changeVisable()">
-
-    <div class="col-md-6 mb-3" *ngFor="let haz of hazak">
-            <p>{{ haz.cim }}</p>
-            <div class="text-center">
-                <button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button>
-            </div>
-    </div>
-    
-
-    <!--<table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Helyrajzi szám</th>
-            <th scope="col">Cím</th>
-            <th scope="col">Szerkesztés</th>
-            <th scope="col">Szobák</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr *ngFor="let haz of hazak">
-            <th scope="col">{{ haz.hrsz }}</th>
-            <th scope="col">{{ haz.cim }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button></th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheRooms()">Szobák</button></th>
-          </tr>
-        </tbody>
-      </table>
-    <div class="text-center">
-        <button class="btn btn-outline-primary" (click)="creatHouse()">+</button>
-    </div>-->
-</div>
-
-<div class="row justify-content-center" *ngIf="!changeVisable()">
+<div class="row justify-content-center">
     <div class="col-md-12">
-        <h4>Ház felivitel</h4>
+        <h4>Ház szerkesztése</h4>
         <hr>
     </div>
     
@@ -41,7 +8,7 @@
 
 <div class="row justify-content-center">
     <div class="col-md-9">
-        <form [formGroup]="hazForm" *ngIf="!changeVisable()">
+        <form [formGroup]="hazForm">
             <div class="mb-3">
                 <label for="hrsz" class="form-label">Helyrajzi szám</label>
                 <input type="text" class="form-control" id="hrsz" name="hrsz" placeholder="12345/1/A/1" formControlName="hrsz">

@@ -16,6 +16,7 @@ export class HazComponent {
   hazak: HazDTO[] = [];
   visable = true;
   valide = true;
+  isNewHouse = true;
   
 
   hazForm = this.formBuilder.group({
@@ -59,6 +60,7 @@ export class HazComponent {
   }
 
   ngOnInit(): void {
+    //const id = this.activatedRoute.snapshot.params['id'];
     this.houseService.getAll().subscribe({
       next: (hazak) => {
         this.hazak = hazak;
@@ -68,6 +70,40 @@ export class HazComponent {
         this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');
       }
     });
+    /*if(id){
+      this.isNewHouse = false;
+
+      this.houseService.getOne(id).subscribe({
+        next: (haz) => this.hazForm.setValue(haz),
+        error: (err) => {
+          console.error(err);
+          this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
+        }
+      });
+    }
+    else{
+      this.houseService.getAll().subscribe({
+        next: (hazak) => {
+          this.hazak = hazak;
+          console.log(hazak);
+        },
+        error: (err) => {
+          this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');
+        }
+      });
+    }*/
+  }
+
+  changeHouseValue(id: number) {
+    this.router.navigate([ '/szerk', id ]);
+    /*this.houseService.getOne(id).subscribe({
+      next: (haz) => this.hazForm.setValue(haz),
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
+      }
+    });
+    this.visable = false;*/
   }
 
   valueValidate(): boolean{
@@ -79,18 +115,35 @@ export class HazComponent {
   }
 
   saveHouse() {
-    if(this.valueValidate()){
-      const haz= this.hazForm.value as HazDTO;
-      this.houseService.create(haz).subscribe({
-          next: (haz) => {
-            this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
-            this.router.navigateByUrl('/home');
-          },
-          error: (err) => {
-            this.toastrService.error('Nem sikerült felvinni az adatokat.', 'Hiba');
-          }
-        });
-        this.visable = true;
+    if(this.isNewHouse){
+      if(this.valueValidate()){
+        const haz= this.hazForm.value as HazDTO;
+        this.houseService.create(haz).subscribe({
+            next: (haz) => {
+              this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
+              this.router.navigateByUrl('/home');
+            },
+            error: (err) => {
+              this.toastrService.error('Nem sikerült felvinni az adatokat.', 'Hiba');
+            }
+          });
+          this.visable = true;
+      }
+    }
+    else{
+      if(this.valueValidate()){
+        const haz= this.hazForm.value as HazDTO;
+        this.houseService.update(haz).subscribe({
+            next: (haz) => {
+              this.toastrService.success('Ház adaainak megváltoztatása sikeresen megtörtént', 'Siker');
+              this.router.navigateByUrl('/home');
+            },
+            error: (err) => {
+              this.toastrService.error('Nem sikerült megváltoztatni az adatokat.', 'Hiba');
+            }
+          });
+          this.visable = true;
+      }
     }
   }
 

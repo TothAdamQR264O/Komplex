@@ -16,6 +16,7 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AccessTokenInterceptor } from './services/access-token.interceptor';
 import { UnauthorizedInterceptor } from './services/unauthorized.interceptor';
+import { SzerkesztesComponent } from './Components/foberlo/szerkesztes/szerkesztes.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UnauthorizedInterceptor } from './services/unauthorized.interceptor';
     HazComponent,
     SzobaComponent,
     BejelentkezesComponent,
-    RegisztralasComponent
+    RegisztralasComponent,
+    SzerkesztesComponent
   ],
   imports: [
     BrowserModule,

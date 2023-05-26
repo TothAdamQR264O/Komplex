@@ -14,7 +14,8 @@ export abstract class Controller {
 
     getOne = async (req, res) => {
         try {
-            const entity = await this.repository.findOneBy({ id: req.params.id });
+            const id = req.params.id;
+            const entity = await this.repository.findOneBy({ id: id });
             if (!entity) {
                 return this.handleError(res, null, 404, 'Nem található entitás ezzel az azonosítóval.');
             }
