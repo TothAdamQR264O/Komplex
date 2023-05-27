@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: '', component: BejelentkezesComponent },
   { path: 'reg', component: RegisztralasComponent },
   { path: 'home', component: HazComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  { path: 'home/:email', component: HazComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'room', component: SzobaComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'lak', component: LakasComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] } 

@@ -28,7 +28,8 @@ export abstract class Controller {
 
     getOneOnEmil = async (req, res) => {
         try {
-            const entity = await this.repository.findOneBy({ email: req.params.email });
+            const email = req.params.email;
+            const entity = await this.repository.findOneBy({ email: email });
             if (!entity) {
                 return this.handleError(res, null, 404, 'Nem található entitás ezzel az emailel.');
             }

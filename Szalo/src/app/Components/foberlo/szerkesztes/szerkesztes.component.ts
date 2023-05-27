@@ -18,6 +18,7 @@ export class SzerkesztesComponent {
   
 
   hazForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
     hrsz: this.formBuilder.control(''),
     cim: this.formBuilder.control(''),
     reszi: this.formBuilder.control(0),

@@ -11,6 +11,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'Szaló';
   email = localStorage.getItem('email');
+  //name = localStorage.getItem('namefb');
 
   constructor(
     private router: Router,
@@ -21,6 +22,7 @@ export class AppComponent {
   logout() {
     this.authService.removeToken();
     localStorage.removeItem('email');
+    localStorage.removeItem('namefb');
     this.router.navigateByUrl('/');
     this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
   }

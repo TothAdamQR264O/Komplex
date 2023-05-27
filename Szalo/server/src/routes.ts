@@ -28,11 +28,11 @@ export function getRoutes() {
 
     const szobaController = new SzobaController();
 
-    router.get('/szoba', szobaController.getAll);
-    router.get('/szoba/:id', szobaController.getOne);
-    router.post('/szoba', checkUser, szobaController.create);
-    router.put('/szoba', checkUser, szobaController.update);
-    router.delete('/szoba/:id', checkUser, szobaController.delete);
+    router.get('/room', szobaController.getAll);
+    router.get('/room/:id', szobaController.getOne);
+    router.post('/room', checkUser, szobaController.create);
+    router.put('/room', checkUser, szobaController.update);
+    router.delete('/room/:id', checkUser, szobaController.delete);
 
     const berloController = new BerloController();
 

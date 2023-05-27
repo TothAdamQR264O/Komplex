@@ -34,9 +34,12 @@ export interface HazDTO {
 
 export interface SzobaDTO {
     id: number;
+    nev: string;
     ar: number;
     meret: number;
     ferohely: number;
+    kiado: string;
+    szabadhely: number;
     hid: HazDTO;
 }
 

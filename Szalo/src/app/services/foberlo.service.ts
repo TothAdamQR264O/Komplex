@@ -17,12 +17,12 @@ export class FoberloService {
     return this.http.post<AccessTokenDTO>('/api/foberlo/login', data);
   }
 
-  getOne(id: string){
+  getOne(id: number){
     return this.http.get<FoberloDTO>('/api/foberlo' + id);
   }
 
   getOneOnEmil(email: string){
-    return this.http.get<FoberloDTO>('/api/home' + email);
+    return this.http.get<FoberloDTO>('/api/foberlo' + email);
   }
 
   create(foberlo: FoberloDTO){
@@ -33,7 +33,7 @@ export class FoberloService {
     return this.http.put<FoberloDTO>('/api/foberlo', foberlo);
   }
 
-  delete(id: string){
+  delete(id: number){
     return this.http.delete<FoberloDTO>('/api/foberlo' + id);
   }
 }

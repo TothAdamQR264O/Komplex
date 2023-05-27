@@ -2,18 +2,22 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col">Név</th>
             <th scope="col">Ár</th>
             <th scope="col">Férőhely</th>
+            <th scope="col">Szabadhely</th>
+            <th scope="col">Kidaó</th>
             <th scope="col">Szerkesztés</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor="let szoba of szobak">
-            <th scope="col">{{ szoba.id }}</th>
+            <th scope="col">{{ szoba.nev }}</th>
             <th scope="col">{{ szoba.ar }}</th>
             <th scope="col">{{ szoba.ferohely }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" >Szerkesztés</button></th>
+            <th scope="col">{{ szoba.szabadhely }}</th>
+            <th scope="col">{{ szoba.kiado }}</th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="changeRoomValue(szoba.id)">Szerkesztés</button></th>
           </tr>
         </tbody>
       </table>
@@ -24,7 +28,7 @@
 
 <div class="row justify-content-center" *ngIf="!changeVisable()">
     <div class="col-md-12">
-        <h4>SZoba felivitel</h4>
+        <h4>Szoba felivitel</h4>
         <hr>
     </div>
     
@@ -33,6 +37,10 @@
 <div class="row justify-content-center">
     <div class="col-md-9">
         <form [formGroup]="szobaForm" *ngIf="!changeVisable()">
+            <div class="mb-3">
+                <label for="nev" class="form-label">Név</label>
+                <input type="text" class="form-control" id="nev" name="nev" placeholder="1. szoba" formControlName="nev">
+            </div>
             <div class="mb-3">
                 <label for="ar" class="form-label">Ár</label>
                 <input type="number" class="form-control" id="ar" name="ar" placeholder="60000" formControlName="ar">
@@ -44,6 +52,13 @@
             <div class="mb-3">
                 <label for="ferohely" class="form-label">Férőhely</label>
                 <input type="number" class="form-control" id="ferohely" name="ferohely" placeholder="2" formControlName="ferohely">
+            </div>
+            <div class="mb-3">
+                <label for="kiado" class="form-label">Kiadó</label>
+                <select name="kiado" id="kiado" class="form-select" formControlName="kiado">
+                    <option value="Igen">Igen</option>
+                    <option value="Nem">Nem</option>
+                </select>
             </div>
             <div class="text-start">
                 <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>

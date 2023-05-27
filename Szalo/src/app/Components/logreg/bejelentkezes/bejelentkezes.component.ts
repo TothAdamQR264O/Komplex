@@ -30,6 +30,15 @@ export class BejelentkezesComponent {
     telfb: 0
   });
 
+  foberloForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
+    namefb: this.formBuilder.control(''),
+    email: this.formBuilder.control(''),
+    password: this.formBuilder.control(''),
+    szamlaszamfb: this.formBuilder.control(''),
+    telfb: this.formBuilder.control(0)
+  });
+
   constructor(
     private formBuilder: FormBuilder,
     private berloService: BerloService,
@@ -76,15 +85,18 @@ export class BejelentkezesComponent {
     if(!this.loginForm.value.email || !this.loginForm.value.password){
       this.valide = false;
     }else{
-      this.foberloService.getOneOnEmil(this.loginForm.value.email).subscribe({
+      /*this.foberloService.getOneOnEmil(this.email).subscribe({
         next: (fberlo) => {
-          this.fberlo = fberlo;
+          this.foberloForm.setValue(fberlo),
           this.toastrService.success('Elentett adat: ' + fberlo, 'Inf');
+          localStorage.setItem('namefb', ""+this.foberloForm.value.namefb);
         },
         error: (err) => {
           this.toastrService.error('Az adatot nem tudta lekérdezi.', 'Hiba');
+          this.toastrService.error('Email a formból: ' + this.email + ', namefb: ' + this.foberloForm.value.namefb, 'Hiba');
         }
-      });
+      });*/
+
     }
     return this.valide;
   }

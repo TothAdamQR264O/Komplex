@@ -20,6 +20,7 @@ export class HazComponent {
   
 
   hazForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
     hrsz: this.formBuilder.control(''),
     cim: this.formBuilder.control(''),
     reszi: this.formBuilder.control(0),
@@ -51,7 +52,17 @@ export class HazComponent {
     this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
   }
 
-  goToTheRooms(){
+  goToTheRooms(id: number){
+    this.houseService.getOne(id).subscribe({
+      next: (haz) => {
+        this.hazForm.setValue(haz);
+        localStorage.setItem('hid', ""+ haz.id);
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
+      }
+    });
     this.router.navigateByUrl('/room');
   }
   
@@ -60,17 +71,8 @@ export class HazComponent {
   }
 
   ngOnInit(): void {
-    //const id = this.activatedRoute.snapshot.params['id'];
-    this.houseService.getAll().subscribe({
-      next: (hazak) => {
-        this.hazak = hazak;
-        console.log(hazak);
-      },
-      error: (err) => {
-        this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');
-      }
-    });
-    /*if(id){
+    const id = this.activatedRoute.snapshot.params['id'];
+    if(id){
       this.isNewHouse = false;
 
       this.houseService.getOne(id).subscribe({
@@ -91,19 +93,19 @@ export class HazComponent {
           this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');
         }
       });
-    }*/
+    }
   }
 
   changeHouseValue(id: number) {
-    this.router.navigate([ '/szerk', id ]);
-    /*this.houseService.getOne(id).subscribe({
+    this.houseService.getOne(id).subscribe({
       next: (haz) => this.hazForm.setValue(haz),
       error: (err) => {
         console.error(err);
         this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
       }
     });
-    this.visable = false;*/
+    this.visable = false;
+    this.isNewHouse = false;
   }
 
   valueValidate(): boolean{
@@ -115,9 +117,9 @@ export class HazComponent {
   }
 
   saveHouse() {
+    const haz = this.hazForm.value as HazDTO;
     if(this.isNewHouse){
       if(this.valueValidate()){
-        const haz= this.hazForm.value as HazDTO;
         this.houseService.create(haz).subscribe({
             next: (haz) => {
               this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
@@ -132,7 +134,6 @@ export class HazComponent {
     }
     else{
       if(this.valueValidate()){
-        const haz= this.hazForm.value as HazDTO;
         this.houseService.update(haz).subscribe({
             next: (haz) => {
               this.toastrService.success('Ház adaainak megváltoztatása sikeresen megtörtént', 'Siker');

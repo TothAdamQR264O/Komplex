@@ -1,14 +1,5 @@
 <div class="row"  *ngIf="changeVisable()">
-
-    <div class="col-md-6 mb-3" *ngFor="let haz of hazak">
-            <p>{{ haz.cim }}</p>
-            <div class="text-center">
-                <button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button>
-            </div>
-    </div>
-    
-
-    <!--<table class="table">
+    <table class="table">
         <thead>
           <tr>
             <th scope="col">Helyrajzi szám</th>
@@ -22,13 +13,13 @@
             <th scope="col">{{ haz.hrsz }}</th>
             <th scope="col">{{ haz.cim }}</th>
             <th scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button></th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheRooms()">Szobák</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheRooms(haz.id)">Szobák</button></th>
           </tr>
         </tbody>
       </table>
     <div class="text-center">
         <button class="btn btn-outline-primary" (click)="creatHouse()">+</button>
-    </div>-->
+    </div>
 </div>
 
 <div class="row justify-content-center" *ngIf="!changeVisable()">

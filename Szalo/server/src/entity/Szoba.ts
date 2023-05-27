@@ -8,6 +8,9 @@ export class Szoba implements SzobaDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ type: "varchar", length: 10 })
+    nev: string;
+
     @Column({ type: 'float' })
     ar: number;
 
@@ -16,6 +19,12 @@ export class Szoba implements SzobaDTO {
 
     @Column()
     ferohely: number;
+
+    @Column({ type: "varchar", length: 4 })
+    kiado: string;
+
+    @Column()
+    szabadhely: number;
 
     @ManyToOne(() => Haz, (haz) => haz.szoba, { eager: true })
     hid: Haz;
