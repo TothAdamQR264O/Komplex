@@ -31,10 +31,13 @@
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link" routerLink="/lak">Lakás</a>
-      </li>
-      <li class="nav-item" *ngIf="authService.isLoggedIn()">
-        <a class="nav-link" href="#" (click)="logout()">Kilépés</a>
-      </li>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" routerLink="/keres">Keres</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" href="#" (click)="logout()">Kilépés</a>
+        </li>
       </ul>
     </div>
   </div>

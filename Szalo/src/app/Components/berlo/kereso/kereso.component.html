@@ -1,1 +1,24 @@
-<p>kereso works!</p>
+<div class="row">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Név</th>
+            <th scope="col">Ár</th>
+            <th scope="col">Férőhely</th>
+            <th scope="col">Szabadhely</th>
+            <th scope="col">Kidaó</th>
+            <th scope="col">Jelentkezés</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let szoba of szobak">
+            <th scope="col">{{ szoba.nev }}</th>
+            <th scope="col">{{ szoba.ar }}</th>
+            <th scope="col">{{ szoba.ferohely }}</th>
+            <th scope="col">{{ szoba.szabadhely }}</th>
+            <th scope="col">{{ szoba.kiado }}</th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="selectRoom()">JelentkezésSzerkesztés</button></th>
+          </tr>
+        </tbody>
+      </table>
+</div>

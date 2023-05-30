@@ -1,5 +1,6 @@
 import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { KeresoComponent } from './Components/berlo/kereso/kereso.component';
 import { LakasComponent } from './Components/berlo/lakas/lakas.component';
 import { HazComponent } from './Components/foberlo/haz/haz.component';
 import { SzerkesztesComponent } from './Components/foberlo/szerkesztes/szerkesztes.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'home/:email', component: HazComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'room', component: SzobaComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'lak', component: LakasComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  { path: 'keres', component: KeresoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] } 
 ];
 

@@ -14,6 +14,7 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class SzobaComponent {
   szobak: SzobaDTO[] = [];
+  hazak: HazDTO[] = [];
   visable = true;
   valide = true;
   isNewRoom = true;
@@ -44,7 +45,7 @@ export class SzobaComponent {
     ferohely: this.formBuilder.control(0),
     kiado: this.formBuilder.control(''),
     szabadhely: this.formBuilder.control(0),
-    hid: this.formBuilder.control<null | HazDTO>(null)
+    hid: this.formBuilder.control<null | HazDTO>(this.hazak[0])
   });
   
 
@@ -63,6 +64,7 @@ export class SzobaComponent {
     
     this.houseService.getOne(this.hid).subscribe({
       next: (haz) => {
+        this.hazak.push(haz);
         this.hazForm.setValue(haz);
         this.szobaService.getAll().subscribe({
           next: (szobak) => {
