@@ -19,7 +19,6 @@ export class SzobaComponent {
   valide = true;
   isNewRoom = true;
   hid = Number(localStorage.getItem('hid'));
-  
 
   hazForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
@@ -60,7 +59,6 @@ export class SzobaComponent {
   ) {}
   
   ngOnInit(): void {
-
     
     this.houseService.getOne(this.hid).subscribe({
       next: (haz) => {
@@ -86,9 +84,6 @@ export class SzobaComponent {
         this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
       }
     });
-
-    
-
   }
 
   changeRoomValue(id: number) {
@@ -105,7 +100,7 @@ export class SzobaComponent {
 
   valueValidate(): boolean{
     this.valide = true;
-    if(!this.szobaForm.value.nev || !this.szobaForm.value.ar || !this.szobaForm.value.ferohely || !this.szobaForm.value.meret){
+    if(!this.szobaForm.value.nev || !this.szobaForm.value.ar || !this.szobaForm.value.ferohely || !this.szobaForm.value.meret || !this.szobaForm.value.hid){
       this.valide = false;
     }
     return this.valide;

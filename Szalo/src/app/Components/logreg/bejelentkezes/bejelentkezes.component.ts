@@ -82,7 +82,7 @@ export class BejelentkezesComponent {
 
   valueValidate(): boolean{
     this.valide = true;
-    if(!this.loginForm.value.email || !this.loginForm.value.password){
+    if(!this.loginForm.value.email || !this.loginForm.value.password || this.serviceChoice == 0){
       this.valide = false;
     }else{
       /*this.foberloService.getOneOnEmil(this.email).subscribe({
@@ -127,6 +127,9 @@ export class BejelentkezesComponent {
           }
         });
       }
+    }
+    else{
+      this.toastrService.error("Nem töltötted ki valameylki adatot, vagy nem jelölted meg, milyen felhasználó vagy!", 'Error');
     }
   }
 }

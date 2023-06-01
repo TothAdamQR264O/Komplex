@@ -31,15 +31,15 @@ export class BerloController extends Controller{
             });
     
             if (!user) {
-                return this.handleError(res, null, 401, 'Helytelen email vagy jelszó.');
+                return this.handleError(res, null, 401, 'Helytelen email.');
             }
     
             const passwordMatches = await bcrypt.compare(req.body.password, user.password);
             if (!passwordMatches) {
-                return this.handleError(res, null, 401, 'Helytelen email vagy jelszó.');
+                return this.handleError(res, null, 401, 'Helytelen jelszó.');
             }
     
-            const token = jwt.sign({ id: user.szamlaszamb }, 'mySecretKey', { expiresIn: '2w' });
+            const token = jwt.sign({ id: user.id }, 'mySecretKey', { expiresIn: '2w' });
             res.json({ accessToken: token });
         } catch (err) {
             this.handleError(res, err);

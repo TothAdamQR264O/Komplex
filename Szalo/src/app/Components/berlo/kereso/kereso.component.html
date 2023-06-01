@@ -1,4 +1,35 @@
 <div class="row">
+  <form [formGroup]="keresForm">
+  <table class="table">
+      <tbody class="table-group-divider">
+          <tr>
+            <th scope="col">
+              <div class="mb-3">
+                <label for="minimuAr" class="form-label">Minimum ár</label>
+                <input type="number" class="form-control" id="minimuAr" name="minimuAr" placeholder="4000" formControlName="minimuAr">
+              </div>
+            </th>
+            <th scope="col">
+              <div class="mb-3">
+                <label for="maximumAr" class="form-label">Maximum ár</label>
+                <input type="number" class="form-control" id="maximumAr" name="maximumAr" placeholder="50000" formControlName="maximumAr">
+              </div>
+            </th>
+            <th scope="col">
+              <div class="mb-3">
+                <label for="ferohely" class="form-label">Férőhely</label>
+                <input type="number" class="form-control" id="ferohely" name="ferohely" placeholder="2" formControlName="ferohely">
+              </div>
+            </th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="keresRoom()">Keresés</button></th>
+          </tr>
+        
+      </tbody>
+    </table>
+  </form>
+</div>
+
+<div class="row">
     <table class="table">
         <thead>
           <tr>
@@ -6,7 +37,6 @@
             <th scope="col">Ár</th>
             <th scope="col">Férőhely</th>
             <th scope="col">Szabadhely</th>
-            <th scope="col">Kidaó</th>
             <th scope="col">Jelentkezés</th>
           </tr>
         </thead>
@@ -16,8 +46,7 @@
             <th scope="col">{{ szoba.ar }}</th>
             <th scope="col">{{ szoba.ferohely }}</th>
             <th scope="col">{{ szoba.szabadhely }}</th>
-            <th scope="col">{{ szoba.kiado }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="selectRoom()">JelentkezésSzerkesztés</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="selectRoom()">Jelentkezés</button></th>
           </tr>
         </tbody>
       </table>

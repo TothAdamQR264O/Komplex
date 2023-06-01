@@ -86,7 +86,12 @@ export class RegisztralasComponent {
               this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
             },
             error: (err) => {
-              this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
+              if(err.error.error == "Adatbázis hiba történt."){
+                this.toastrService.error('Ez az email már regisztrálvavan!.', 'Hiba');
+              }
+              else{
+                this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
+              }
             }
           });
         }

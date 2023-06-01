@@ -18,25 +18,25 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item" *ngIf="!authService.isLoggedIn()">
-          <a class="nav-link active" aria-current="page" routerLink="/">Bejelentkezés</a>
+          <a class="nav-link active" aria-current="page" (click)="goToPage('/')">Bejelentkezés</a>
         </li>
         <li class="nav-item" *ngIf="!authService.isLoggedIn()">
-          <a class="nav-link active" aria-current="page" routerLink="/reg">Regisztrálás</a>
+          <a class="nav-link active" aria-current="page" (click)="goToPage('/reg')">Regisztrálás</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" routerLink="/home">Ház</a>
+          <a class="nav-link" (click)="goToPage('/home')">Ház</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" routerLink="/room">Szobák</a>
+          <a class="nav-link" (click)="goToPage('/lak')">Lakás</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" routerLink="/lak">Lakás</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" routerLink="/keres">Keres</a>
+          <a class="nav-link" (click)="goToPage('/keres')">Keres</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link" href="#" (click)="logout()">Kilépés</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" (click)="reloadPage()">Frissítés</a>
         </li>
       </ul>
     </div>

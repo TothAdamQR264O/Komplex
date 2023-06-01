@@ -60,6 +60,15 @@
                     <option value="Nem">Nem</option>
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="hid" class="form-label">Haz:</label>
+                <select name="hid" id="hid" class="form-select" formControlName="hid">
+                    <option [ngValue]="null">Nincs haz</option>
+                    <option *ngFor="let haz of hazak" [ngValue]="{ id: haz.id }">
+                        {{ haz.id }} {{ haz.cim }}
+                    </option>
+                </select>
+            </div>
             <div class="text-start">
                 <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
             </div>

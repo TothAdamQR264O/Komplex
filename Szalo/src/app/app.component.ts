@@ -19,10 +19,27 @@ export class AppComponent {
     private toastrService: ToastrService
   ) { }
 
+  goToPage(pageName:string):void {
+    if(pageName == "/home"){
+      localStorage.removeItem('hid');
+    }
+    this.router.navigate([ `${pageName}` ]);
+    this.reloadPage();
+  }
+
+  reloadPage() {
+    setTimeout(()=>{
+      window.location.reload();
+    }, 100);
+  }
+
+
   logout() {
     this.authService.removeToken();
     localStorage.removeItem('email');
     localStorage.removeItem('namefb');
+    localStorage.removeItem('fberlo');
+    localStorage.removeItem('hid');
     this.router.navigateByUrl('/');
     this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
   }

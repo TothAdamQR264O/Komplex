@@ -56,18 +56,25 @@ export class HazComponent {
     this.houseService.getOne(id).subscribe({
       next: (haz) => {
         this.hazForm.setValue(haz);
-        localStorage.setItem('hid', ""+ haz.id);
+        localStorage.setItem('hid', "" + haz.id);
       },
       error: (err) => {
         console.error(err);
         this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
       }
     });
+    this.reloadPage();
     this.router.navigateByUrl('/room');
+  }
+
+  reloadPage() {
+    setTimeout(()=>{
+      window.location.reload();
+    }, 100);
   }
   
   goToPage(pageName:string):void {
-    this.router.navigate([`${pageName}`]);
+    this.router.navigate([ `${pageName}` ]);
   }
 
   ngOnInit(): void {
@@ -146,6 +153,7 @@ export class HazComponent {
           this.visable = true;
       }
     }
+    location.reload();
   }
 
   canceled(){
