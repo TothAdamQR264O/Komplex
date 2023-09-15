@@ -3,6 +3,8 @@
         <thead>
           <tr>
             <th scope="col">Helyrajzi szám</th>
+            <th scope="col">Írszám</th>
+            <th scope="col">Település</th>
             <th scope="col">Cím</th>
             <th scope="col">Szerkesztés</th>
             <th scope="col">Szobák</th>
@@ -11,6 +13,8 @@
         <tbody class="table-group-divider">
           <tr *ngFor="let haz of hazak">
             <th scope="col">{{ haz.hrsz }}</th>
+            <th scope="col">{{ haz.irsz }}</th>
+            <th scope="col">{{ haz.telepules }}</th>
             <th scope="col">{{ haz.cim }}</th>
             <th scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button></th>
             <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheRooms(haz.id)">Szobák</button></th>
@@ -38,8 +42,16 @@
                 <input type="text" class="form-control" id="hrsz" name="hrsz" placeholder="12345/1/A/1" formControlName="hrsz">
             </div>
             <div class="mb-3">
+                <label for="irsz" class="form-label">Irányítószám</label>
+                <input type="number" class="form-control" id="irsz" name="irsz" placeholder="3533" formControlName="irsz">
+            </div>
+            <div class="mb-3">
+                <label for="telepules" class="form-label">Telepules</label>
+                <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Msikolc" formControlName="telepules">
+            </div>
+            <div class="mb-3">
                 <label for="cim" class="form-label">Cím</label>
-                <input type="text" class="form-control" id="cim" name="cim" placeholder="3724 Msikolc Köröm dülő 25" formControlName="cim">
+                <input type="text" class="form-control" id="cim" name="cim" placeholder="Csermőkei dülő 25" formControlName="cim">
             </div>
             <div class="mb-3">
                 <label for="reszi" class="form-label">Reszi</label>

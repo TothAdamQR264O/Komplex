@@ -22,6 +22,8 @@ export class HazComponent {
   hazForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     hrsz: this.formBuilder.control(''),
+    irsz: this.formBuilder.control(0),
+    telepules: this.formBuilder.control(''),
     cim: this.formBuilder.control(''),
     reszi: this.formBuilder.control(0),
     furdo: this.formBuilder.control(0),
@@ -117,7 +119,7 @@ export class HazComponent {
 
   valueValidate(): boolean{
     this.valide = true;
-    if(!this.hazForm.value.cim || !this.hazForm.value.hrsz || !this.hazForm.value.internet || !this.hazForm.value.melegviz || !this.hazForm.value.meret || !this.hazForm.value.mosogep || !this.hazForm.value.tv || !this.hazForm.value.viz){
+    if(!this.hazForm.value.irsz || !this.hazForm.value.telepules || !this.hazForm.value.cim || !this.hazForm.value.hrsz || !this.hazForm.value.internet || !this.hazForm.value.melegviz || !this.hazForm.value.meret || !this.hazForm.value.mosogep || !this.hazForm.value.tv || !this.hazForm.value.viz){
       this.valide = false;
     }
     return this.valide;

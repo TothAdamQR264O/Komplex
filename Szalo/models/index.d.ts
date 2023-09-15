@@ -19,6 +19,8 @@ export interface FoberloDTO {
 export interface HazDTO {
     id: number;
     hrsz: string;
+    irsz: number;
+    telepules: string;
     cim: string;
     reszi: number;
     furdo: number;

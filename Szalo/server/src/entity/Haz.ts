@@ -11,6 +11,12 @@ export class Haz implements HazDTO {
     @Column()
     hrsz: string;
 
+    @Column()
+    irsz: number;
+
+    @Column({ type: "varchar" })
+    telepules: string;
+
     @Column({ type: "varchar" })
     cim: string;
 
