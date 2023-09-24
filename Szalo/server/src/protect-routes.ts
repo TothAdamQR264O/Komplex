@@ -1,4 +1,5 @@
 import { expressjwt } from "express-jwt";
+import 'dotenv/config'
 
 export const checkUser = expressjwt({
     secret: "mySecretKey",
