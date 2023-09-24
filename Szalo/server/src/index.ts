@@ -2,6 +2,7 @@ import { AppDataSource } from "./data-source";
 import express from 'express';
 import { getRoutes } from "./routes";
 import { handleAuthorizationError } from "./protect-routes";
+import 'dotenv/config'
 
 AppDataSource.initialize().then(async () => {
 

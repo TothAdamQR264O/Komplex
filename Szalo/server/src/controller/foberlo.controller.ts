@@ -4,7 +4,7 @@ import { Controller } from "./base.controller";
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import 'dotenv/config'
+require('dotenv').config()
 
 export class FoberloController extends Controller{
     repository = AppDataSource.getRepository(Foberlo);
@@ -39,8 +39,7 @@ export class FoberloController extends Controller{
             if (!passwordMatches) {
                 return this.handleError(res, null, 401, 'Helytelen jelszó.');
             }
-    
-            //const token = jwt.sign({ id: user.id }, 'mySecretKey', { expiresIn: '2w' });
+            
             const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION_TIME });
             res.json({ accessToken: token });
         } catch (err) {

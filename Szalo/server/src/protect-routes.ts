@@ -1,8 +1,8 @@
 import { expressjwt } from "express-jwt";
-import 'dotenv/config'
+require('dotenv').config()
 
 export const checkUser = expressjwt({
-    secret: "mySecretKey",
+    secret: process.env.JWT_SECRET_KEY,
     algorithms: ["HS256"]
 });
 
