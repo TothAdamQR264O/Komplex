@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BerloDTO, FoberloDTO, HazDTO, LoginDTO, SzobaDTO} from 'models';
+import { BerloDTO, FoberloDTO, HazDTO, LoginDTO} from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { BerloService } from 'src/app/services/berlo.service';

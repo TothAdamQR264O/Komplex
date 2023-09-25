@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { HazDTO } from '../../../models';
 import { Foberlo } from './Foberlo';
-import { Szoba } from './Szoba';
+import { Szerzodes } from './Szerzodes';
 
 @Entity()
 export class Haz implements HazDTO {
@@ -23,26 +23,11 @@ export class Haz implements HazDTO {
     @Column({ type: 'float' })
     reszi: number;
 
-    @Column()
-    furdo: number;
+    @Column({ type: 'float' })
+    ar: number;
 
     @Column()
-    wc: number;
-
-    @Column({ type: "varchar", length: 5 })
-    viz: string;
-
-    @Column({ type: "varchar", length: 5 })
-    melegviz: string;
-
-    @Column({ type: "varchar", length: 5 })
-    internet: string;
-
-    @Column({ type: "varchar", length: 5 })
-    tv: string;
-
-    @Column({ type: "varchar", length: 5 })
-    mosogep: string;
+    szobakszama: number;
 
     @Column({ type: 'float'})
     meret: number;
@@ -50,6 +35,46 @@ export class Haz implements HazDTO {
     @ManyToOne(() => Foberlo, (foberlo) => foberlo.hazak, { eager: true })
     tulaj: Foberlo;
 
-    @OneToMany(() => Szoba, szoba => szoba.hid)
-    szoba: Szoba[];
+    @Column({ type: "varchar" })
+    alapot: string;
+
+    @Column({ type: "varchar" })
+    konfort: string;
+
+    @Column()
+    emelet: number;
+
+    @Column()
+    szint: number;
+
+    @Column({ type: "varchar" })
+    lift: string;
+
+    @Column({ type: "varchar" })
+    legkondi: string;
+
+    @Column({ type: "varchar" })
+    butorozott: string;
+
+    @Column({ type: "varchar" })
+    koltozheto: string;
+
+    @Column()
+    minberido: number;
+
+    @Column({ type: "varchar" })
+    fureswc: string;
+
+    @Column({ type: "varchar" })
+    kilatas: string;
+
+    @Column()
+    erkelymeret: number;
+
+    @Column({ type: "varchar" })
+    gepesitet: string;
+
+    @OneToMany(() => Szerzodes, szerzodes => szerzodes.hid)
+    szerzodesek: Szerzodes[];
+
 }

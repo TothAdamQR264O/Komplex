@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HazDTO, SzobaDTO } from 'models';
+import { HazDTO} from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { HouseService } from 'src/app/services/house.service';
-import { RoomService } from 'src/app/services/room.service';
 
 @Component({
   selector: 'app-kereso',
@@ -13,7 +12,6 @@ import { RoomService } from 'src/app/services/room.service';
   styleUrls: ['./kereso.component.css']
 })
 export class KeresoComponent {
-  szobak: SzobaDTO[] = [];
   szures = false;
 
   keresForm = this.formBuilder.group({
@@ -24,7 +22,6 @@ export class KeresoComponent {
 
   constructor(
     private houseService: HouseService,
-    private szobaService: RoomService,
     public authService: AuthService,
     private toastrService: ToastrService,
     private router: Router,
@@ -32,7 +29,7 @@ export class KeresoComponent {
     private activatedRoute: ActivatedRoute
   ) {}
 
-
+/*
   ngOnInit(): void {
 
     if(!this.szures){
@@ -110,4 +107,5 @@ export class KeresoComponent {
   compareObjects(obj1: any, obj2: any) {
     return obj1 && obj2 && obj1.id == obj2.id;
   }
+  */
 }

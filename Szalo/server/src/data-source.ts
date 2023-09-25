@@ -3,7 +3,7 @@ import { DataSource } from "typeorm"
 import { Berlo } from "./entity/Berlo"
 import { Foberlo } from "./entity/Foberlo"
 import { Haz } from "./entity/Haz"
-import { Szoba } from "./entity/Szoba"
+import { Szerzodes } from "./entity/Szerzodes"
 require('dotenv').config()
 
 export const AppDataSource = new DataSource({
@@ -15,7 +15,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: true,
-    entities: [Haz, Foberlo, Szoba, Berlo],
+    entities: [Haz, Foberlo, Szerzodes, Berlo],
     migrations: [],
     subscribers: [],
 })

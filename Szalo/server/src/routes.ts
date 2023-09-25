@@ -2,7 +2,6 @@ import express from 'express';
 import { BerloController } from './controller/Berlo.controller';
 import { FoberloController } from './controller/foberlo.controller';
 import { HazController } from './controller/haz.controller';
-import { SzobaController } from './controller/szoba.controller';
 import { checkUser } from './protect-routes';
 
 export function getRoutes() {
@@ -25,14 +24,6 @@ export function getRoutes() {
     router.put('/foberlo', checkUser, foberloController.update);
     router.delete('/foberlo/:id', checkUser, foberloController.delete);
     router.post('/foberlo/login', foberloController.login);
-
-    const szobaController = new SzobaController();
-
-    router.get('/room', szobaController.getAll);
-    router.get('/room/:id', szobaController.getOne);
-    router.post('/room', checkUser, szobaController.create);
-    router.put('/room', checkUser, szobaController.update);
-    router.delete('/room/:id', checkUser, szobaController.delete);
 
     const berloController = new BerloController();
 

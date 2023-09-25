@@ -23,27 +23,25 @@ export interface HazDTO {
     telepules: string;
     cim: string;
     reszi: number;
-    furdo: number;
-    wc: number;
-    viz: string;
-    melegviz: string;
-    internet: string;
-    tv: string;
-    mosogep: string;
+    ar: number;
+    szobakszama: number;
     meret: number;
     tulaj: FoberloDTO;
+    alapot: string;
+    konfort: string;
+    emelet: number;
+    szint: number;
+    lift: string;
+    legkondi: string;
+    butorozott: string;
+    koltozheto: string;
+    minberido: number;
+    fureswc: string;
+    kilatas: string;
+    erkelymeret: number;
+    gepesitet: string;
 }
 
-export interface SzobaDTO {
-    id: number;
-    nev: string;
-    ar: number;
-    meret: number;
-    ferohely: number;
-    kiado: string;
-    szabadhely: number;
-    hid: HazDTO;
-}
 
 export interface BerloDTO {
     id: number;
@@ -52,5 +50,51 @@ export interface BerloDTO {
     password: string;
     szamlaszamb: string;
     telb: number;
-    szid: SzobaDTO;
+}
+
+export interface SzerzodesDTO {
+    id: number;
+    kezdido: Date;
+    vegido: Date;
+    kaukcio: number;
+    ggyszam: number;
+    agyszam: number;
+    vgyszam: number;
+    gora: number;
+    aora: number;
+    vora: number;
+    tid: FoberloDTO;
+    bid: BerloDTO;
+    hid: HazDTO;
+}
+
+export interface SzamlaDTO {
+    id: number;
+    idopotn: Date;
+    osszeg: number;
+    szid: number;
+}
+
+export interface OsszegekDTO {
+    szid: number;
+    tetel: string;
+    ertek: number;
+}
+
+export interface EsemenyDTO {
+    id: number;
+    datum: Date;
+    koltseg: number;
+    koltsvis: string;
+    alapot: string;
+    megjegyzes: string;
+    szid: number;
+}
+
+export interface BerendezesJegyDTO {
+    id: number;
+    nev: string;
+    alapot: string;
+    megjegyzes: string;
+    szid: number;
 }

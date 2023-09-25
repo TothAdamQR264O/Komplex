@@ -22,19 +22,12 @@ export class HazComponent {
   hazForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     hrsz: this.formBuilder.control(''),
-    irsz: this.formBuilder.control(0),
+    irsz: this.formBuilder.control<number|null>(null),
     telepules: this.formBuilder.control(''),
     cim: this.formBuilder.control(''),
     reszi: this.formBuilder.control(0),
-    furdo: this.formBuilder.control(0),
-    wc: this.formBuilder.control(0),
-    viz: this.formBuilder.control(''),
-    melegviz: this.formBuilder.control(''),
-    internet: this.formBuilder.control(''),
-    tv: this.formBuilder.control(''),
-    mosogep: this.formBuilder.control(''),
-    meret: this.formBuilder.control(0),
-    tulaj: this.formBuilder.control<null | FoberloDTO>(null)
+    
+    meret: this.formBuilder.control(0)
   });
 
   constructor(
@@ -119,7 +112,7 @@ export class HazComponent {
 
   valueValidate(): boolean{
     this.valide = true;
-    if(!this.hazForm.value.irsz || !this.hazForm.value.telepules || !this.hazForm.value.cim || !this.hazForm.value.hrsz || !this.hazForm.value.internet || !this.hazForm.value.melegviz || !this.hazForm.value.meret || !this.hazForm.value.mosogep || !this.hazForm.value.tv || !this.hazForm.value.viz){
+    if(!this.hazForm.value.irsz || !this.hazForm.value.telepules || !this.hazForm.value.cim || !this.hazForm.value.hrsz || !this.hazForm.value.meret){
       this.valide = false;
     }
     return this.valide;

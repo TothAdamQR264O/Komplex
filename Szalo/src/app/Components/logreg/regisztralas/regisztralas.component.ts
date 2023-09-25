@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BerloService } from 'src/app/services/berlo.service';
 import { FoberloService } from 'src/app/services/foberlo.service';
-import { FoberloDTO, BerloDTO, SzobaDTO } from 'models';
+import { FoberloDTO, BerloDTO} from 'models';
 
 @Component({
   selector: 'app-regisztralas',
@@ -29,7 +29,6 @@ export class RegisztralasComponent {
     password: this.formBuilder.control(''),
     szamlaszamb: this.formBuilder.control(''),
     telb: this.formBuilder.control(301234567),
-    szid: this.formBuilder.control<null | SzobaDTO>(null)
   });
 
   constructor(
