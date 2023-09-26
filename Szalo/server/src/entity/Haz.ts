@@ -8,70 +8,70 @@ export class Haz implements HazDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable: false })
     hrsz: string;
 
-    @Column()
+    @Column({nullable: false })
     irsz: number;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false})
     telepules: string;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     cim: string;
 
-    @Column({ type: 'float' })
+    @Column({ type: 'float', nullable: false })
     reszi: number;
 
-    @Column({ type: 'float' })
+    @Column({ type: 'float', nullable: false })
     ar: number;
 
-    @Column()
+    @Column({nullable: false })
     szobakszama: number;
 
-    @Column({ type: 'float'})
+    @Column({ type: 'float', nullable: false})
     meret: number;
 
     @ManyToOne(() => Foberlo, (foberlo) => foberlo.hazak, { eager: true })
     tulaj: Foberlo;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     alapot: string;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     konfort: string;
 
-    @Column()
+    @Column({nullable: false })
     emelet: number;
 
-    @Column()
+    @Column({nullable: false })
     szint: number;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     lift: string;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     legkondi: string;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     butorozott: string;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     koltozheto: string;
 
-    @Column()
+    @Column({nullable: false })
     minberido: number;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     fureswc: string;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false})
     kilatas: string;
 
-    @Column()
+    @Column({nullable: false })
     erkelymeret: number;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", nullable: false })
     gepesitet: string;
 
     @OneToMany(() => Szerzodes, szerzodes => szerzodes.hid)

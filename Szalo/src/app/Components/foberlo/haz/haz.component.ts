@@ -15,7 +15,7 @@ import { HouseService } from 'src/app/services/house.service';
 export class HazComponent {
   hazak: HazDTO[] = [];
   visable = true;
-  valide = true;
+  valide = 0;
   isNewHouse = true;
   
 
@@ -124,45 +124,65 @@ export class HazComponent {
     this.isNewHouse = false;
   }
 
-  valueValidate(): boolean{
-    this.valide = true;
-    if(!this.hazForm.value.irsz || !this.hazForm.value.telepules || !this.hazForm.value.cim || !this.hazForm.value.hrsz || !this.hazForm.value.meret){
-      this.valide = false;
+  valueValidate(): number{
+    this.valide = 0;
+    if(!this.hazForm.value.hrsz  || !this.hazForm.value.telepules || !this.hazForm.value.cim || !this.hazForm.value.alapot || !this.hazForm.value.konfort || !this.hazForm.value.lift || !this.hazForm.value.legkondi || !this.hazForm.value.butorozott || !this.hazForm.value.koltozheto || !this.hazForm.value.fureswc || !this.hazForm.value.kilatas || !this.hazForm.value.gepesitet){
+      this.valide = 1;
+    }
+    if(this.hazForm.value.irsz && this.hazForm.value.reszi && this.hazForm.value.ar && this.hazForm.value.szobakszama && this.hazForm.value.meret && this.hazForm.value.emelet && this.hazForm.value.szint && this.hazForm.value.minberido && this.hazForm.value.erkelymeret){
+      if(this.hazForm.value.irsz > 9999 || this.hazForm.value.irsz <= 999 || this.hazForm.value.reszi < 0 || this.hazForm.value.ar < 1 || this.hazForm.value.szobakszama < 1 || this.hazForm.value.meret < 1 || this.hazForm.value.emelet < 0 || this.hazForm.value.szint < 0 || this.hazForm.value.minberido < 0 || this.hazForm.value.erkelymeret < 0){
+        if(this.valide == 1){
+          this.valide = 3;
+        }
+        else{
+          this.valide = 2
+        }
+      }
+    }
+    else{
+      this.valide = 1;
     }
     return this.valide;
   }
 
   saveHouse() {
     const haz = this.hazForm.value as HazDTO;
-    if(this.isNewHouse){
-      if(this.valueValidate()){
+    if(this.valueValidate() == 0){
+      if(this.isNewHouse){
         this.houseService.create(haz).subscribe({
-            next: (haz) => {
-              this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
-              this.router.navigateByUrl('/home');
+          next: (haz) => {
+            this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
+            this.router.navigateByUrl('/home');
             },
             error: (err) => {
               this.toastrService.error('Nem sikerült felvinni az adatokat.', 'Hiba');
             }
-          });
-          this.visable = true;
+        });
+        this.visable = true;
       }
-    }
-    else{
-      if(this.valueValidate()){
+      else{
         this.houseService.update(haz).subscribe({
-            next: (haz) => {
-              this.toastrService.success('Ház adaainak megváltoztatása sikeresen megtörtént', 'Siker');
-              this.router.navigateByUrl('/home');
-            },
-            error: (err) => {
-              this.toastrService.error('Nem sikerült megváltoztatni az adatokat.', 'Hiba');
-            }
-          });
-          this.visable = true;
+          next: (haz) => {
+            this.toastrService.success('Ház adaainak megváltoztatása sikeresen megtörtént', 'Siker');
+            this.router.navigateByUrl('/home');
+          },
+          error: (err) => {
+            this.toastrService.error('Nem sikerült megváltoztatni az adatokat.', 'Hiba');
+          }
+        });
+        this.visable = true;
       }
+      location.reload();
     }
-    location.reload();
+    else if(this.valueValidate() == 1) {
+      this.toastrService.error('Valamien adat nincsen kitöltve. Kérem töltsön ki mindent!', 'Üres sor!', {});
+    }
+    else if(this.valueValidate() == 2) {
+      this.toastrService.error('Valamilyen számadatban hibás érték van megadva.', 'Rossz szám adat!', {});
+    }
+    else if(this.valueValidate() == 3) {
+      this.toastrService.error('Valamien adat nincsen kitöltve és valamilyen számadatban hibás érték van megadva. Kérem töltsön ki mindent!', 'Üres sor és rossz számadat!', {});
+    }
   }
 
   canceled(){
