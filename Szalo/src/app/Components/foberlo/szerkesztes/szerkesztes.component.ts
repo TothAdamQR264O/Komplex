@@ -24,8 +24,22 @@ export class SzerkesztesComponent {
     telepules: this.formBuilder.control(''),
     cim: this.formBuilder.control(''),
     reszi: this.formBuilder.control(0),
+    ar: this.formBuilder.control(0),
+    szobakszama: this.formBuilder.control(0),
     meret: this.formBuilder.control(0),
-    tulaj: this.formBuilder.control<null | FoberloDTO>(null)
+    alapot: this.formBuilder.control(""),
+    konfort: this.formBuilder.control(""),
+    emelet: this.formBuilder.control(0),
+    szint: this.formBuilder.control(0),
+    lift: this.formBuilder.control(""),
+    legkondi: this.formBuilder.control(""),
+    butorozott: this.formBuilder.control(""),
+    koltozheto: this.formBuilder.control(""),
+    minberido: this.formBuilder.control(0),
+    fureswc: this.formBuilder.control(""),
+    kilatas: this.formBuilder.control(""),
+    erkelymeret: this.formBuilder.control(0),
+    gepesitet: this.formBuilder.control(""),
   });
 
   constructor(

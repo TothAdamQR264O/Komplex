@@ -35,7 +35,7 @@
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-md-9">
+    <div class="col-md-6">
         <form [formGroup]="hazForm" *ngIf="!changeVisable()">
             <div class="mb-3">
                 <label for="hrsz" class="form-label">Helyrajzi szám</label>
@@ -53,62 +53,140 @@
                 <label for="cim" class="form-label">Cím</label>
                 <input type="text" class="form-control" id="cim" name="cim" placeholder="Csermőkei dülő 25" formControlName="cim">
             </div>
-            <div class="mb-3">
-                <label for="reszi" class="form-label">Reszi</label>
-                <input type="number" class="form-control" id="reszi" name="reszi" placeholder="4000" formControlName="reszi">
+
+            <label for="reszi" class="form-label">Reszi</label>
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" id="reszi" name="reszi" placeholder="4000" formControlName="reszi"> 
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Ft</span>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="furdo" class="form-label">Fördőszobák száma</label>
-                <input type="number" class="form-control" id="furdo" name="furdo" placeholder="2" formControlName="furdo">
+
+            <label for="ar" class="form-label">Ár</label>
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" id="ar" name="ar" placeholder="43000" formControlName="ar">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Ft</span>
+                </div>
             </div>
+
             <div class="mb-3">
-                <label for="wc" class="form-label">WC-k száma</label>
-                <input type="number" class="form-control" id="wc" name="wc" placeholder="1" formControlName="wc">
+                <label for="szobak" class="form-label">Szobák száma</label>
+                <input type="number" class="form-control" id="szobak" name="szobak" placeholder="2" formControlName="szobak">
             </div>
-            <div class="mb-3">
-                <label for="viz" class="form-label">Víz</label>
-                <select name="viz" id="viz" class="form-select" formControlName="viz">
-                    <option value="Nincs">Nincs</option>
-                    <option value="Van">Van</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="melegviz" class="form-label">Meleg víz</label>
-                <select name="melegviz" id="melegviz" class="form-select" formControlName="melegviz">
-                    <option value="Nincs">Nincs</option>
-                    <option value="Van">Van</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="internet" class="form-label">Internet</label>
-                <select name="internet" id="internet" class="form-select" formControlName="internet">
-                    <option value="Nincs">Nincs</option>
-                    <option value="Van">Van</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="tv" class="form-label">TV</label>
-                <select name="tv" id="tv" class="form-select" formControlName="tv">
-                    <option value="Nincs">Nincs</option>
-                    <option value="Van">Van</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="mosogep" class="form-label">Mosógép</label>
-                <select name="mosogep" id="mosogep" class="form-select" formControlName="mosogep">
-                    <option value="Nincs">Nincs</option>
-                    <option value="Van">Van</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="meret" class="form-label">Méret</label>
+
+            <label for="meret" class="form-label">Méret</label>
+            <div class="input-group mb-3">
                 <input type="number" class="form-control" id="meret" name="meret" placeholder="30" formControlName="meret">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">m<sup>2</sup></span>
+                </div>
             </div>
-            <div class="text-start">
+            <div class="mb-3">
+                <label for="alapot" class="form-label">Álapot</label>
+                <select name="alapot" id="alapot" class="form-select" formControlName="alapot">
+                    <option value="Új építésű">Új építésű</option>
+                    <option value="Újszerű">Újszerű</option>
+                    <option value="Felújított">Felújított</option>
+                    <option value="Jó állapotú">Jó állapotú</option>
+                    <option value="Közepes állapotú">Közepes állapotú</option>
+                    <option value="Felújítandó">Felújítandó</option>
+                    <option value="Befejezetlen">Befejezetlen</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="konfort" class="form-label">Konfort</label>
+                <select name="konfort" id="konfort" class="form-select" formControlName="konfort">
+                    <option value="Luxus">Luxus</option>
+                    <option value="Duplakonfort">Duplakonfort</option>
+                    <option value="Összkonfort">Összkonfort</option>
+                    <option value="Konfortos">Konfortos</option>
+                    <option value="Félkonfortos">Félkonfortos</option>
+                    <option value="Konfort nélküli">Konfort nélküli</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="emelet" class="form-label">Emelet</label>
+                <input type="number" class="form-control" id="emelet" name="emelet" placeholder="3" formControlName="emelet">
+            </div>
+            <div class="mb-3">
+                <label for="szint" class="form-label">Épület szintjeinek száma</label>
+                <input type="number" class="form-control" id="szint" name="szint" placeholder="10" formControlName="szint">
+            </div>
+            <div class="mb-3">
+                <label for="lift" class="form-label">Lift</label>
+                <select name="lift" id="lift" class="form-select" formControlName="lift">
+                    <option value="Nincs">Nincs</option>
+                    <option value="Van">Van</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="legkondi" class="form-label">Légkondicionáló</label>
+                <select name="legkondi" id="legkondi" class="form-select" formControlName="legkondi">
+                    <option value="Nincs">Nincs</option>
+                    <option value="Van">Van</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="butorozott" class="form-label">Bútorozott</label>
+                <select name="butorozott" id="butorozott" class="form-select" formControlName="butorozott">
+                    <option value="Nem">Nem</option>
+                    <option value="Igen">Igen</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="koltozheto" class="form-label">Költözhető</label>
+                <select name="koltozheto" id="koltozheto" class="form-select" formControlName="koltozheto">
+                    <option value="Nem">Nem</option>
+                    <option value="Igen">Igen</option>
+                </select>
+            </div>
+
+            <label for="minberido" class="form-label">Minimális bérlési idő</label>
+            <div class="input-group mb-3">
+                
+                <input type="number" class="form-control" id="minberido" name="minberido" placeholder="6" formControlName="minberido">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">hó</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="fureswc" class="form-label">Fűrdő és WC</label>
+                <select name="fureswc" id="fureswc" class="form-select" formControlName="fureswc">
+                    <option value="Külön helyiségben">Külön helyiségben</option>
+                    <option value="Egy helyiségben">Egy helyiségben</option>
+                    <option value="Külön és egyben is">Külön és egyben is</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="kilatas" class="form-label">Kilását</label>
+                <select name="kilatas" id="kilatas" class="form-select" formControlName="kilatas">
+                    <option value="Udvari">Udvari</option>
+                    <option value="Utcára néző">Utcára néző</option>
+                    <option value="Panorámás">Panorámás</option>
+                    <option value="Kertre néző">Kertre néző</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="gepesitet" class="form-label">Gépesítet</label>
+                <select name="gepesitet" id="gepesitet" class="form-select" formControlName="gepesitet">
+                    <option value="Nem">Nem</option>
+                    <option value="Igen">Igen</option>
+                </select>
+            </div>
+
+            <label for="erkelymeret" class="form-label">Erkély mérete</label>
+            <div class="input-group mb-3">
+                
+                <input type="number" class="form-control" id="erkelymeret" name="erkelymeret" placeholder="3" formControlName="erkelymeret">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">m<sup>2</sup></span>
+                </div>
+            </div>
+            <div class="input-group">
                 <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
-            </div>
-            <div class="text-end">
                 <button class="btn btn-outline-primary" (click)="saveHouse()">Mentés</button>
             </div>
         </form>
+    </div>
 </div>

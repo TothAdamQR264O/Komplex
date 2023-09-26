@@ -26,8 +26,22 @@ export class HazComponent {
     telepules: this.formBuilder.control(''),
     cim: this.formBuilder.control(''),
     reszi: this.formBuilder.control(0),
-    
-    meret: this.formBuilder.control(0)
+    ar: this.formBuilder.control(0),
+    szobakszama: this.formBuilder.control(0),
+    meret: this.formBuilder.control(0),
+    alapot: this.formBuilder.control(""),
+    konfort: this.formBuilder.control(""),
+    emelet: this.formBuilder.control(0),
+    szint: this.formBuilder.control(0),
+    lift: this.formBuilder.control(""),
+    legkondi: this.formBuilder.control(""),
+    butorozott: this.formBuilder.control(""),
+    koltozheto: this.formBuilder.control(""),
+    minberido: this.formBuilder.control(0),
+    fureswc: this.formBuilder.control(""),
+    kilatas: this.formBuilder.control(""),
+    erkelymeret: this.formBuilder.control(0),
+    gepesitet: this.formBuilder.control(""),
   });
 
   constructor(
