@@ -10,6 +10,7 @@ export function getRoutes() {
     const hazController = new HazController();
 
     router.get('/home', checkUser, hazController.getAll);
+    router.get('/home', checkUser, hazController.getAd);
     router.get('/home/:id', hazController.getOne);
     router.post('/home', checkUser, hazController.create);
     router.put('/home', checkUser, hazController.update);

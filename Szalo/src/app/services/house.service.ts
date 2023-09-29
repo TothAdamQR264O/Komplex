@@ -13,6 +13,10 @@ export class HouseService {
     return this.http.get<HazDTO[]>('/api/home');
   }
 
+  getAd(){
+    return this.http.get<HazDTO[]>('/api/home');
+  }
+
   getOne(id: number){
     return this.http.get<HazDTO>('/api/home/' + id);
   }

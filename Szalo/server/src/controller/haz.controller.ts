@@ -2,6 +2,7 @@ import { AppDataSource } from "../data-source";
 import { Foberlo } from "../entity/Foberlo";
 import { Haz } from "../entity/Haz";
 import { Controller } from "./base.controller";
+import { Like } from "typeorm"
 
 export class HazController extends Controller {
     repository = AppDataSource.getRepository(Haz);
@@ -41,6 +42,18 @@ export class HazController extends Controller {
             const entities = await this.repository.findBy({
                 tulaj: { id: req.auth.id }
             });
+            res.json(entities);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    getAd = async (req, res) => {
+        try {
+            const entities = await this.repository.findBy({
+                hirdet: Like("Igen")
+            }
+            );
             res.json(entities);
         } catch (err) {
             this.handleError(res, err);

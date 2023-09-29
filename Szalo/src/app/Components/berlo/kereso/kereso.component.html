@@ -17,11 +17,11 @@
             </th>
             <th scope="col">
               <div class="mb-3">
-                <label for="ferohely" class="form-label">Férőhely</label>
-                <input type="number" class="form-control" id="ferohely" name="ferohely" placeholder="2" formControlName="ferohely">
+                <label for="szobakszama" class="form-label">Szobák száma</label>
+                <input type="number" class="form-control" id="szobakszama" name="szobakszama" placeholder="2" formControlName="szobakszama">
               </div>
             </th>
-            <!--<th scope="col"><button class="btn btn-outline-primary" (click)="keresRoom()">Keresés</button></th>-->
+            <th scope="col"><button class="btn btn-outline-primary" (click)="keresRoom()">Keresés</button></th>
           </tr>
         
       </tbody>
@@ -33,21 +33,21 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">Név</th>
+            <th scope="col">Település</th>
+            <th scope="col">Cím</th>
             <th scope="col">Ár</th>
-            <th scope="col">Férőhely</th>
-            <th scope="col">Szabadhely</th>
+            <th scope="col">Rezsi</th>
             <th scope="col">Jelentkezés</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <!--<tr *ngFor="let szoba of szobak">
-            <th scope="col">{{ szoba.nev }}</th>
-            <th scope="col">{{ szoba.ar }}</th>
-            <th scope="col">{{ szoba.ferohely }}</th>
-            <th scope="col">{{ szoba.szabadhely }}</th>
+          <tr *ngFor="let haz of hazak">
+            <th scope="col">{{ haz.telepules }}</th>
+            <th scope="col">{{ haz.cim }}</th>
+            <th scope="col">{{ haz.ar }}</th>
+            <th scope="col">{{ haz.reszi }}</th>
             <th scope="col"><button class="btn btn-outline-primary" (click)="selectRoom()">Jelentkezés</button></th>
-          </tr>-->
+          </tr>
         </tbody>
       </table>
 </div>

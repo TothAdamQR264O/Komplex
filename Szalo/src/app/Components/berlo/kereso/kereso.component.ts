@@ -12,12 +12,13 @@ import { HouseService } from 'src/app/services/house.service';
   styleUrls: ['./kereso.component.css']
 })
 export class KeresoComponent {
+  hazak: HazDTO[] = [];
   szures = false;
 
   keresForm = this.formBuilder.group({
     minimuAr: this.formBuilder.control(0),
     maximumAr: this.formBuilder.control(0),
-    ferohely: this.formBuilder.control(0),
+    szobakszama: this.formBuilder.control(0),
   });
 
   constructor(
@@ -29,29 +30,24 @@ export class KeresoComponent {
     private activatedRoute: ActivatedRoute
   ) {}
 
-/*
+
   ngOnInit(): void {
 
     if(!this.szures){
-      this.szobak.splice(0);
-      this.szobaService.getAll().subscribe({
-        next: (szoba) => {
-          for(var index in szoba)
-            { 
-              if(szoba[index].kiado == 'Igen'){
-                this.szobak.push(szoba[index]);
-                console.log(szoba[index]);
-              }
-            }
+      this.hazak.splice(0);
+      this.houseService.getAd().subscribe({
+        next: (haz) => {
+          this.hazak = haz;
+          console.log(haz);
         },
         error: (err) => {
           console.error(err);
-          this.toastrService.error('A szobák betöltése sikertelen.', 'Hiba');
+          this.toastrService.error('A hirdetések betöltése sikertelen.', 'Hiba');
         }
       });
     }
     else{
-      this.szobak.splice(0);
+      this.hazak.splice(0);
       var maxAr = 9999999999;
 
       if(Number(this.keresForm.value.maximumAr) > 0){
@@ -59,31 +55,31 @@ export class KeresoComponent {
       }
 
 
-      this.szobaService.getAll().subscribe({
-        next: (szoba) => {
-          if(Number(this.keresForm.value.ferohely) == 0){
-          for(var index in szoba)
+      this.houseService.getAd().subscribe({
+        next: (haz) => {
+          if(Number(this.keresForm.value.szobakszama) == 0){
+            for(var index in haz)
             { 
-              if(szoba[index].kiado == 'Igen' && szoba[index].ar >= Number(this.keresForm.value.minimuAr) && szoba[index].ar <= maxAr){
-                this.szobak.push(szoba[index]);
+              if(haz[index].ar >= Number(this.keresForm.value.minimuAr) && haz[index].ar <= maxAr){
+                this.hazak.push(haz[index]);
               }
             }
           }
-          else if (Number(this.keresForm.value.ferohely) > 0){
-            for(var index in szoba)
+          else if (Number(this.keresForm.value.szobakszama) > 0){
+            for(var index in haz)
             { 
-              if(szoba[index].kiado == 'Igen'&& szoba[index].ar >= Number(this.keresForm.value.minimuAr) && szoba[index].ar <= maxAr && szoba[index].ferohely == Number(this.keresForm.value.ferohely)){
-                this.szobak.push(szoba[index]);
+              if(haz[index].ar >= Number(this.keresForm.value.minimuAr) && haz[index].ar <= maxAr && haz[index].szobakszama == Number(this.keresForm.value.szobakszama)){
+                this.hazak.push(haz[index]);
               }
             }
           }
-          else if(Number(this.keresForm.value.ferohely) == 0 && Number(this.keresForm.value.minimuAr) == 0 && Number(this.keresForm.value.maximumAr) == 0){
+          else if(Number(this.keresForm.value.szobakszama) == 0 && Number(this.keresForm.value.minimuAr) == 0 && Number(this.keresForm.value.maximumAr) == 0){
             this.reloadPage();
           }
         },
         error: (err) => {
           console.error(err);
-          this.toastrService.error('A szobák betöltése sikertelen.', 'Hiba');
+          this.toastrService.error('A hirdetések betöltése sikertelen.', 'Hiba');
         }
       });
     }
@@ -107,5 +103,5 @@ export class KeresoComponent {
   compareObjects(obj1: any, obj2: any) {
     return obj1 && obj2 && obj1.id == obj2.id;
   }
-  */
+  
 }
