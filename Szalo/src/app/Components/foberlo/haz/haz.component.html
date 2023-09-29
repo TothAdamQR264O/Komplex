@@ -206,6 +206,14 @@
                 </div>
             </div>
             <label style="color: red;">{{errorMessages[20]}}</label>
+            <div class="mb-3">
+                <label for="hirdet" class="form-label">Meghirdet</label>
+                <select name="hirdet" id="hirdet" class="form-select" formControlName="hirdet">
+                    <option value="Nem">Nem</option>
+                    <option value="Igen">Igen</option>
+                </select>
+                <label style="color: red;">{{errorMessages[21]}}</label>
+            </div>
 
             <div class="input-group">
                 <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>

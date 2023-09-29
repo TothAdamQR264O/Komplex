@@ -17,7 +17,7 @@ export class HazComponent {
   visable = true;
   valide = true;
   isNewHouse = true;
-  errorMessages: string[] = ["","","","","","","","","","","","","","","","","","","","",""];
+  errorMessages: string[] = ["","","","","","","","","","","","","","","","","","","","","",""];
   
   
 
@@ -44,6 +44,7 @@ export class HazComponent {
     kilatas: this.formBuilder.control(""),
     erkelymeret: this.formBuilder.control<number|null>(null),
     gepesitet: this.formBuilder.control(""),
+    hirdet: this.formBuilder.control(""),
   });
 
 
@@ -130,23 +131,28 @@ export class HazComponent {
   valueValidate(): boolean{
     var errorMessage = '';
     this.errorMessages.fill("");
+    var errorNumber = 0;
 
     this.valide = true;
     if(!this.hazForm.value.hrsz){
       this.errorMessages.splice(0, 0, 'A helyrajzi szám nincs megadva');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.irsz || this.hazForm.value.irsz > 9999 || this.hazForm.value.irsz <= 999){
       this.errorMessages.splice(1, 0, 'Az irányítószám vagy nincs megadva, vagy formátuma nem megfelelő!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.telepules){
       this.errorMessages.splice(2, 0, 'A település nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.cim){
       this.errorMessages.splice(3, 0, 'A cím nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.reszi){
       this.hazForm.value.reszi = 0;
@@ -154,26 +160,32 @@ export class HazComponent {
     if(this.hazForm.value.reszi && this.hazForm.value.reszi < 0){
       this.errorMessages.splice(4, 0, 'A reszi formátuma nem megfelelő! Csak pozitív számot adhatsz meg!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.ar || this.hazForm.value.ar < 1){
       this.errorMessages.splice(5, 0, 'Az ár vagy nincs megadva, vagy formátuma nem megfelelő!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.szobakszama || this.hazForm.value.szobakszama < 1){
       this.errorMessages.splice(6, 0, 'A szobák száma vagy nincs megadva, vagy formátuma nem megfelelő!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.meret || this.hazForm.value.meret < 1){
       this.errorMessages.splice(7, 0, 'A méret vagy nincs megadva, vagy formátuma nem megfelelő!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.alapot){
       this.errorMessages.splice(8, 0, 'Az állapot jellege nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.konfort){
       this.errorMessages.splice(9, 0, 'A konfort tipusa nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.emelet){
       this.hazForm.value.emelet = 0;
@@ -184,46 +196,57 @@ export class HazComponent {
     if(this.hazForm.value.emelet && this.hazForm.value.emelet < 0){
       this.errorMessages.splice(10, 0, 'Az emelet formátuma nem megfelelő!');
       this.valide = false;
+      errorNumber += 1;
     }
     if((this.hazForm.value.emelet && !this.hazForm.value.szint) || (this.hazForm.value.emelet && this.hazForm.value.szint && this.hazForm.value.szint < this.hazForm.value.emelet)){
       this.errorMessages.splice(10, 0, 'Az épület szintjéhez képest ez már nem létező emelet!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(this.hazForm.value.szint && this.hazForm.value.szint < 0){
       this.errorMessages.splice(11, 0, 'Az épület szintjeinek szám formátuma nem megfelelő!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.lift){
       this.errorMessages.splice(12, 0, 'A liftek száma nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.legkondi){
       this.errorMessages.splice(13, 0, 'A légkondicionálóról való adat nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.butorozott){
       this.errorMessages.splice(14, 0, 'A butorzatról való adat nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.koltozheto){
       this.errorMessages.splice(15, 0, 'Nincs megadva, hogy kültözhető-e!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.minberido || this.hazForm.value.minberido < 0){
       this.errorMessages.splice(16, 0, 'A minimális bérlési idő vagy nincs megadva, vagy formátuma nem megfelelő!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.fureswc){
       this.errorMessages.splice(17, 0, 'A fürdőről és wcről levő adat nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.kilatas){
       this.errorMessages.splice(18, 0, 'A kilátás tipusa nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.gepesitet){
       this.errorMessages.splice(19, 0, 'A gépesítésről való adat nincs megadva!');
       this.valide = false;
+      errorNumber += 1;
     }
     if(!this.hazForm.value.erkelymeret){
       this.hazForm.value.erkelymeret = 0;
@@ -231,10 +254,16 @@ export class HazComponent {
     if(this.hazForm.value.erkelymeret && this.hazForm.value.erkelymeret < 0){
       this.errorMessages.splice(20, 0, 'Az erkély méretének formátuma nem megfelelő!');
       this.valide = false;
+      errorNumber += 1;
+    }
+    if(!this.hazForm.value.hirdet){
+      this.errorMessages.splice(21, 0, 'Nincs megadva, hogy meghirdeti-e!');
+      this.valide = false;
+      errorNumber += 1;
     }
 
     if (!this.valide) {
-      this.toastrService.error(errorMessage, 'Hiba!');
+      this.toastrService.error(errorMessage, 'Hiba!\nHibák száma: ' + errorNumber);
     }
 
     return this.valide;
