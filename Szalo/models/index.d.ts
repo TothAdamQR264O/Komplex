@@ -40,6 +40,7 @@ export interface HazDTO {
     kilatas: string;
     erkelymeret: number;
     gepesitet: string;
+    hirdet: string;
 }
 
 

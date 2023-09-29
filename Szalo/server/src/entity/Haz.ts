@@ -74,6 +74,9 @@ export class Haz implements HazDTO {
     @Column({ type: "varchar", nullable: false })
     gepesitet: string;
 
+    @Column({ type: "varchar", nullable: false })
+    hirdet: string;
+
     @OneToMany(() => Szerzodes, szerzodes => szerzodes.hid)
     szerzodesek: Szerzodes[];
 
