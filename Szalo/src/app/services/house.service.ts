@@ -14,7 +14,7 @@ export class HouseService {
   }
 
   getAd(){
-    return this.http.get<HazDTO[]>('/api/home');
+    return this.http.get<HazDTO[]>('/api/home/search');
   }
 
   getOne(id: number){

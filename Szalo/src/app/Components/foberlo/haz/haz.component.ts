@@ -134,10 +134,10 @@ export class HazComponent {
   valueValidate(): boolean {
     this.hazForm.markAllAsTouched();
 
-    this.hazForm.get('emelet')?.setErrors({
-      outOfRange: (this.hazForm.value.emelet && !this.hazForm.value.szint)
-        || (this.hazForm.value.emelet && this.hazForm.value.szint && this.hazForm.value.szint < this.hazForm.value.emelet)
-    });
+    //this.hazForm.get('emelet')?.setErrors({
+      // outOfRange: (this.hazForm.value.emelet && !this.hazForm.value.szint)
+      //   || (this.hazForm.value.emelet && this.hazForm.value.szint && this.hazForm.value.szint < this.hazForm.value.emelet)
+    //});
 
 
 
@@ -287,8 +287,11 @@ export class HazComponent {
     const haz = this.hazForm.value as HazDTO;
 
     if (!this.valueValidate()) {
+      console.log('invalid');
       return;
     }
+
+    console.log("valid, saving...")
 
     if (this.isNewHouse) {
       this.houseService.create(haz).subscribe({
@@ -314,7 +317,7 @@ export class HazComponent {
       });
       this.visable = true;
     }
-    location.reload();
+    //location.reload();
   }
 
   canceled() {
