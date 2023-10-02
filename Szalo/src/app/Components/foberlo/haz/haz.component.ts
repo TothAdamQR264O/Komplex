@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HazDTO, FoberloDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
@@ -17,24 +17,24 @@ export class HazComponent {
   visable = true;
   valide = true;
   isNewHouse = true;
-  errorMessages: string[] = ["","","","","","","","","","","","","","","","","","","","","",""];
-  
-  
+  //errorMessages: string[] = ["","","","","","","","","","","","","","","","","","","","","",""];
+
+
 
   hazForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
-    hrsz: this.formBuilder.control(''),
-    irsz: this.formBuilder.control<number|null>(null),
+    hrsz: this.formBuilder.control('', [Validators.required]),
+    irsz: this.formBuilder.control<number | null>(null),
     telepules: this.formBuilder.control(''),
     cim: this.formBuilder.control(''),
-    reszi: this.formBuilder.control<number|null>(null),
-    ar: this.formBuilder.control(0),
+    reszi: this.formBuilder.control<number | null>(null),
+    ar: this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
     szobakszama: this.formBuilder.control(0),
     meret: this.formBuilder.control(0),
     alapot: this.formBuilder.control(""),
     konfort: this.formBuilder.control(""),
-    emelet: this.formBuilder.control<number|null>(null),
-    szint: this.formBuilder.control<number|null>(null),
+    emelet: this.formBuilder.control<number | null>(null),
+    szint: this.formBuilder.control<number | null>(null),
     lift: this.formBuilder.control(""),
     legkondi: this.formBuilder.control(""),
     butorozott: this.formBuilder.control(""),
@@ -42,7 +42,7 @@ export class HazComponent {
     minberido: this.formBuilder.control(0),
     fureswc: this.formBuilder.control(""),
     kilatas: this.formBuilder.control(""),
-    erkelymeret: this.formBuilder.control<number|null>(null),
+    erkelymeret: this.formBuilder.control<number | null>(null),
     gepesitet: this.formBuilder.control(""),
     hirdet: this.formBuilder.control(""),
   });
@@ -56,7 +56,7 @@ export class HazComponent {
     private formBuilder: FormBuilder,
     private foberloService: FoberloService,
     private activatedRoute: ActivatedRoute
-    ) {}
+  ) { }
 
 
   logout() {
@@ -65,7 +65,7 @@ export class HazComponent {
     this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
   }
 
-  goToTheRooms(id: number){
+  goToTheRooms(id: number) {
     this.houseService.getOne(id).subscribe({
       next: (haz) => {
         this.hazForm.setValue(haz);
@@ -81,18 +81,18 @@ export class HazComponent {
   }
 
   reloadPage() {
-    setTimeout(()=>{
+    setTimeout(() => {
       window.location.reload();
     }, 100);
   }
-  
-  goToPage(pageName:string):void {
-    this.router.navigate([ `${pageName}` ]);
+
+  goToPage(pageName: string): void {
+    this.router.navigate([`${pageName}`]);
   }
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
-    if(id){
+    if (id) {
       this.isNewHouse = false;
 
       this.houseService.getOne(id).subscribe({
@@ -103,17 +103,20 @@ export class HazComponent {
         }
       });
     }
-    else{
+    else {
       this.houseService.getAll().subscribe({
         next: (hazak) => {
           this.hazak = hazak;
-          console.log(hazak);
         },
         error: (err) => {
           this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');
         }
       });
     }
+
+    this.hazForm.valueChanges.subscribe({
+      next: () => this.valueValidate()
+    });
   }
 
   changeHouseValue(id: number) {
@@ -128,8 +131,17 @@ export class HazComponent {
     this.isNewHouse = false;
   }
 
-  valueValidate(): boolean{
-    var errorMessage = '';
+  valueValidate(): boolean {
+    this.hazForm.markAllAsTouched();
+
+    this.hazForm.get('emelet')?.setErrors({
+      outOfRange: (this.hazForm.value.emelet && !this.hazForm.value.szint)
+        || (this.hazForm.value.emelet && this.hazForm.value.szint && this.hazForm.value.szint < this.hazForm.value.emelet)
+    });
+
+
+
+    /*var errorMessage = '';
     this.errorMessages.fill("");
     var errorNumber = 0;
 
@@ -266,50 +278,54 @@ export class HazComponent {
       this.toastrService.error(errorMessage, 'Hiba!\nHibák száma: ' + errorNumber);
     }
 
-    return this.valide;
+    return this.valide;*/
+
+    return this.hazForm.valid;
   }
 
   saveHouse() {
     const haz = this.hazForm.value as HazDTO;
 
-    if (this.valueValidate()) {
-      if(this.isNewHouse){
-        this.houseService.create(haz).subscribe({
-          next: (haz) => {
-            this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
-            this.router.navigateByUrl('/home');
-            },
-            error: (err) => {
-              this.toastrService.error('Nem sikerült felvinni az adatokat.', 'Hiba');
-            }
-        });
-        this.visable = true;
-      }
-      else{
-        this.houseService.update(haz).subscribe({
-          next: (haz) => {
-            this.toastrService.success('Ház adaainak megváltoztatása sikeresen megtörtént', 'Siker');
-            this.router.navigateByUrl('/home');
-          },
-          error: (err) => {
-            this.toastrService.error('Nem sikerült megváltoztatni az adatokat.', 'Hiba');
-          }
-        });
-        this.visable = true;
-      }
-      location.reload();
+    if (!this.valueValidate()) {
+      return;
     }
+
+    if (this.isNewHouse) {
+      this.houseService.create(haz).subscribe({
+        next: (haz) => {
+          this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
+          this.router.navigateByUrl('/home');
+        },
+        error: (err) => {
+          this.toastrService.error('Nem sikerült felvinni az adatokat.', 'Hiba');
+        }
+      });
+      this.visable = true;
+    }
+    else {
+      this.houseService.update(haz).subscribe({
+        next: (haz) => {
+          this.toastrService.success('Ház adaainak megváltoztatása sikeresen megtörtént', 'Siker');
+          this.router.navigateByUrl('/home');
+        },
+        error: (err) => {
+          this.toastrService.error('Nem sikerült megváltoztatni az adatokat.', 'Hiba');
+        }
+      });
+      this.visable = true;
+    }
+    location.reload();
   }
 
-  canceled(){
+  canceled() {
     this.visable = true;
   }
 
-  creatHouse(){
+  creatHouse() {
     this.visable = false;
   }
 
-  changeVisable(): boolean{
+  changeVisable(): boolean {
     return this.visable;
   }
 }

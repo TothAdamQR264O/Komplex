@@ -40,22 +40,25 @@
             <div class="mb-3">
                 <label for="hrsz" class="form-label">Helyrajzi szám</label>
                 <input type="text" class="form-control" id="hrsz" name="hrsz" placeholder="12345/1/A/1" formControlName="hrsz">
-                <label style="color: red;">{{errorMessages[0]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[0]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('hrsz')?.touched || hazForm.get('hrsz')?.dirty) && hazForm.get('hrsz')?.hasError('required')">
+                    A helyrajzi szám megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="irsz" class="form-label">Irányítószám</label>
                 <input type="number" class="form-control" id="irsz" name="irsz" placeholder="3533" formControlName="irsz">
-                <label style="color: red;">{{errorMessages[1]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[1]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="telepules" class="form-label">Telepules</label>
                 <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Msikolc" formControlName="telepules">
-                <label style="color: red;">{{errorMessages[2]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[2]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="cim" class="form-label">Cím</label>
                 <input type="text" class="form-control" id="cim" name="cim" placeholder="Csermőkei dülő 25" formControlName="cim">
-                <label style="color: red;">{{errorMessages[3]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[3]}}</label> -->
             </div>
 
             <label for="reszi" class="form-label">Reszi</label>
@@ -65,7 +68,7 @@
                     <span class="input-group-text">Ft</span>
                 </div>
             </div>
-            <label style="color: red;">{{errorMessages[4]}}</label>
+            <!-- <label style="color: red;">{{errorMessages[4]}}</label> -->
 
             <div>
                 <label for="ar" class="form-label">Ár</label>
@@ -76,12 +79,18 @@
                     <span class="input-group-text">Ft</span>
                 </div>
             </div>
-            <label style="color: red;">{{errorMessages[5]}}</label>
+            <small class="text-danger" *ngIf="(hazForm.get('ar')?.touched || hazForm.get('ar')?.dirty) && hazForm.get('ar')?.hasError('required')">
+                Az ár megadása kötelező.
+            </small>
+            <small class="text-danger" *ngIf="(hazForm.get('ar')?.touched || hazForm.get('ar')?.dirty) && hazForm.get('ar')?.hasError('min')">
+                Az árnak magasabbnak kell lennie 0 Ft-nál.
+            </small>
+            <!-- <label style="color: red;">{{errorMessages[5]}}</label> -->
 
             <div class="mb-3">
                 <label for="szobakszama" class="form-label">Szobák száma</label>
                 <input type="number" class="form-control" id="szobakszama" name="szobakszama" placeholder="2" formControlName="szobakszama">
-                <label style="color: red;">{{errorMessages[6]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[6]}}</label> -->
             </div>
 
             <label for="meret" class="form-label">Méret</label>
@@ -91,7 +100,7 @@
                     <span class="input-group-text">m<sup>2</sup></span>
                 </div>
             </div>
-            <label style="color: red;">{{errorMessages[7]}}</label>
+            <!-- <label style="color: red;">{{errorMessages[7]}}</label> -->
 
             <div class="mb-3">
                 <label for="alapot" class="form-label">Álapot</label>
@@ -104,7 +113,7 @@
                     <option value="Felújítandó">Felújítandó</option>
                     <option value="Befejezetlen">Befejezetlen</option>
                 </select>
-                <label style="color: red;">{{errorMessages[8]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[8]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="konfort" class="form-label">Konfort</label>
@@ -116,17 +125,20 @@
                     <option value="Félkonfortos">Félkonfortos</option>
                     <option value="Konfort nélküli">Konfort nélküli</option>
                 </select>
-                <label style="color: red;">{{errorMessages[9]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[9]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="emelet" class="form-label">Emelet</label>
                 <input type="number" class="form-control" id="emelet" name="emelet" placeholder="3" formControlName="emelet">
-                <label style="color: red;">{{errorMessages[10]}}</label>
+                <small class="text-danger" *ngIf="(hazForm.get('emelet')?.touched || hazForm.get('emelet')?.dirty) && hazForm.get('emelet')?.hasError('outOfRange')">
+                    Az épület szintjéhez képest ez már nem létező emelet.
+                </small>
+                <!-- <label style="color: red;">{{errorMessages[10]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="szint" class="form-label">Épület szintjeinek száma</label>
                 <input type="number" class="form-control" id="szint" name="szint" placeholder="10" formControlName="szint">
-                <label style="color: red;">{{errorMessages[11]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[11]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="lift" class="form-label">Lift</label>
@@ -134,7 +146,7 @@
                     <option value="Nincs">Nincs</option>
                     <option value="Van">Van</option>
                 </select>
-                <label style="color: red;">{{errorMessages[12]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[12]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="legkondi" class="form-label">Légkondicionáló</label>
@@ -142,7 +154,7 @@
                     <option value="Nincs">Nincs</option>
                     <option value="Van">Van</option>
                 </select>
-                <label style="color: red;">{{errorMessages[13]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[13]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="butorozott" class="form-label">Bútorozott</label>
@@ -150,7 +162,7 @@
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <label style="color: red;">{{errorMessages[14]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[14]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="koltozheto" class="form-label">Költözhető</label>
@@ -158,7 +170,7 @@
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <label style="color: red;">{{errorMessages[15]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[15]}}</label> -->
             </div>
 
             <label for="minberido" class="form-label">Minimális bérlési idő</label>
@@ -168,7 +180,7 @@
                     <span class="input-group-text">hó</span>
                 </div>
             </div>
-            <label style="color: red;">{{errorMessages[16]}}</label>
+            <!-- <label style="color: red;">{{errorMessages[16]}}</label> -->
 
             <div class="mb-3">
                 <label for="fureswc" class="form-label">Fűrdő és WC</label>
@@ -177,7 +189,7 @@
                     <option value="Egy helyiségben">Egy helyiségben</option>
                     <option value="Külön és egyben is">Külön és egyben is</option>
                 </select>
-                <label style="color: red;">{{errorMessages[17]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[17]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="kilatas" class="form-label">Kilását</label>
@@ -187,7 +199,7 @@
                     <option value="Panorámás">Panorámás</option>
                     <option value="Kertre néző">Kertre néző</option>
                 </select>
-                <label style="color: red;">{{errorMessages[18]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[18]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="gepesitet" class="form-label">Gépesítet</label>
@@ -195,7 +207,7 @@
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <label style="color: red;">{{errorMessages[19]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[19]}}</label> -->
             </div>
 
             <label for="erkelymeret" class="form-label">Erkély mérete</label>
@@ -205,14 +217,14 @@
                     <span class="input-group-text">m<sup>2</sup></span>
                 </div>
             </div>
-            <label style="color: red;">{{errorMessages[20]}}</label>
+            <!-- <label style="color: red;">{{errorMessages[20]}}</label> -->
             <div class="mb-3">
                 <label for="hirdet" class="form-label">Meghirdet</label>
                 <select name="hirdet" id="hirdet" class="form-select" formControlName="hirdet">
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <label style="color: red;">{{errorMessages[21]}}</label>
+                <!-- <label style="color: red;">{{errorMessages[21]}}</label> -->
             </div>
 
             <div class="input-group">
