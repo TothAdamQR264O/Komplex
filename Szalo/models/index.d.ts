@@ -99,3 +99,8 @@ export interface BerendezesJegyDTO {
     megjegyzes: string;
     szid: number;
 }
+
+export interface JelentkezesDTO {
+    hid: number;
+    bid: number;
+}

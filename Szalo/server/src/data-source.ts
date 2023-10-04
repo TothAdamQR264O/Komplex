@@ -4,6 +4,7 @@ import { Berlo } from "./entity/Berlo"
 import { Foberlo } from "./entity/Foberlo"
 import { Haz } from "./entity/Haz"
 import { Szerzodes } from "./entity/Szerzodes"
+import { Jelentkezes } from "./entity/Jelentkezes"
 require('dotenv').config()
 
 export const AppDataSource = new DataSource({
@@ -15,7 +16,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: true,
-    entities: [Haz, Foberlo, Szerzodes, Berlo],
+    entities: [Haz, Foberlo, Szerzodes, Berlo, Jelentkezes],
     migrations: [],
     subscribers: [],
 })

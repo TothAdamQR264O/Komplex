@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HazDTO} from 'models';
+import { HazDTO, JelentkezesDTO} from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { HouseService } from 'src/app/services/house.service';
+import { JelentkezService } from 'src/app/services/jelentkez.service';
 
 @Component({
   selector: 'app-kereso',
@@ -13,7 +14,41 @@ import { HouseService } from 'src/app/services/house.service';
 })
 export class KeresoComponent {
   hazak: HazDTO[] = [];
+  apply: JelentkezesDTO[] = [];
+  visable = true;
   szures = false;
+
+  applyForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
+    hid: this.formBuilder.control(0),
+    bid: this.formBuilder.control(0),
+  })
+
+  hazForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
+    hrsz: this.formBuilder.control(''),
+    irsz: this.formBuilder.control<number | null>(null,),
+    telepules: this.formBuilder.control(''),
+    cim: this.formBuilder.control(''),
+    reszi: this.formBuilder.control<number>(0),
+    ar: this.formBuilder.control(0),
+    szobakszama: this.formBuilder.control(0),
+    meret: this.formBuilder.control(0),
+    alapot: this.formBuilder.control(""),
+    konfort: this.formBuilder.control(""),
+    emelet: this.formBuilder.control<number>(0),
+    szint: this.formBuilder.control<number>(0),
+    lift: this.formBuilder.control(""),
+    legkondi: this.formBuilder.control(""),
+    butorozott: this.formBuilder.control(""),
+    koltozheto: this.formBuilder.control(""),
+    minberido: this.formBuilder.control(0),
+    fureswc: this.formBuilder.control(""),
+    kilatas: this.formBuilder.control(""),
+    erkelymeret: this.formBuilder.control<number>(0),
+    gepesitet: this.formBuilder.control(""),
+    hirdet: this.formBuilder.control(""),
+  });
 
   keresForm = this.formBuilder.group({
     minimuAr: this.formBuilder.control(0),
@@ -26,6 +61,7 @@ export class KeresoComponent {
     public authService: AuthService,
     private toastrService: ToastrService,
     private router: Router,
+    private jelentkezService: JelentkezService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -85,8 +121,36 @@ export class KeresoComponent {
     }
   }
 
+  changeHouseValue(id: number) {
+    this.houseService.getOne(id).subscribe({
+      next: (haz) => this.hazForm.setValue(haz),
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
+      }
+    });
+    this.visable = false;
+  }
+
   selectRoom(){
     
+  }
+
+  saveJelentkez(){
+    const apply = this.applyForm.value as JelentkezesDTO;
+
+    this.jelentkezService.create(apply).subscribe({
+      next: (apply) => {
+        this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
+        },
+        error: (err) => {
+          this.toastrService.error('Nem sikerült felvinni az adatokat.', 'Hiba');
+        }
+      });
+  }
+
+  canceled() {
+    this.visable = true;
   }
 
   keresRoom(){
@@ -102,6 +166,10 @@ export class KeresoComponent {
 
   compareObjects(obj1: any, obj2: any) {
     return obj1 && obj2 && obj1.id == obj2.id;
+  }
+
+  changeVisable(): boolean {
+    return this.visable;
   }
   
 }

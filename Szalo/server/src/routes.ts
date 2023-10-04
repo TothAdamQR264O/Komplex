@@ -3,6 +3,7 @@ import { BerloController } from './controller/Berlo.controller';
 import { FoberloController } from './controller/foberlo.controller';
 import { HazController } from './controller/haz.controller';
 import { checkUser } from './protect-routes';
+import { JelentkezesController } from './controller/jelentkezes.controller';
 
 export function getRoutes() {
     const router = express.Router();
@@ -34,6 +35,10 @@ export function getRoutes() {
     router.put('/berlo', checkUser, berloController.update);
     router.delete('/berlo/:id', checkUser, berloController.delete);
     router.post('/berlo/login', berloController.login);
+
+    const jelentkezesController = new JelentkezesController();
+
+    router.post('/jelentkez', jelentkezesController.create);
 
     return router;
 }
