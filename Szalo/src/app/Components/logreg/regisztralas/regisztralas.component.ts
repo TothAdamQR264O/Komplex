@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BerloService } from 'src/app/services/berlo.service';
 import { FoberloService } from 'src/app/services/foberlo.service';
@@ -16,25 +16,26 @@ export class RegisztralasComponent {
   valide = true;
 
   foberloForm = this.formBuilder.group({
-    namefb: this.formBuilder.control(''),
-    email: this.formBuilder.control(''),
-    password: this.formBuilder.control(''),
-    szamlaszamfb: this.formBuilder.control(''),
-    telfb: this.formBuilder.control(301234567)
+    namefb: this.formBuilder.control('', [Validators.required]),
+    email: this.formBuilder.control('', [Validators.required, Validators.email]),
+    password: this.formBuilder.control('', [Validators.required]),
+    szamlaszamfb: this.formBuilder.control('', [Validators.required]),
+    telfb: this.formBuilder.control(301234567, [Validators.required])
   });
 
   berloForm = this.formBuilder.group({
-    nameb: this.formBuilder.control(''),
-    email: this.formBuilder.control(''),
-    password: this.formBuilder.control(''),
-    szamlaszamb: this.formBuilder.control(''),
-    telb: this.formBuilder.control(301234567),
+    nameb: this.formBuilder.control('', [Validators.required]),
+    email: this.formBuilder.control('', [Validators.required, Validators.email]),
+    password: this.formBuilder.control('', [Validators.required]),
+    szamlaszamb: this.formBuilder.control('', [Validators.required]),
+    telb: this.formBuilder.control(301234567, [Validators.required]),
   });
 
   constructor(
     private formBuilder: FormBuilder,
     private foberloService: FoberloService,
     private berloService: BerloService,
+    private router: Router,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
     ) { }
@@ -51,6 +52,10 @@ export class RegisztralasComponent {
     },
   ];
 
+  goToPage(pageName: string): void {
+    this.router.navigate([`${pageName}`]);
+  }
+
   onRadioChange(event:any){
     // Kiválasztja az értéket
     this.selectedUser = event.target.value;
@@ -62,50 +67,55 @@ export class RegisztralasComponent {
   }
 
   valueValidate(): boolean{
-    this.valide = true;
+
     if(this.changeVisable){
-      if(!this.foberloForm.value.email || !this.foberloForm.value.namefb || !this.foberloForm.value.password || !this.foberloForm.value.szamlaszamfb || !this.foberloForm.value.telfb){
-        this.valide = false;
-      }
+      this.foberloForm.markAllAsTouched();
+      return this.foberloForm.valid;
     }
     else{
-      if(!this.berloForm.value.email || !this.berloForm.value.nameb || !this.berloForm.value.password || !this.berloForm.value.szamlaszamb || !this.berloForm.value.telb){
-        this.valide = false;
-      }
+      this.berloForm.markAllAsTouched();
+      return this.berloForm.valid;
     }
-    return this.valide;
+
+    
   }
 
   saveUser() {
-      if(this.valueValidate()){
-        if (this.changeVisable) {
-          const foberlo = this.foberloForm.value as FoberloDTO;
-          this.foberloService.create(foberlo).subscribe({
-            next: (foberlo) => {
-              this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
-            },
-            error: (err) => {
-              if(err.error.error == "Adatbázis hiba történt."){
-                this.toastrService.error('Ez az email már regisztrálvavan!.', 'Hiba');
-              }
-              else{
-                this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
-              }
-            }
-          });
+
+    if (!this.valueValidate()) {
+      console.log('invalid');
+      return;
+    }
+
+    if (this.changeVisable) {
+      const foberlo = this.foberloForm.value as FoberloDTO;
+      this.foberloService.create(foberlo).subscribe({
+        next: (foberlo) => {
+          this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
+        },
+        error: (err) => {
+          if(err.error.error == "Adatbázis hiba történt."){
+            this.toastrService.error('Ez az email már regisztrálvavan!.', 'Hiba');
+          }
+          else{
+            this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
+          }
         }
-        else if (!this.changeVisable){
-          const berlo = this.berloForm.value as BerloDTO;
-          this.berloService.create(berlo).subscribe({
-            next: (berlo) => {
-              this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
-            },
-            error: (err) => {
-              this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
-            }
-          });
+      });
+    }
+    else if (!this.changeVisable){
+      const berlo = this.berloForm.value as BerloDTO;
+      this.berloService.create(berlo).subscribe({
+        next: (berlo) => {
+          this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
+        },
+        error: (err) => {
+          this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
         }
-      }
+      });
+    }
+
+    this.goToPage("/");
   }
 
   changeUserVisable(): boolean{

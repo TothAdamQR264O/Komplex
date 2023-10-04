@@ -40,7 +40,6 @@
             <div class="mb-3">
                 <label for="hrsz" class="form-label">Helyrajzi szám</label>
                 <input type="text" class="form-control" id="hrsz" name="hrsz" placeholder="12345/1/A/1" formControlName="hrsz">
-                <!-- <label style="color: red;">{{errorMessages[0]}}</label> -->
                 <small class="text-danger" *ngIf="(hazForm.get('hrsz')?.touched || hazForm.get('hrsz')?.dirty) && hazForm.get('hrsz')?.hasError('required')">
                     A helyrajzi szám megadása kötelező.
                 </small>
@@ -48,17 +47,29 @@
             <div class="mb-3">
                 <label for="irsz" class="form-label">Irányítószám</label>
                 <input type="number" class="form-control" id="irsz" name="irsz" placeholder="3533" formControlName="irsz">
-                <!-- <label style="color: red;">{{errorMessages[1]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('irsz')?.touched || hazForm.get('irsz')?.dirty) && hazForm.get('irsz')?.hasError('required')">
+                    Az irányítószám megadása kötelező.
+                </small>
+                <small class="text-danger" *ngIf="(hazForm.get('irsz')?.touched || hazForm.get('irsz')?.dirty) && hazForm.get('irsz')?.hasError('min')">
+                    Az irányítószám túl kicsi.
+                </small>
+                <small class="text-danger" *ngIf="(hazForm.get('irsz')?.touched || hazForm.get('irsz')?.dirty) && hazForm.get('irsz')?.hasError('max')">
+                    Az irányítószám túl nagy.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="telepules" class="form-label">Telepules</label>
                 <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Msikolc" formControlName="telepules">
-                <!-- <label style="color: red;">{{errorMessages[2]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('telepules')?.touched || hazForm.get('telepules')?.dirty) && hazForm.get('telepules')?.hasError('required')">
+                    A telepules megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="cim" class="form-label">Cím</label>
                 <input type="text" class="form-control" id="cim" name="cim" placeholder="Csermőkei dülő 25" formControlName="cim">
-                <!-- <label style="color: red;">{{errorMessages[3]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('cim')?.touched || hazForm.get('cim')?.dirty) && hazForm.get('cim')?.hasError('required')">
+                    A cím megadása kötelező.
+                </small>
             </div>
 
             <label for="reszi" class="form-label">Reszi</label>
@@ -68,7 +79,12 @@
                     <span class="input-group-text">Ft</span>
                 </div>
             </div>
-            <!-- <label style="color: red;">{{errorMessages[4]}}</label> -->
+            <small class="text-danger" *ngIf="(hazForm.get('reszi')?.touched || hazForm.get('reszi')?.dirty) && hazForm.get('reszi')?.hasError('required')">
+                A rezsi megadása kötelező.
+            </small>
+            <small class="text-danger" *ngIf="(hazForm.get('reszi')?.touched || hazForm.get('reszi')?.dirty) && hazForm.get('reszi')?.hasError('min')">
+                A reszi értéke nem lehet minusz.
+            </small>
 
             <div>
                 <label for="ar" class="form-label">Ár</label>
@@ -85,12 +101,16 @@
             <small class="text-danger" *ngIf="(hazForm.get('ar')?.touched || hazForm.get('ar')?.dirty) && hazForm.get('ar')?.hasError('min')">
                 Az árnak magasabbnak kell lennie 0 Ft-nál.
             </small>
-            <!-- <label style="color: red;">{{errorMessages[5]}}</label> -->
 
             <div class="mb-3">
                 <label for="szobakszama" class="form-label">Szobák száma</label>
                 <input type="number" class="form-control" id="szobakszama" name="szobakszama" placeholder="2" formControlName="szobakszama">
-                <!-- <label style="color: red;">{{errorMessages[6]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('szobakszama')?.touched || hazForm.get('szobakszama')?.dirty) && hazForm.get('szobakszama')?.hasError('required')">
+                    A szobák számának megadása kötelező.
+                </small>
+                <small class="text-danger" *ngIf="(hazForm.get('szobakszama')?.touched || hazForm.get('szobakszama')?.dirty) && hazForm.get('szobakszama')?.hasError('min')">
+                    A szobák számának több nek kell leni 0-nál.
+                </small>
             </div>
 
             <label for="meret" class="form-label">Méret</label>
@@ -100,7 +120,12 @@
                     <span class="input-group-text">m<sup>2</sup></span>
                 </div>
             </div>
-            <!-- <label style="color: red;">{{errorMessages[7]}}</label> -->
+            <small class="text-danger" *ngIf="(hazForm.get('meret')?.touched || hazForm.get('meret')?.dirty) && hazForm.get('meret')?.hasError('required')">
+                A méret megadása kötelező.
+            </small>
+            <small class="text-danger" *ngIf="(hazForm.get('meret')?.touched || hazForm.get('meret')?.dirty) && hazForm.get('meret')?.hasError('min')">
+                A méretnek töbnek kell lennie 0 m<sup>2</sup>-nél.
+            </small>
 
             <div class="mb-3">
                 <label for="alapot" class="form-label">Álapot</label>
@@ -113,7 +138,9 @@
                     <option value="Felújítandó">Felújítandó</option>
                     <option value="Befejezetlen">Befejezetlen</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[8]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('alapot')?.touched || hazForm.get('alapot')?.dirty) && hazForm.get('alapot')?.hasError('required')">
+                    Az álapot megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="konfort" class="form-label">Konfort</label>
@@ -125,20 +152,32 @@
                     <option value="Félkonfortos">Félkonfortos</option>
                     <option value="Konfort nélküli">Konfort nélküli</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[9]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('konfort')?.touched || hazForm.get('konfort')?.dirty) && hazForm.get('konfort')?.hasError('required')">
+                    A konfort megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="emelet" class="form-label">Emelet</label>
                 <input type="number" class="form-control" id="emelet" name="emelet" placeholder="3" formControlName="emelet">
-                <small class="text-danger" *ngIf="(hazForm.get('emelet')?.touched || hazForm.get('emelet')?.dirty) && hazForm.get('emelet')?.hasError('outOfRange')">
+                <small class="text-danger" *ngIf="(hazForm.get('emelet')?.touched || hazForm.get('emelet')?.dirty) && hazForm.get('emelet')?.hasError('required')">
+                    Az emelet megadása kötelező.
+                </small>
+                <small class="text-danger" *ngIf="(hazForm.get('emelet')?.touched || hazForm.get('emelet')?.dirty) && hazForm.get('emelet')?.hasError('min')">
+                    Az emelet értéke nem lehet minusz.
+                </small>
+                <small class="text-danger" *ngIf="(hazForm.get('emelet')?.touched || hazForm.get('emelet')?.dirty) && hazForm.get('emelet')?.hasError('elteroEmelet')">
                     Az épület szintjéhez képest ez már nem létező emelet.
                 </small>
-                <!-- <label style="color: red;">{{errorMessages[10]}}</label> -->
             </div>
             <div class="mb-3">
                 <label for="szint" class="form-label">Épület szintjeinek száma</label>
                 <input type="number" class="form-control" id="szint" name="szint" placeholder="10" formControlName="szint">
-                <!-- <label style="color: red;">{{errorMessages[11]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('szint')?.touched || hazForm.get('szint')?.dirty) && hazForm.get('szint')?.hasError('required')">
+                    Az épület szintjeinek számának megadása kötelező.
+                </small>
+                <small class="text-danger" *ngIf="(hazForm.get('szint')?.touched || hazForm.get('szint')?.dirty) && hazForm.get('szint')?.hasError('min')">
+                    Az épület szintjeinek számának értéke nem lehet minusz.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="lift" class="form-label">Lift</label>
@@ -146,7 +185,9 @@
                     <option value="Nincs">Nincs</option>
                     <option value="Van">Van</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[12]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('lift')?.touched || hazForm.get('lift')?.dirty) && hazForm.get('lift')?.hasError('required')">
+                    A lift megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="legkondi" class="form-label">Légkondicionáló</label>
@@ -154,7 +195,9 @@
                     <option value="Nincs">Nincs</option>
                     <option value="Van">Van</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[13]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('legkondi')?.touched || hazForm.get('legkondi')?.dirty) && hazForm.get('legkondi')?.hasError('required')">
+                    A légkondicionáló megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="butorozott" class="form-label">Bútorozott</label>
@@ -162,7 +205,9 @@
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[14]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('butorozott')?.touched || hazForm.get('butorozott')?.dirty) && hazForm.get('butorozott')?.hasError('required')">
+                    A bútorzat megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="koltozheto" class="form-label">Költözhető</label>
@@ -170,7 +215,9 @@
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[15]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('koltozheto')?.touched || hazForm.get('koltozheto')?.dirty) && hazForm.get('koltozheto')?.hasError('required')">
+                    A költözhető megadása kötelező.
+                </small>
             </div>
 
             <label for="minberido" class="form-label">Minimális bérlési idő</label>
@@ -180,7 +227,12 @@
                     <span class="input-group-text">hó</span>
                 </div>
             </div>
-            <!-- <label style="color: red;">{{errorMessages[16]}}</label> -->
+            <small class="text-danger" *ngIf="(hazForm.get('minberido')?.touched || hazForm.get('minberido')?.dirty) && hazForm.get('minberido')?.hasError('required')">
+                A minimális bérlési idő megadása kötelező.
+            </small>
+            <small class="text-danger" *ngIf="(hazForm.get('minberido')?.touched || hazForm.get('minberido')?.dirty) && hazForm.get('minberido')?.hasError('min')">
+                A minimális bérlési időnek több nek kell lenie 0-nál.
+            </small>
 
             <div class="mb-3">
                 <label for="fureswc" class="form-label">Fűrdő és WC</label>
@@ -189,7 +241,9 @@
                     <option value="Egy helyiségben">Egy helyiségben</option>
                     <option value="Külön és egyben is">Külön és egyben is</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[17]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('fureswc')?.touched || hazForm.get('fureswc')?.dirty) && hazForm.get('fureswc')?.hasError('required')">
+                    A fűrdő és wc megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="kilatas" class="form-label">Kilását</label>
@@ -199,7 +253,9 @@
                     <option value="Panorámás">Panorámás</option>
                     <option value="Kertre néző">Kertre néző</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[18]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('kilatas')?.touched || hazForm.get('kilatas')?.dirty) && hazForm.get('kilatas')?.hasError('required')">
+                    A kilátás megadása kötelező.
+                </small>
             </div>
             <div class="mb-3">
                 <label for="gepesitet" class="form-label">Gépesítet</label>
@@ -207,7 +263,9 @@
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[19]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('gepesitet')?.touched || hazForm.get('gepesitet')?.dirty) && hazForm.get('gepesitet')?.hasError('required')">
+                    A gépesítés megadása kötelező.
+                </small>
             </div>
 
             <label for="erkelymeret" class="form-label">Erkély mérete</label>
@@ -217,14 +275,21 @@
                     <span class="input-group-text">m<sup>2</sup></span>
                 </div>
             </div>
-            <!-- <label style="color: red;">{{errorMessages[20]}}</label> -->
+            <small class="text-danger" *ngIf="(hazForm.get('erkelymeret')?.touched || hazForm.get('erkelymeret')?.dirty) && hazForm.get('erkelymeret')?.hasError('required')">
+                Az erkély méretének megadása kötelező.
+            </small>
+            <small class="text-danger" *ngIf="(hazForm.get('erkelymeret')?.touched || hazForm.get('erkelymeret')?.dirty) && hazForm.get('erkelymeret')?.hasError('min')">
+                Az erkély méretének értéke nem lehet minusz.
+            </small>
             <div class="mb-3">
                 <label for="hirdet" class="form-label">Meghirdet</label>
                 <select name="hirdet" id="hirdet" class="form-select" formControlName="hirdet">
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <!-- <label style="color: red;">{{errorMessages[21]}}</label> -->
+                <small class="text-danger" *ngIf="(hazForm.get('hirdet')?.touched || hazForm.get('hirdet')?.dirty) && hazForm.get('hirdet')?.hasError('required')">
+                    A meghirdetés megadása kötelező.
+                </small>
             </div>
 
             <div class="input-group">

@@ -17,34 +17,33 @@ export class HazComponent {
   visable = true;
   valide = true;
   isNewHouse = true;
-  //errorMessages: string[] = ["","","","","","","","","","","","","","","","","","","","","",""];
 
 
 
   hazForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     hrsz: this.formBuilder.control('', [Validators.required]),
-    irsz: this.formBuilder.control<number | null>(null),
-    telepules: this.formBuilder.control(''),
-    cim: this.formBuilder.control(''),
-    reszi: this.formBuilder.control<number | null>(null),
+    irsz: this.formBuilder.control<number | null>(null, [Validators.required, Validators.min(1000), Validators.max(9999)]),
+    telepules: this.formBuilder.control('', [Validators.required]),
+    cim: this.formBuilder.control('', [Validators.required]),
+    reszi: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
     ar: this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
-    szobakszama: this.formBuilder.control(0),
-    meret: this.formBuilder.control(0),
-    alapot: this.formBuilder.control(""),
-    konfort: this.formBuilder.control(""),
-    emelet: this.formBuilder.control<number | null>(null),
-    szint: this.formBuilder.control<number | null>(null),
-    lift: this.formBuilder.control(""),
-    legkondi: this.formBuilder.control(""),
-    butorozott: this.formBuilder.control(""),
-    koltozheto: this.formBuilder.control(""),
-    minberido: this.formBuilder.control(0),
-    fureswc: this.formBuilder.control(""),
-    kilatas: this.formBuilder.control(""),
-    erkelymeret: this.formBuilder.control<number | null>(null),
-    gepesitet: this.formBuilder.control(""),
-    hirdet: this.formBuilder.control(""),
+    szobakszama: this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
+    meret: this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
+    alapot: this.formBuilder.control("", [Validators.required]),
+    konfort: this.formBuilder.control("", [Validators.required]),
+    emelet: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
+    szint: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
+    lift: this.formBuilder.control("", [Validators.required]),
+    legkondi: this.formBuilder.control("", [Validators.required]),
+    butorozott: this.formBuilder.control("", [Validators.required]),
+    koltozheto: this.formBuilder.control("", [Validators.required]),
+    minberido: this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
+    fureswc: this.formBuilder.control("", [Validators.required]),
+    kilatas: this.formBuilder.control("", [Validators.required]),
+    erkelymeret: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
+    gepesitet: this.formBuilder.control("", [Validators.required]),
+    hirdet: this.formBuilder.control("", [Validators.required]),
   });
 
 
@@ -134,11 +133,10 @@ export class HazComponent {
   valueValidate(): boolean {
     this.hazForm.markAllAsTouched();
 
-    //this.hazForm.get('emelet')?.setErrors({
-      // outOfRange: (this.hazForm.value.emelet && !this.hazForm.value.szint)
-      //   || (this.hazForm.value.emelet && this.hazForm.value.szint && this.hazForm.value.szint < this.hazForm.value.emelet)
-    //});
-
+   /* this.hazForm.get('emelet')?.setErrors({
+       outOfRange: (this.hazForm.value.emelet && !this.hazForm.value.szint)
+         || (this.hazForm.value.emelet && this.hazForm.value.szint && this.hazForm.value.szint < this.hazForm.value.emelet)
+    });*/
 
 
     /*var errorMessage = '';
