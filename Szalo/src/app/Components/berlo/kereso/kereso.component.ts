@@ -141,10 +141,10 @@ export class KeresoComponent {
 
     this.jelentkezService.create(apply).subscribe({
       next: (apply) => {
-        this.toastrService.success('Ház felvitele sikeresen megtörtént', 'Siker');
+        this.toastrService.success('A jelentkezés sikeresen megtörtént', 'Siker');
         },
         error: (err) => {
-          this.toastrService.error('Nem sikerült felvinni az adatokat.', 'Hiba');
+          this.toastrService.error('Nem sikerült jelentkezni.', 'Hiba');
         }
       });
   }

@@ -29,6 +29,10 @@ export class JelentkezesController extends Controller{
             entity.id = null;
             entity.bid = berlo.id;
             entity.hid = ingatlan.id;
+            /*
+            entity.categoriesB.push(berlo);
+            entity.categoriesH.push(ingatlan);
+            */
             
             const result = await this.repository.insert(entity);
             const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
