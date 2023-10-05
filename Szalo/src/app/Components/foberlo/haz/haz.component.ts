@@ -64,7 +64,7 @@ export class HazComponent {
     this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
   }
 
-  goToTheRooms(id: number) {
+  goToTheApplys(id: number) {
     this.houseService.getOne(id).subscribe({
       next: (haz) => {
         this.hazForm.setValue(haz);
@@ -76,7 +76,7 @@ export class HazComponent {
       }
     });
     this.reloadPage();
-    this.router.navigateByUrl('/room');
+    this.router.navigateByUrl('/appys');
   }
 
   reloadPage() {

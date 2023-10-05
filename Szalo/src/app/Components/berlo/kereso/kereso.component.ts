@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HazDTO, JelentkezesDTO} from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { FoberloService } from 'src/app/services/foberlo.service';
 import { HouseService } from 'src/app/services/house.service';
 import { JelentkezService } from 'src/app/services/jelentkez.service';
 
@@ -14,6 +15,7 @@ import { JelentkezService } from 'src/app/services/jelentkez.service';
 })
 export class KeresoComponent {
   hazak: HazDTO[] = [];
+  hazDetails: HazDTO[] = [];
   apply: JelentkezesDTO[] = [];
   visable = true;
   szures = false;
@@ -22,6 +24,13 @@ export class KeresoComponent {
     id: this.formBuilder.control(0),
     hid: this.formBuilder.control(0),
     bid: this.formBuilder.control(0),
+  })
+
+  tulajForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
+    namefb: this.formBuilder.control(''),
+    email: this.formBuilder.control(''),
+    telfb: this.formBuilder.control("")
   })
 
   hazForm = this.formBuilder.group({
@@ -47,7 +56,6 @@ export class KeresoComponent {
     kilatas: this.formBuilder.control(""),
     erkelymeret: this.formBuilder.control<number>(0),
     gepesitet: this.formBuilder.control(""),
-    hirdet: this.formBuilder.control(""),
   });
 
   keresForm = this.formBuilder.group({
@@ -63,7 +71,8 @@ export class KeresoComponent {
     private router: Router,
     private jelentkezService: JelentkezService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private foberloService: FoberloService
   ) {}
 
 
@@ -121,9 +130,13 @@ export class KeresoComponent {
     }
   }
 
-  changeHouseValue(id: number) {
+  details(id: number) {
+    this.hazDetails.splice(0);
     this.houseService.getOne(id).subscribe({
-      next: (haz) => this.hazForm.setValue(haz),
+      //next: (haz) => this.hazForm.setValue(haz),
+      next: (haz) => {
+        this.hazDetails.push(haz);
+      },
       error: (err) => {
         console.error(err);
         this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
@@ -132,9 +145,6 @@ export class KeresoComponent {
     this.visable = false;
   }
 
-  selectRoom(){
-    
-  }
 
   saveJelentkez(){
     const apply = this.applyForm.value as JelentkezesDTO;

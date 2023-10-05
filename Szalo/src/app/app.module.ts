@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AccessTokenInterceptor } from './services/access-token.interceptor';
 import { UnauthorizedInterceptor } from './services/unauthorized.interceptor';
 import { SzerkesztesComponent } from './Components/foberlo/szerkesztes/szerkesztes.component';
+import { JelentkezokComponent } from './Components/foberlo/jelentkezok/jelentkezok.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SzerkesztesComponent } from './Components/foberlo/szerkesztes/szerkeszt
     HazComponent,
     BejelentkezesComponent,
     RegisztralasComponent,
-    SzerkesztesComponent
+    SzerkesztesComponent,
+    JelentkezokComponent
   ],
   imports: [
     BrowserModule,

@@ -40,7 +40,6 @@
             <th scope="col">Ár</th>
             <th scope="col">Rezsi</th>
             <th scope="col">Szobák száma</th>
-            <th scope="col">Jelentkezés</th>
             <th scope="col">Részletek</th>
           </tr>
         </thead>
@@ -51,8 +50,7 @@
             <th scope="col">{{ haz.ar }}</th>
             <th scope="col">{{ haz.reszi }}</th>
             <th scope="col">{{ haz.szobakszama}}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="selectRoom()">Jelentkezés</button></th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Részletek</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="details(haz.id)">Részletek</button></th>
           </tr>
         </tbody>
       </table>
@@ -67,118 +65,100 @@
 </div>
 
 <div class="row justify-content-center">
-  <div class="col-md-6">
-      <form [formGroup]="hazForm" *ngIf="!changeVisable()">
-          <div class="mb-3">
-              <label for="hrsz" class="form-label">Helyrajzi szám</label>
-              <input type="text" class="form-control" id="hrsz" name="hrsz" formControlName="hrsz" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="irsz" class="form-label">Irányítószám</label>
-              <input type="number" class="form-control" id="irsz" name="irsz" formControlName="irsz" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="telepules" class="form-label">Telepules</label>
-              <input type="text" class="form-control" id="telepules" name="telepules" formControlName="telepules" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="cim" class="form-label">Cím</label>
-              <input type="text" class="form-control" id="cim" name="cim" formControlName="cim" readonly>
-          </div>
-
-          <label for="reszi" class="form-label">Reszi</label>
-          <div class="input-group mb-3">
-              <input type="number" class="form-control" id="reszi" name="reszi" formControlName="reszi" readonly> 
-              <div class="input-group-prepend">
-                  <span class="input-group-text">Ft</span>
-              </div>
-          </div>
-
-          <div>
-              <label for="ar" class="form-label">Ár</label>
-          </div>
-          <div class="input-group mb-3">
-              <input type="number" class="form-control" id="ar" name="ar" formControlName="ar" readonly>
-              <div class="input-group-prepend">
-                  <span class="input-group-text">Ft</span>
-              </div>
-          </div>
-
-          <div class="mb-3">
-              <label for="szobakszama" class="form-label">Szobák száma</label>
-              <input type="number" class="form-control" id="szobakszama" name="szobakszama" formControlName="szobakszama" readonly>
-          </div>
-
-          <label for="meret" class="form-label">Méret</label>
-          <div class="input-group mb-3">
-              <input type="number" class="form-control" id="meret" name="meret" formControlName="meret" readonly>
-              <div class="input-group-prepend">
-                  <span class="input-group-text">m<sup>2</sup></span>
-              </div>
-          </div>
-
-          <div class="mb-3">
-              <label for="alapot" class="form-label">Álapot</label>
-              <input name="alapot" id="alapot" class="form-control" formControlName="alapot" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="konfort" class="form-label">Konfort</label>
-              <input name="konfort" id="konfort" class="form-control" formControlName="konfort" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="emelet" class="form-label">Emelet</label>
-              <input type="number" class="form-control" id="emelet" name="emelet" formControlName="emelet" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="szint" class="form-label">Épület szintjeinek száma</label>
-              <input type="number" class="form-control" id="szint" name="szint" formControlName="szint" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="lift" class="form-label">Lift</label>
-              <input name="lift" id="lift" class="form-control" formControlName="lift" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="legkondi" class="form-label">Légkondicionáló</label>
-              <input name="legkondi" id="legkondi" class="form-control" formControlName="legkondi" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="butorozott" class="form-label">Bútorozott</label>
-              <input name="butorozott" id="butorozott" class="form-control" formControlName="butorozott" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="koltozheto" class="form-label">Költözhető</label>
-              <input name="koltozheto" id="koltozheto" class="form-control" formControlName="koltozheto" readonly>
-          </div>
-
-          <label for="minberido" class="form-label">Minimális bérlési idő</label>
-          <div class="input-group mb-3">
-              <input type="number" class="form-control" id="minberido" name="minberido" formControlName="minberido" readonly>
-          </div>
-
-          <div class="mb-3">
-              <label for="fureswc" class="form-label">Fűrdő és WC</label>
-              <input name="fureswc" id="fureswc" class="form-control" formControlName="fureswc" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="kilatas" class="form-label">Kilását</label>
-              <input name="kilatas" id="kilatas" class="form-control" formControlName="kilatas" readonly>
-          </div>
-          <div class="mb-3">
-              <label for="gepesitet" class="form-label">Gépesítet</label>
-              <input name="gepesitet" id="gepesitet" class="form-control" formControlName="gepesitet" readonly>
-          </div>
-
-          <label for="erkelymeret" class="form-label">Erkély mérete</label>
-          <div class="input-group mb-3">
-              <input type="number" class="form-control" id="erkelymeret" name="erkelymeret" formControlName="erkelymeret" readonly>
-              <div class="input-group-prepend">
-                  <span class="input-group-text">m<sup>2</sup></span>
-              </div>
-          </div>
-          <div class="input-group">
-            <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
-            <button class="btn btn-outline-primary" (click)="saveJelentkez()">Jelentkezés</button>
-        </div>
-    </form>
-</div>
+  <div class="col-md-4"  *ngIf="!changeVisable()">
+    <table class="table" *ngFor="let haz of hazDetails">
+      <tr>
+        <th scope="col">Település</th>
+        <th scope="col">{{ haz.telepules }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Cím</th>
+        <th scope="col">{{ haz.cim }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Ár</th>
+        <th scope="col">{{ haz.ar }} Ft</th>
+      </tr>
+      <tr>
+        <th scope="col">Rezsi</th>
+        <th scope="col">{{ haz.reszi }} Ft</th>
+      </tr>
+      <tr>
+        <th scope="col">Szobák száma</th>
+        <th scope="col">{{ haz.szobakszama }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Mérete</th>
+        <th scope="col">{{ haz.meret }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Állapot</th>
+        <th scope="col">{{ haz.alapot }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Konfort</th>
+        <th scope="col">{{ haz.konfort }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Emelet</th>
+         <th scope="col">{{ haz.emelet }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Épület szintje</th>
+        <th scope="col">{{ haz.szint }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Lift</th>
+        <th scope="col">{{ haz.lift }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Légkondicionáló</th>
+        <th scope="col">{{ haz.legkondi }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Bútorozott</th>
+        <th scope="col">{{ haz.butorozott }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Költözhető</th>
+        <th scope="col">{{ haz.koltozheto }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Minimum bérlési idő</th>
+        <th scope="col">{{ haz.minberido }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Fürdőszoba és WC</th>
+        <th scope="col">{{ haz.fureswc }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Kilátás</th>
+        <th scope="col">{{ haz.kilatas }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Erkély mérete</th>
+        <th scope="col">{{ haz.erkelymeret }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Gépesített</th>
+        <th scope="col">{{ haz.gepesitet }}</th>
+      </tr>
+      <tr>
+        <th scope="col">Tulaj neve</th>
+        <th scope="col">{{ haz.tulaj.namefb}}</th>
+      </tr>
+      <tr>
+        <th scope="col">Tulaj Email címe</th>
+        <th scope="col">{{ haz.tulaj.email}}</th>
+      </tr>
+      <tr>
+        <th scope="col">Tulaj telefonszáma</th>
+        <th scope="col">{{ haz.tulaj.telfb}}</th>
+      </tr>
+    </table>
+    <div class="input-group">
+      <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
+      <button class="btn btn-outline-primary" (click)="saveJelentkez()">Jelentkezés</button>
+    </div>
+  </div>
 </div>

@@ -7,7 +7,7 @@
             <th scope="col">Település</th>
             <th scope="col">Cím</th>
             <th scope="col">Szerkesztés</th>
-            <th scope="col">Szobák</th>
+            <th scope="col">Jelentkezők</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -17,7 +17,7 @@
             <th scope="col">{{ haz.telepules }}</th>
             <th scope="col">{{ haz.cim }}</th>
             <th scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button></th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheRooms(haz.id)">Szobák</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheApplys(haz.id)">Jelentkezők</button></th>
           </tr>
         </tbody>
       </table>

@@ -1,0 +1,20 @@
+<div class="row" >
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">BÉrlő neve</th>
+            <th scope="col">Email cím</th>
+            <th scope="col">Telefonszám</th>
+            <th scope="col">Elfogad</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let berlo of berlok">
+            <th scope="col">{{ berlo.nameb }}</th>
+            <th scope="col">{{ berlo.email }}</th>
+            <th scope="col">{{ berlo.telb }}</th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="accept()">Elfogad</button></th>
+          </tr>
+        </tbody>
+      </table>
+</div>
