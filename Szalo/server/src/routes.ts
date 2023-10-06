@@ -38,7 +38,7 @@ export function getRoutes() {
 
     const jelentkezesController = new JelentkezesController();
 
-    router.post('/jelentkez', jelentkezesController.create);
+    router.post('/jelentkez', checkUser, jelentkezesController.create);
 
     return router;
 }
