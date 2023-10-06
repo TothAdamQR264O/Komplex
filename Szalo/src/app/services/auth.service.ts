@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   private TOKEN_KEY = 'accessToken';
+  private TOKEN_Role = 'role';
 
   constructor(
     private router: Router
@@ -18,6 +19,14 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  setRole(role: string){
+    localStorage.setItem(this.TOKEN_Role, role);
+  }
+
+  getRole(): string | null {
+    return localStorage.getItem(this.TOKEN_Role);
   }
 
   removeToken() {

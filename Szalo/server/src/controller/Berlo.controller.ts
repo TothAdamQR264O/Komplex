@@ -41,7 +41,7 @@ export class BerloController extends Controller{
             }
     
            const token = jwt.sign({ id: user.id, szerep: "berlo"  }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION_TIME });
-            res.json({ accessToken: token });
+            res.json({ accessToken: token, role: "berlo"  });
         } catch (err) {
             this.handleError(res, err);
         }

@@ -41,7 +41,7 @@ export class FoberloController extends Controller{
             }
             
             const token = jwt.sign({ id: user.id, szerep: "tulaj" }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION_TIME });
-            res.json({ accessToken: token });
+            res.json({ accessToken: token, role: token });
         } catch (err) {
             this.handleError(res, err);
         }

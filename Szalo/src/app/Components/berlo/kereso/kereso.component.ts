@@ -19,6 +19,7 @@ export class KeresoComponent {
   apply: JelentkezesDTO[] = [];
   visable = true;
   szures = false;
+  szerep = this.authService.getRole;
 
   applyForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
@@ -179,7 +180,22 @@ export class KeresoComponent {
   }
 
   changeVisable(): boolean {
+    if(this.szerep() == "berlo"){
+      console.log(this.szerep());
+    }
+    else{
+      console.log(this.szerep());
+    }
     return this.visable;
+  }
+
+  showAppy(): boolean {
+    if(this.szerep() == "berlo"){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
   
 }

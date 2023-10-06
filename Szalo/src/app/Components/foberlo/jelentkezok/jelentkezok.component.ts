@@ -14,6 +14,20 @@ import { HouseService } from 'src/app/services/house.service';
 })
 export class JelentkezokComponent {
   berlok: BerloDTO[] = [];
+  visable = true;
+
+  szerzodesForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
+    kezdido: this.formBuilder.control(0, [Validators.required]),
+    vegido: this.formBuilder.control(0, [Validators.required]),
+    kaukcio: this.formBuilder.control(0, [Validators.required]),
+    ggyszam: this.formBuilder.control(0, [Validators.required]),
+    agyszam: this.formBuilder.control(0, [Validators.required]),
+    vgyszam: this.formBuilder.control(0, [Validators.required]),
+    gora: this.formBuilder.control(0, [Validators.required]),
+    aora: this.formBuilder.control(0, [Validators.required]),
+    vora: this.formBuilder.control(0, [Validators.required]),
+  })
 
   constructor(
     private houseService: HouseService,
@@ -38,8 +52,26 @@ export class JelentkezokComponent {
     }
   }
 
-  accept(){
-    
+  valueValidate(): boolean {
+    this.szerzodesForm.markAllAsTouched();
+    return this.szerzodesForm.valid;
+  }
+
+  saveContract(){
+
+  }
+
+  canceled() {
+    this.visable = true;
+  }
+
+  selectApply(){
+    this.visable = false;
+  }
+
+
+  changeVisable(): boolean {
+    return this.visable;
   }
 
 }

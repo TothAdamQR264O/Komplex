@@ -1,8 +1,8 @@
-<div class="row" >
+<div class="row"  *ngIf="changeVisable()">
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">BÉrlő neve</th>
+            <th scope="col">Bérlő neve</th>
             <th scope="col">Email cím</th>
             <th scope="col">Telefonszám</th>
             <th scope="col">Elfogad</th>
@@ -13,8 +13,93 @@
             <th scope="col">{{ berlo.nameb }}</th>
             <th scope="col">{{ berlo.email }}</th>
             <th scope="col">{{ berlo.telb }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="accept()">Elfogad</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="selectApply()">Elfogad</button></th>
           </tr>
         </tbody>
       </table>
+      <th scope="col"><button class="btn btn-outline-primary" (click)="selectApply()">Elfogad (nem végleges)</button></th>
+</div>
+
+
+<div class="row justify-content-center" *ngIf="!changeVisable()">
+  <div class="col-md-12">
+      <h4>Szerződés kitöltése</h4>
+      <hr>
+  </div>
+  
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+      <form [formGroup]="szerzodesForm" *ngIf="!changeVisable()">
+          <div class="mb-3">
+              <label for="kezdido" class="form-label">Bérlési idő kezdete</label>
+              <input type="text" class="form-control" id="kezdido" name="kezdido" placeholder="2023.09.01" formControlName="kezdido">
+              <small class="text-danger" *ngIf="(szerzodesForm.get('kezdido')?.touched || szerzodesForm.get('kezdido')?.dirty) && szerzodesForm.get('kezdido')?.hasError('required')">
+                  A kezdés idejének megadása kötelező.
+              </small>
+          </div>
+          <div class="mb-3">
+              <label for="vegido" class="form-label">Bérlési idő vége</label>
+              <input type="number" class="form-control" id="vegido" name="vegido" placeholder="2024.08.30" formControlName="vegido">
+              <small class="text-danger" *ngIf="(szerzodesForm.get('vegido')?.touched || szerzodesForm.get('vegido')?.dirty) && szerzodesForm.get('vegido')?.hasError('required')">
+                  A bérlési idő végének megadása kötelező.
+              </small>
+          </div>
+          <div class="mb-3">
+              <label for="kaukcio" class="form-label">Kaukció</label>
+              <input type="text" class="form-control" id="kaukcio" name="kaukcio" placeholder="30000" formControlName="kaukcio">
+              <small class="text-danger" *ngIf="(szerzodesForm.get('kaukcio')?.touched || szerzodesForm.get('kaukcio')?.dirty) && szerzodesForm.get('kaukcio')?.hasError('required')">
+                  A kaukcio megadása kötelező.
+              </small>
+          </div>
+          <div class="mb-3">
+              <label for="ggyszam" class="form-label">Gáz óra gyári száma</label>
+              <input type="text" class="form-control" id="ggyszam" name="ggyszam" placeholder="07264097" formControlName="ggyszam">
+              <small class="text-danger" *ngIf="(szerzodesForm.get('ggyszam')?.touched || szerzodesForm.get('ggyszam')?.dirty) && szerzodesForm.get('ggyszam')?.hasError('required')">
+                  A gáz óra gyári számának megadása kötelező.
+              </small>
+          </div>
+          <div class="mb-3">
+            <label for="gora" class="form-label">Gáz óra értéke</label>
+              <input type="text" class="form-control" id="gora" name="gora" placeholder="500963" formControlName="gora">
+              <small class="text-danger" *ngIf="(szerzodesForm.get('gora')?.touched || szerzodesForm.get('gora')?.dirty) && szerzodesForm.get('gora')?.hasError('required')">
+                  A gáz óra értékének megadása kötelező.
+              </small>
+          </div>
+          <div class="mb-3">
+            <label for="agyszam" class="form-label">Villany óra gyári szám</label>
+            <input type="text" class="form-control" id="agyszam" name="agyszam" placeholder="07264097" formControlName="agyszam">
+            <small class="text-danger" *ngIf="(szerzodesForm.get('agyszam')?.touched || szerzodesForm.get('agyszam')?.dirty) && szerzodesForm.get('agyszam')?.hasError('required')">
+                A villany óra gyári számának megadása kötelező.
+            </small>
+        </div>
+        <div class="mb-3">
+          <label for="aora" class="form-label">Villany óra értéke</label>
+            <input type="text" class="form-control" id="aora" name="aora" placeholder="500963" formControlName="aora">
+            <small class="text-danger" *ngIf="(szerzodesForm.get('aora')?.touched || szerzodesForm.get('aora')?.dirty) && szerzodesForm.get('aora')?.hasError('required')">
+                A villany óra értékének megadása kötelező.
+            </small>
+        </div>
+        <div class="mb-3">
+          <label for="vgyszam" class="form-label">Víz óra gyári száma</label>
+          <input type="text" class="form-control" id="vgyszam" name="vgyszam" placeholder="07264097" formControlName="vgyszam">
+          <small class="text-danger" *ngIf="(szerzodesForm.get('vgyszam')?.touched || szerzodesForm.get('vgyszam')?.dirty) && szerzodesForm.get('vgyszam')?.hasError('required')">
+              A víz óra gyári számának megadása kötelező.
+          </small>
+      </div>
+      <div class="mb-3">
+        <label for="vora" class="form-label">Víz óra</label>
+          <input type="text" class="form-control" id="vora" name="vora" placeholder="500963" formControlName="vora">
+          <small class="text-danger" *ngIf="(szerzodesForm.get('vora')?.touched || szerzodesForm.get('vora')?.dirty) && szerzodesForm.get('vora')?.hasError('required')">
+              A víz óra értékének megadása kötelező.
+          </small>
+      </div>
+
+          <div class="input-group">
+              <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
+              <button class="btn btn-outline-primary" (click)="saveContract()">Mentés</button>
+          </div>
+      </form>
+  </div>
 </div>

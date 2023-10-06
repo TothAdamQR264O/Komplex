@@ -109,6 +109,7 @@ export class BejelentkezesComponent {
         this.foberloService.login(loginData).subscribe({
           next: (response) => {
             this.authService.setToken(response.accessToken);
+            this.authService.setRole(response.role);
             localStorage.setItem('email', this.email);
             this.router.navigateByUrl('/home');
           },
@@ -120,6 +121,7 @@ export class BejelentkezesComponent {
         this.berloService.login(loginData).subscribe({
           next: (response) => {
             this.authService.setToken(response.accessToken);
+            this.authService.setRole(response.role);
             this.router.navigateByUrl('/lak');
           },
           error: (err) => {

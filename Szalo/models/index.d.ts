@@ -5,6 +5,7 @@ export interface LoginDTO {
 
 export interface AccessTokenDTO {
     accessToken: string;
+    role: string;
 }
 
 export interface FoberloDTO {
