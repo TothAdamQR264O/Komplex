@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { JelentkezesDTO } from "../../../models";
 import { Berlo } from "./Berlo";
 import { Haz } from "./Haz";
@@ -9,17 +9,10 @@ export class Jelentkezes implements JelentkezesDTO{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    hid: number;
+    @ManyToOne(() => Berlo, (berlo) => berlo.jelentkezesB, { eager: true })
+    berlo: Berlo;
 
-    @Column()
-    bid: number;
+    @ManyToOne(() => Haz, (haz) => haz.jelentkezesH, { eager: true })
+    haz: Haz;
 
-    /*@ManyToMany(() => Berlo)
-    @JoinTable()
-    categoriesB: Berlo[]
-
-    @ManyToMany(() => Haz)
-    @JoinTable()
-    categoriesH: Haz[]*/
 }

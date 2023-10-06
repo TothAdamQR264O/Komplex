@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'ty
 import { HazDTO } from '../../../models';
 import { Foberlo } from './Foberlo';
 import { Szerzodes } from './Szerzodes';
+import { Jelentkezes } from './Jelentkezes';
 
 @Entity()
 export class Haz implements HazDTO {
@@ -79,5 +80,8 @@ export class Haz implements HazDTO {
 
     @OneToMany(() => Szerzodes, szerzodes => szerzodes.hid)
     szerzodesek: Szerzodes[];
+
+    @OneToMany(() => Jelentkezes, jelentkezes => jelentkezes.haz)
+    jelentkezesH: Jelentkezes[];
 
 }

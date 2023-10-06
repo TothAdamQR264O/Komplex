@@ -27,12 +27,8 @@ export class JelentkezesController extends Controller{
 
             const entity = this.repository.create(req.body as object);
             entity.id = null;
-            entity.bid = berlo.id;
-            entity.hid = ingatlan.id;
-            /*
-            entity.categoriesB.push(berlo);
-            entity.categoriesH.push(ingatlan);
-            */
+            entity.berlo = berlo;
+            entity.haz = ingatlan;
             
             const result = await this.repository.insert(entity);
             const inserted = await this.repository.findOneBy({ id: result.raw.insertId });

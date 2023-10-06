@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { BerloDTO } from '../../../models';
 import { Szerzodes } from './Szerzodes';
+import { Jelentkezes } from './Jelentkezes';
 
 @Entity()
 export class Berlo implements BerloDTO{
@@ -24,4 +25,7 @@ export class Berlo implements BerloDTO{
 
     @OneToMany(() => Szerzodes, szerzodes => szerzodes.bid)
     szerzodesek: Szerzodes[];
+
+    @OneToMany(() => Jelentkezes, jelentkezes => jelentkezes.berlo)
+    jelentkezesB: Jelentkezes[];
 }

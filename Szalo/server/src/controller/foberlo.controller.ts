@@ -40,7 +40,7 @@ export class FoberloController extends Controller{
                 return this.handleError(res, null, 401, 'Helytelen jelszó.');
             }
             
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION_TIME });
+            const token = jwt.sign({ id: user.id, szerep: "tulaj" }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION_TIME });
             res.json({ accessToken: token });
         } catch (err) {
             this.handleError(res, err);

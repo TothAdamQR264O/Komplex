@@ -101,6 +101,7 @@ export interface BerendezesJegyDTO {
 }
 
 export interface JelentkezesDTO {
-    hid: number;
-    bid: number;
+    id: number,
+    berlo: BerloDTO;
+    haz: HazDTO;
 }
