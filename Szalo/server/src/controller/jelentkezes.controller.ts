@@ -28,12 +28,30 @@ export class JelentkezesController extends Controller{
             const entity = this.repository.create(req.body as object);
             entity.id = null;
             entity.berlo = berlo;
-            entity.haz = ingatlan;
+            //entity.haz = ingatlan;
             
             const result = await this.repository.insert(entity);
             const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
  
             res.json(inserted);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    getAll = async (req, res) => {
+        try {
+            const haz = await this.hazRepository.findOneBy({
+                id: req.auth.id
+            });
+            if (!haz) {
+                return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
+            }
+
+            const entities = await this.repository.findBy({
+                haz: { id: req.auth.id }
+            });
+            res.json(entities);
         } catch (err) {
             this.handleError(res, err);
         }

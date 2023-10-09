@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HazDTO, JelentkezesDTO} from 'models';
+import { BerloDTO, FoberloDTO, HazDTO, JelentkezesDTO} from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { FoberloService } from 'src/app/services/foberlo.service';
@@ -16,6 +16,56 @@ import { JelentkezService } from 'src/app/services/jelentkez.service';
 export class KeresoComponent {
   hazak: HazDTO[] = [];
   hazDetails: HazDTO[] = [];
+  fberlo: FoberloDTO = ({
+    id: 0,
+    namefb: '',
+    email: '',
+    password: '',
+    szamlaszamfb: '',
+    telfb: 0
+  });
+  haziko: HazDTO = ({
+    id: 0,
+    hrsz: "",
+    irsz: 0,
+    telepules: "",
+    cim: "",
+    reszi: 0,
+    ar: 0,
+    szobakszama: 0,
+    meret: 0,
+    tulaj: this.fberlo,
+    alapot: "",
+    konfort: "",
+    emelet: 0,
+    szint: 0,
+    lift: "",
+    legkondi: "",
+    butorozott: "",
+    koltozheto: "",
+    minberido: 0,
+    fureswc: "",
+    kilatas: "",
+    erkelymeret: 0,
+    gepesitet: "",
+    hirdet: "",
+  });
+
+  berlo: BerloDTO = ({
+    id: 0,
+    nameb: '',
+    email: '',
+    password: '',
+    szamlaszamb: '',
+    telb: 0
+  });
+
+  jelentkez: JelentkezesDTO = ({
+    id: 0,
+    berlo: this.berlo,
+    haz: this.haziko,
+  });
+
   apply: JelentkezesDTO[] = [];
   visable = true;
   szures = false;
@@ -137,6 +187,8 @@ export class KeresoComponent {
       //next: (haz) => this.hazForm.setValue(haz),
       next: (haz) => {
         this.hazDetails.push(haz);
+        this.haziko = haz;
+        this.jelentkez.haz = this.haziko;
       },
       error: (err) => {
         console.error(err);
@@ -148,10 +200,11 @@ export class KeresoComponent {
 
 
   saveJelentkez(){
-    const apply = this.applyForm.value as JelentkezesDTO;
-
+    //const apply = this.applyForm.value as JelentkezesDTO;
+    const apply = this.jelentkez as JelentkezesDTO;
+    
     this.jelentkezService.create(apply).subscribe({
-      next: (apply) => {
+      next: (apply) => { 
         this.toastrService.success('A jelentkezés sikeresen megtörtént', 'Siker');
         },
         error: (err) => {

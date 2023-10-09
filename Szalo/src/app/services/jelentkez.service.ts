@@ -9,6 +9,9 @@ export class JelentkezService {
 
   constructor(private http: HttpClient) { }
 
+  getAll(){
+    return this.http.get<JelentkezesDTO[]>('/api/jelentkez');
+  }
 
   create(jelentkez: JelentkezesDTO){
     return this.http.post<JelentkezesDTO>('/api/jelentkez', jelentkez);

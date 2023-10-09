@@ -9,10 +9,10 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr *ngFor="let berlo of berlok">
-            <th scope="col">{{ berlo.nameb }}</th>
-            <th scope="col">{{ berlo.email }}</th>
-            <th scope="col">{{ berlo.telb }}</th>
+          <tr *ngFor="let appy of jelentkezok">
+            <th scope="col">{{ appy.berlo.nameb }}</th>
+            <th scope="col">{{ appy.berlo.email }}</th>
+            <th scope="col">{{ appy.berlo.telb }}</th>
             <th scope="col"><button class="btn btn-outline-primary" (click)="selectApply()">Elfogad</button></th>
           </tr>
         </tbody>

@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { FoberloService } from 'src/app/services/foberlo.service';
 import { HouseService } from 'src/app/services/house.service';
+import { JelentkezService } from 'src/app/services/jelentkez.service';
 
 @Component({
   selector: 'app-jelentkezok',
@@ -13,7 +14,7 @@ import { HouseService } from 'src/app/services/house.service';
   styleUrls: ['./jelentkezok.component.css']
 })
 export class JelentkezokComponent {
-  berlok: BerloDTO[] = [];
+  jelentkezok: JelentkezesDTO[] = [];
   visable = true;
 
   szerzodesForm = this.formBuilder.group({
@@ -36,19 +37,22 @@ export class JelentkezokComponent {
     private router: Router,
     private formBuilder: FormBuilder,
     private foberloService: FoberloService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private jelentkezService: JelentkezService
   ) { }
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
     if (id) {
-      /*this.houseService.getOne(id).subscribe({
-        next: (haz) => this.hazForm.setValue(haz),
+      this.jelentkezService.getAll().subscribe({
+        next: (appy) => {
+          this.jelentkezok = appy;
+        },
         error: (err) => {
           console.error(err);
           this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
         }
-      });*/
+      });
     }
   }
 
