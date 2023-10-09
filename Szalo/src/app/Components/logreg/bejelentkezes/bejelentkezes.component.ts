@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BerloDTO, FoberloDTO, HazDTO, LoginDTO} from 'models';
@@ -17,7 +17,7 @@ export class BejelentkezesComponent {
     email: this.formBuilder.control(''),
     password: this.formBuilder.control('')
   });
-  //pagenChoice = "/";
+
   serviceChoice = 0;
   email = "";
   valide = true;
@@ -39,6 +39,8 @@ export class BejelentkezesComponent {
     telfb: this.formBuilder.control(0)
   });
 
+  @Output() loggedIn = new EventEmitter();
+
   constructor(
     private formBuilder: FormBuilder,
     private berloService: BerloService,
@@ -48,9 +50,6 @@ export class BejelentkezesComponent {
     private toastrService: ToastrService
   ) { }
 
-  /*goToPage(){
-    this.router.navigateByUrl(''+this.pagenChoice);
-  }*/
 
   goToReg(){
     this.router.navigateByUrl('/reg');
@@ -110,7 +109,8 @@ export class BejelentkezesComponent {
           next: (response) => {
             this.authService.setToken(response.accessToken);
             this.authService.setRole(response.role);
-            localStorage.setItem('email', this.email);
+            this.authService.setName(response.name);
+            this.loggedIn.emit();
             this.router.navigateByUrl('/home');
           },
           error: (err) => {
@@ -122,6 +122,8 @@ export class BejelentkezesComponent {
           next: (response) => {
             this.authService.setToken(response.accessToken);
             this.authService.setRole(response.role);
+            this.authService.setName(response.name);
+            this.loggedIn.emit();
             this.router.navigateByUrl('/lak');
           },
           error: (err) => {

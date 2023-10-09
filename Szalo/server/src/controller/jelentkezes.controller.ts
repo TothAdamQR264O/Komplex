@@ -19,7 +19,7 @@ export class JelentkezesController extends Controller{
             }
 
             const ingatlan = await this.hazRepository.findOneBy({
-                id: req.auth.id
+                id: req.params.hazId
             });
             if (!ingatlan) {
                 return this.handleError(res, null, 400, "A megadott azonosítóval nem található ingatlan.");
@@ -28,7 +28,7 @@ export class JelentkezesController extends Controller{
             const entity = this.repository.create(req.body as object);
             entity.id = null;
             entity.berlo = berlo;
-            //entity.haz = ingatlan;
+            entity.haz = ingatlan;
             
             const result = await this.repository.insert(entity);
             const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
@@ -42,14 +42,14 @@ export class JelentkezesController extends Controller{
     getAll = async (req, res) => {
         try {
             const haz = await this.hazRepository.findOneBy({
-                id: req.auth.id
+                id: req.params.hazId
             });
             if (!haz) {
-                return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
+                return this.handleError(res, null, 400, "A megadott azonosítóval nem található ház.");
             }
 
             const entities = await this.repository.findBy({
-                haz: { id: req.auth.id }
+                haz: { id: haz.id }
             });
             res.json(entities);
         } catch (err) {

@@ -1,11 +1,11 @@
 <div class="jumbotron text-center bg-primary fixed-top">
   <h3 *ngIf="!authService.isLoggedIn()">Üdvözlégy az Albin</h3>
-  <h3 *ngIf="authService.isLoggedIn()">Üdvözlégy {{ email }} !</h3>
+  <h3 *ngIf="authService.isLoggedIn()">Üdvözlégy {{ userFullname }} !</h3>
 </div>
 
 <body>
   <div class="container-full">
-    <router-outlet></router-outlet>
+    <router-outlet (loggedIn)="updateUserData()"></router-outlet>
   </div>
 </body>
 

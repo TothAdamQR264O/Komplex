@@ -28,7 +28,7 @@ export class BerloController extends Controller{
         try {
             const user = await this.repository.findOne({
                 where: { email: req.body.email },
-                select: [ 'id', 'password' ]
+                select: [ 'id', 'password', 'nameb' ]
             });
     
             if (!user) {
@@ -41,7 +41,7 @@ export class BerloController extends Controller{
             }
     
            const token = jwt.sign({ id: user.id, szerep: "berlo"  }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION_TIME });
-            res.json({ accessToken: token, role: "berlo"  });
+            res.json({ accessToken: token, role: "berlo", name: user.nameb  });
         } catch (err) {
             this.handleError(res, err);
         }

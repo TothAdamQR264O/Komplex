@@ -15,7 +15,6 @@ import { JelentkezService } from 'src/app/services/jelentkez.service';
 })
 export class KeresoComponent {
   hazak: HazDTO[] = [];
-  hazDetails: HazDTO[] = [];
   fberlo: FoberloDTO = ({
     id: 0,
     namefb: '',
@@ -66,48 +65,11 @@ export class KeresoComponent {
     haz: this.haziko,
   });
 
-  apply: JelentkezesDTO[] = [];
   visable = true;
   szures = false;
   szerep = this.authService.getRole;
 
-  applyForm = this.formBuilder.group({
-    id: this.formBuilder.control(0),
-    hid: this.formBuilder.control(0),
-    bid: this.formBuilder.control(0),
-  })
-
-  tulajForm = this.formBuilder.group({
-    id: this.formBuilder.control(0),
-    namefb: this.formBuilder.control(''),
-    email: this.formBuilder.control(''),
-    telfb: this.formBuilder.control("")
-  })
-
-  hazForm = this.formBuilder.group({
-    id: this.formBuilder.control(0),
-    hrsz: this.formBuilder.control(''),
-    irsz: this.formBuilder.control<number | null>(null,),
-    telepules: this.formBuilder.control(''),
-    cim: this.formBuilder.control(''),
-    reszi: this.formBuilder.control<number>(0),
-    ar: this.formBuilder.control(0),
-    szobakszama: this.formBuilder.control(0),
-    meret: this.formBuilder.control(0),
-    alapot: this.formBuilder.control(""),
-    konfort: this.formBuilder.control(""),
-    emelet: this.formBuilder.control<number>(0),
-    szint: this.formBuilder.control<number>(0),
-    lift: this.formBuilder.control(""),
-    legkondi: this.formBuilder.control(""),
-    butorozott: this.formBuilder.control(""),
-    koltozheto: this.formBuilder.control(""),
-    minberido: this.formBuilder.control(0),
-    fureswc: this.formBuilder.control(""),
-    kilatas: this.formBuilder.control(""),
-    erkelymeret: this.formBuilder.control<number>(0),
-    gepesitet: this.formBuilder.control(""),
-  });
+  
 
   keresForm = this.formBuilder.group({
     minimuAr: this.formBuilder.control(0),
@@ -182,13 +144,9 @@ export class KeresoComponent {
   }
 
   details(id: number) {
-    this.hazDetails.splice(0);
     this.houseService.getOne(id).subscribe({
-      //next: (haz) => this.hazForm.setValue(haz),
       next: (haz) => {
-        this.hazDetails.push(haz);
         this.haziko = haz;
-        this.jelentkez.haz = this.haziko;
       },
       error: (err) => {
         console.error(err);
@@ -200,10 +158,9 @@ export class KeresoComponent {
 
 
   saveJelentkez(){
-    //const apply = this.applyForm.value as JelentkezesDTO;
     const apply = this.jelentkez as JelentkezesDTO;
     
-    this.jelentkezService.create(apply).subscribe({
+    this.jelentkezService.create(this.haziko.id).subscribe({
       next: (apply) => { 
         this.toastrService.success('A jelentkezés sikeresen megtörtént', 'Siker');
         },

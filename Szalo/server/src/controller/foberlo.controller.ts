@@ -28,7 +28,7 @@ export class FoberloController extends Controller{
         try {
             const user = await this.repository.findOne({
                 where: { email: req.body.email },
-                select: [ 'id', 'password' ]
+                select: [ 'id', 'password', 'namefb' ]
             });
     
             if (!user) {
@@ -41,7 +41,7 @@ export class FoberloController extends Controller{
             }
             
             const token = jwt.sign({ id: user.id, szerep: "tulaj" }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION_TIME });
-            res.json({ accessToken: token, role: token });
+            res.json({ accessToken: token, role: 'tulaj', name: user.namefb });
         } catch (err) {
             this.handleError(res, err);
         }

@@ -8,6 +8,7 @@ export class AuthService {
 
   private TOKEN_KEY = 'accessToken';
   private TOKEN_Role = 'role';
+  private TOKEN_FULLNAME = 'name';
 
   constructor(
     private router: Router
@@ -27,6 +28,20 @@ export class AuthService {
 
   getRole(): string | null {
     return localStorage.getItem(this.TOKEN_Role);
+  }
+
+  isUser(role: string): boolean {
+    const currentRole = this.getRole();
+
+    return currentRole == role;
+  }
+
+  setName(name: string){
+    localStorage.setItem(this.TOKEN_FULLNAME, name);
+  }
+
+  getName(): string | null {
+    return localStorage.getItem(this.TOKEN_FULLNAME);
   }
 
   removeToken() {

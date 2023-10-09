@@ -42,9 +42,9 @@ export class JelentkezokComponent {
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
+    const id = this.activatedRoute.snapshot.params['hazId'];
     if (id) {
-      this.jelentkezService.getAll().subscribe({
+      this.jelentkezService.getAll(id).subscribe({
         next: (appy) => {
           this.jelentkezok = appy;
         },

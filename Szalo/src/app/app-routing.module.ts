@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'home/:email', component: HazComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'lak', component: LakasComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'keres', component: KeresoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
-  { path: 'appys', component: JelentkezokComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  { path: 'appys/:hazId', component: JelentkezokComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] } 
 ];
 

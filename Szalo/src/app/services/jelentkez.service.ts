@@ -9,11 +9,11 @@ export class JelentkezService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(){
-    return this.http.get<JelentkezesDTO[]>('/api/jelentkez');
+  getAll(hazId: number){
+    return this.http.get<JelentkezesDTO[]>(`/api/jelentkez/${hazId}`);
   }
 
-  create(jelentkez: JelentkezesDTO){
-    return this.http.post<JelentkezesDTO>('/api/jelentkez', jelentkez);
+  create(hazId: number){
+    return this.http.post<JelentkezesDTO>(`/api/jelentkez/${hazId}`, null);
   }
 }

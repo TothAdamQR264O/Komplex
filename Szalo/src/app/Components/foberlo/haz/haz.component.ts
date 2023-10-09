@@ -67,18 +67,7 @@ export class HazComponent {
   }
 
   goToTheApplys(id: number) {
-    this.houseService.getOne(id).subscribe({
-      next: (haz) => {
-        this.hazForm.setValue(haz);
-        localStorage.setItem('hid', "" + haz.id);
-      },
-      error: (err) => {
-        console.error(err);
-        this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
-      }
-    });
-    this.reloadPage();
-    this.router.navigateByUrl('/appys');
+    this.router.navigate([ '/appys', id ]);
   }
 
   reloadPage() {

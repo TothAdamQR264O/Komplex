@@ -10,8 +10,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'Szaló';
-  email = localStorage.getItem('email');
-  //name = localStorage.getItem('namefb');
+  userFullname = this.authService.getName();
 
   constructor(
     private router: Router,
@@ -33,6 +32,10 @@ export class AppComponent {
     }, 100);
   }
 
+  updateUserData() {
+    console.log('Updating')
+    this.userFullname = this.authService.getName();
+  }
 
   logout() {
     this.authService.removeToken();

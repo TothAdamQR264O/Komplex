@@ -38,7 +38,8 @@ export function getRoutes() {
 
     const jelentkezesController = new JelentkezesController();
 
-    router.post('/jelentkez', checkUser, jelentkezesController.create);
+    router.post('/jelentkez/:hazId', checkUser, jelentkezesController.create);
+    router.get('/jelentkez/:hazId', checkUser, jelentkezesController.getAll);
 
     return router;
 }

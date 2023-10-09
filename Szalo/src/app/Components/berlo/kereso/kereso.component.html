@@ -66,99 +66,99 @@
 
 <div class="row justify-content-center">
   <div class="col-md-4"  *ngIf="!changeVisable()">
-    <table class="table" *ngFor="let haz of hazDetails">
+    <table class="table">
       <tr>
         <th scope="col">Település</th>
-        <th scope="col">{{ haz.telepules }}</th>
+        <th scope="col">{{ haziko.telepules }}</th>
       </tr>
       <tr>
         <th scope="col">Cím</th>
-        <th scope="col">{{ haz.cim }}</th>
+        <th scope="col">{{ haziko.cim }}</th>
       </tr>
       <tr>
         <th scope="col">Ár</th>
-        <th scope="col">{{ haz.ar }} Ft</th>
+        <th scope="col">{{ haziko.ar }} Ft</th>
       </tr>
       <tr>
         <th scope="col">Rezsi</th>
-        <th scope="col">{{ haz.reszi }} Ft</th>
+        <th scope="col">{{ haziko.reszi }} Ft</th>
       </tr>
       <tr>
         <th scope="col">Szobák száma</th>
-        <th scope="col">{{ haz.szobakszama }}</th>
+        <th scope="col">{{ haziko.szobakszama }}</th>
       </tr>
       <tr>
         <th scope="col">Mérete</th>
-        <th scope="col">{{ haz.meret }}</th>
+        <th scope="col">{{ haziko.meret }} m<sup>2</sup></th>
       </tr>
       <tr>
         <th scope="col">Állapot</th>
-        <th scope="col">{{ haz.alapot }}</th>
+        <th scope="col">{{ haziko.alapot }}</th>
       </tr>
       <tr>
         <th scope="col">Konfort</th>
-        <th scope="col">{{ haz.konfort }}</th>
+        <th scope="col">{{ haziko.konfort }}</th>
       </tr>
       <tr>
         <th scope="col">Emelet</th>
-         <th scope="col">{{ haz.emelet }}</th>
+         <th scope="col">{{ haziko.emelet }}</th>
       </tr>
       <tr>
         <th scope="col">Épület szintje</th>
-        <th scope="col">{{ haz.szint }}</th>
+        <th scope="col">{{ haziko.szint }}</th>
       </tr>
       <tr>
         <th scope="col">Lift</th>
-        <th scope="col">{{ haz.lift }}</th>
+        <th scope="col">{{ haziko.lift }}</th>
       </tr>
       <tr>
         <th scope="col">Légkondicionáló</th>
-        <th scope="col">{{ haz.legkondi }}</th>
+        <th scope="col">{{ haziko.legkondi }}</th>
       </tr>
       <tr>
         <th scope="col">Bútorozott</th>
-        <th scope="col">{{ haz.butorozott }}</th>
+        <th scope="col">{{ haziko.butorozott }}</th>
       </tr>
       <tr>
         <th scope="col">Költözhető</th>
-        <th scope="col">{{ haz.koltozheto }}</th>
+        <th scope="col">{{ haziko.koltozheto }}</th>
       </tr>
       <tr>
         <th scope="col">Minimum bérlési idő</th>
-        <th scope="col">{{ haz.minberido }}</th>
+        <th scope="col">{{ haziko.minberido }} hó</th>
       </tr>
       <tr>
         <th scope="col">Fürdőszoba és WC</th>
-        <th scope="col">{{ haz.fureswc }}</th>
+        <th scope="col">{{ haziko.fureswc }}</th>
       </tr>
       <tr>
         <th scope="col">Kilátás</th>
-        <th scope="col">{{ haz.kilatas }}</th>
+        <th scope="col">{{ haziko.kilatas }}</th>
       </tr>
       <tr>
         <th scope="col">Erkély mérete</th>
-        <th scope="col">{{ haz.erkelymeret }}</th>
+        <th scope="col">{{ haziko.erkelymeret }} m<sup>2</sup></th>
       </tr>
       <tr>
         <th scope="col">Gépesített</th>
-        <th scope="col">{{ haz.gepesitet }}</th>
+        <th scope="col">{{ haziko.gepesitet }}</th>
       </tr>
       <tr>
         <th scope="col">Tulaj neve</th>
-        <th scope="col">{{ haz.tulaj.namefb}}</th>
+        <th scope="col">{{ haziko.tulaj.namefb}}</th>
       </tr>
       <tr>
         <th scope="col">Tulaj Email címe</th>
-        <th scope="col">{{ haz.tulaj.email}}</th>
+        <th scope="col">{{ haziko.tulaj.email}}</th>
       </tr>
       <tr>
         <th scope="col">Tulaj telefonszáma</th>
-        <th scope="col">{{ haz.tulaj.telfb}}</th>
+        <th scope="col">{{ haziko.tulaj.telfb}}</th>
       </tr>
     </table>
     <div class="input-group">
       <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
-      <button class="btn btn-outline-primary" (click)="saveJelentkez()">Jelentkezés</button>
+      <button class="btn btn-outline-primary" *ngIf="authService.isUser('berlo')" (click)="saveJelentkez()">Jelentkezés</button>
     </div>
   </div>
 </div>
