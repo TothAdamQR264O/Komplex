@@ -8,6 +8,7 @@ import { BejelentkezesComponent } from './Components/logreg/bejelentkezes/bejele
 import { RegisztralasComponent } from './Components/logreg/regisztralas/regisztralas.component';
 import { AuthService } from './services/auth.service';
 import { JelentkezokComponent } from './Components/foberlo/jelentkezok/jelentkezok.component';
+import { SzerzodesComponent } from './Components/foberlo/szerzodes/szerzodes.component';
 
 const routes: Routes = [
   { path: '', component: BejelentkezesComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'lak', component: LakasComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'keres', component: KeresoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'appys/:hazId', component: JelentkezokComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  { path: 'contract/:id', component: SzerzodesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] } 
 ];
 

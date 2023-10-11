@@ -17,6 +17,7 @@ import { AccessTokenInterceptor } from './services/access-token.interceptor';
 import { UnauthorizedInterceptor } from './services/unauthorized.interceptor';
 import { SzerkesztesComponent } from './Components/foberlo/szerkesztes/szerkesztes.component';
 import { JelentkezokComponent } from './Components/foberlo/jelentkezok/jelentkezok.component';
+import { SzerzodesComponent } from './Components/foberlo/szerzodes/szerzodes.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { JelentkezokComponent } from './Components/foberlo/jelentkezok/jelentkez
     BejelentkezesComponent,
     RegisztralasComponent,
     SzerkesztesComponent,
-    JelentkezokComponent
+    JelentkezokComponent,
+    SzerzodesComponent
   ],
   imports: [
     BrowserModule,

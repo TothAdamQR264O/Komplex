@@ -4,6 +4,7 @@ import { FoberloController } from './controller/foberlo.controller';
 import { HazController } from './controller/haz.controller';
 import { checkUser } from './protect-routes';
 import { JelentkezesController } from './controller/jelentkezes.controller';
+import { SzerzodesController } from './controller/szerzodes.controller';
 
 export function getRoutes() {
     const router = express.Router();
@@ -40,6 +41,11 @@ export function getRoutes() {
 
     router.post('/jelentkez/:hazId', checkUser, jelentkezesController.create);
     router.get('/jelentkez/:hazId', checkUser, jelentkezesController.getAll);
+    router.get('/jelentkez/:id', hazController.getOne);
+
+    const szerzodesController = new SzerzodesController();
+
+    router.post('/szerzodes/:applyId', checkUser, szerzodesController.create);
 
     return router;
 }

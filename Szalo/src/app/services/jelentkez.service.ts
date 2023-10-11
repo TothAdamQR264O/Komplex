@@ -16,4 +16,8 @@ export class JelentkezService {
   create(hazId: number){
     return this.http.post<JelentkezesDTO>(`/api/jelentkez/${hazId}`, null);
   }
+
+  getOne(id: number){
+    return this.http.get<JelentkezesDTO>(`/api/contract/` + id);
+  }
 }

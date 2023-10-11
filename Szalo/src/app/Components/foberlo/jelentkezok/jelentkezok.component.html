@@ -13,11 +13,10 @@
             <th scope="col">{{ appy.berlo.nameb }}</th>
             <th scope="col">{{ appy.berlo.email }}</th>
             <th scope="col">{{ appy.berlo.telb }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="selectApply()">Elfogad</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="selectApply(appy.id)">Elfogad</button></th>
           </tr>
         </tbody>
       </table>
-      <th scope="col"><button class="btn btn-outline-primary" (click)="selectApply()">Elfogad (nem végleges)</button></th>
 </div>
 
 
@@ -41,7 +40,7 @@
           </div>
           <div class="mb-3">
               <label for="vegido" class="form-label">Bérlési idő vége</label>
-              <input type="number" class="form-control" id="vegido" name="vegido" placeholder="2024.08.30" formControlName="vegido">
+              <input type="text" class="form-control" id="vegido" name="vegido" placeholder="2024.08.30" formControlName="vegido">
               <small class="text-danger" *ngIf="(szerzodesForm.get('vegido')?.touched || szerzodesForm.get('vegido')?.dirty) && szerzodesForm.get('vegido')?.hasError('required')">
                   A bérlési idő végének megadása kötelező.
               </small>

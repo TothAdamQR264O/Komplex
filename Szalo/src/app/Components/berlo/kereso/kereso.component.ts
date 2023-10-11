@@ -96,7 +96,6 @@ export class KeresoComponent {
       this.houseService.getAd().subscribe({
         next: (haz) => {
           this.hazak = haz;
-          console.log(haz);
         },
         error: (err) => {
           console.error(err);
@@ -190,12 +189,6 @@ export class KeresoComponent {
   }
 
   changeVisable(): boolean {
-    if(this.szerep() == "berlo"){
-      console.log(this.szerep());
-    }
-    else{
-      console.log(this.szerep());
-    }
     return this.visable;
   }
 
