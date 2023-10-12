@@ -16,6 +16,7 @@ import * as _ from 'lodash';
 })
 export class HazComponent {
   hazak: HazDTO[] = [];
+  hazakNoAd: HazDTO[] = [];
   visable = true;
   valide = true;
   isNewHouse = true;
@@ -96,7 +97,18 @@ export class HazComponent {
     else {
       this.houseService.getAll().subscribe({
         next: (hazak) => {
-          this.hazak = hazak;
+          for(var i = 0; i < hazak.length; i++){
+            var valasz = hazak[i].hirdet;
+            
+            if(valasz == "Igen"){
+              this.hazak = hazak;
+              console.log( i + " Válasz (true): " + valasz);
+            }
+            else{
+              this.hazakNoAd = hazak;
+              console.log( i + " Válasz (false): " + valasz);
+            }
+          }
         },
         error: (err) => {
           this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');
