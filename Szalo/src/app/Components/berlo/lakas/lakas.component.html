@@ -1,5 +1,34 @@
-<html>
-    <body>
-        <p>lakas works!</p>
-    </body>
-</html>
+<div class="row">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Helyrajzi szám</th>
+            <th scope="col">Írszám</th>
+            <th scope="col">Település</th>
+            <th scope="col">Cím</th>
+            <th scope="col">Rezsi</th>
+            <th scope="col">Ár</th>
+            <th scope="col">Főbérlő neve</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefon szám</th>
+            <th scope="col">Befizetés</th>
+            <th scope="col">Esemény</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let szer of Szer">
+            <th scope="col">{{ szer.hid.hrsz }}</th>
+            <th scope="col">{{ szer.hid.irsz }}</th>
+            <th scope="col">{{ szer.hid.telepules }}</th>
+            <th scope="col">{{ szer.hid.cim }}</th>
+            <th scope="col">{{ szer.hid.reszi }}</th>
+            <th scope="col">{{ szer.hid.ar }}</th>
+            <th scope="col">{{ szer.tid.namefb }}</th>
+            <th scope="col">{{ szer.tid.email }}</th>
+            <th scope="col">{{ szer.tid.telfb }}</th>
+            <th scope="col"><button class="btn btn-outline-primary" >Befizetés</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" >Esemény</button></th>
+          </tr>
+        </tbody>
+      </table>
+</div>

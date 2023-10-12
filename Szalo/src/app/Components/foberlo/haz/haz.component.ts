@@ -97,6 +97,7 @@ export class HazComponent {
     else {
       this.houseService.getAll().subscribe({
         next: (hazak) => {
+          //this.hazak = hazak;
           var hir = 0;
           var noHir = 0;
           for(var i = 0; i < hazak.length; i++){
@@ -137,7 +138,7 @@ export class HazComponent {
   valueValidate(): boolean {
     this.hazForm.markAllAsTouched();
 
-    const emeletHibas =  (this.hazForm.value.emelet && !this.hazForm.value.szint)
+    /*const emeletHibas =  (this.hazForm.value.emelet && !this.hazForm.value.szint)
       || (this.hazForm.value.emelet && this.hazForm.value.szint && this.hazForm.value.szint < this.hazForm.value.emelet);
 
     if (emeletHibas) {
@@ -145,7 +146,7 @@ export class HazComponent {
     } else {
       const newErrors = _.omit(this.hazForm.get('emelet')?.errors, 'elteroEmelet');
       this.hazForm.get('emelet')?.setErrors(newErrors);
-    }
+    }*/
 
     return this.hazForm.valid;
   }

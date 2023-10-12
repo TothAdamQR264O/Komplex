@@ -46,6 +46,7 @@ export function getRoutes() {
     const szerzodesController = new SzerzodesController();
 
     router.post('/szerzodes/:applyId', checkUser, szerzodesController.create);
+    router.get('/lak', szerzodesController.getAll);
 
     return router;
 }

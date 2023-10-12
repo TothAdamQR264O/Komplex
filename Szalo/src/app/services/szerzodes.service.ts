@@ -13,6 +13,10 @@ export class SzerzodesService {
   create(applyId: number){
     return this.http.post<SzerzodesDTO>(`/api/szerzodes/${applyId}`, null);
   }
+
+  getAll(){
+    return this.http.get<SzerzodesDTO[]>('/api/lak');
+  }
   /*
 
   create(hazId: number, applyId: number){
