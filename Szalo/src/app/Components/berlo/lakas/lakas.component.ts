@@ -79,7 +79,7 @@ export class LakasComponent {
 
 
   ngOnInit(): void {
-    this.szerodesService.getAll().subscribe({
+    this.szerodesService.getBerlo().subscribe({
       next: (szerzodes) => {
         this.Szer = szerzodes;
       },

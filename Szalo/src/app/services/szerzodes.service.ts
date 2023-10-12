@@ -14,8 +14,12 @@ export class SzerzodesService {
     return this.http.post<SzerzodesDTO>(`/api/szerzodes/${applyId}`, null);
   }
 
-  getAll(){
+  getBerlo(){
     return this.http.get<SzerzodesDTO[]>('/api/lak');
+  }
+
+  getTulaj(){
+    return this.http.get<SzerzodesDTO[]>('/api/home/:hazId');
   }
   /*
 

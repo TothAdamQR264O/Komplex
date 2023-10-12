@@ -58,7 +58,7 @@ export class SzerzodesController extends Controller{
         }
     };
 
-    getAll = async (req, res) => {
+    getBerlo = async (req, res) => {
         try {
             const berlo = await this.berloRepository.findOneBy({
                 id: req.auth.id
@@ -69,6 +69,24 @@ export class SzerzodesController extends Controller{
 
             const entities = await this.repository.findBy({
                 bid: { id: req.auth.id }
+            });
+            res.json(entities);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    getTulaj = async (req, res) => {
+        try {
+            const tulaj = await this.foberloRepository.findOneBy({
+                id: req.auth.id
+            });
+            if (!tulaj) {
+                return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
+            }
+
+            const entities = await this.repository.findBy({
+                tid: { id: req.auth.id }
             });
             res.json(entities);
         } catch (err) {

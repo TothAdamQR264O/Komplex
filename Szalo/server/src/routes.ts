@@ -46,7 +46,8 @@ export function getRoutes() {
     const szerzodesController = new SzerzodesController();
 
     router.post('/szerzodes/:applyId', checkUser, szerzodesController.create);
-    router.get('/lak', szerzodesController.getAll);
+    router.get('/lak', szerzodesController.getBerlo);
+    router.get('/home/:hazId', szerzodesController.getTulaj);
 
     return router;
 }
