@@ -97,16 +97,17 @@ export class HazComponent {
     else {
       this.houseService.getAll().subscribe({
         next: (hazak) => {
+          var hir = 0;
+          var noHir = 0;
           for(var i = 0; i < hazak.length; i++){
-            var valasz = hazak[i].hirdet;
             
-            if(valasz == "Igen"){
-              this.hazak = hazak;
-              console.log( i + " Válasz (true): " + valasz);
+            if(hazak[i].hirdet == "Igen"){
+              this.hazak[hir] = hazak[i];
+              hir++;
             }
             else{
-              this.hazakNoAd = hazak;
-              console.log( i + " Válasz (false): " + valasz);
+              this.hazakNoAd[noHir] = hazak[i];
+              noHir++;
             }
           }
         },
