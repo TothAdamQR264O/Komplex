@@ -74,6 +74,7 @@ export class LakoComponent {
     hid: this.haziko,
   });
   Szer: SzerzodesDTO[] = [];
+  esemenyek: EsemenyDTO[] = [];
 
   esemenyForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
@@ -107,8 +108,8 @@ export class LakoComponent {
         }
       });
 
-      this.esemenyService.getOne(id).subscribe({
-        next: (esemeny) => this.esemenyForm.setValue(esemeny),
+      this.esemenyService.getAll().subscribe({
+        next: (esemeny) => this.esemenyek = esemeny,
         error: (err) => {
           console.error(err);
           this.toastrService.error('Nem létezik esemény, vagy nem lehet betölteni0', 'Hiba');

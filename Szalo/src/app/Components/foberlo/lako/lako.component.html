@@ -29,9 +29,34 @@
           </tr>
         </tbody>
       </table>
-      <div>
-        <button  class="btn btn-outline-primary" (click)="eventMake()">Esemény</button>
-      </div>
+</div>
+
+<div class="row"  *ngIf="changeVisable()">
+  <div>Hirdetett házak</div>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Dátum</th>
+          <th scope="col">Költség</th>
+          <th scope="col">Cím</th>
+          <th scope="col">Megjegyzés</th>
+          <th scope="col">Szerkeztés</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr *ngFor="let event of esemenyek">
+          <th scope="col">{{ event.id }}</th>
+          <th scope="col">{{ event.datum }}</th>
+          <th scope="col">{{ event.koltseg }}</th>
+          <th scope="col">{{ event.megjegyzes }}</th>
+          <th scope="col"><button class="btn btn-outline-primary" >Szerkesztés</button></th>
+        </tr>
+      </tbody>
+    </table>
+  <div class="text-center">
+      <button class="btn btn-outline-primary" (click)="eventMake()">+</button>
+  </div>
 </div>
 
 <div class="row justify-content-center" *ngIf="!changeVisable()">
