@@ -47,7 +47,7 @@
       <form [formGroup]="esemenyForm" *ngIf="!changeVisable()">
           <div class="mb-3">
               <label for="datum" class="form-label">Dátum</label>
-              <input type="text" class="form-control" id="datum" name="datum" formControlName="datum">
+              <input type="date" class="form-control" id="datum" name="datum" formControlName="datum">
               <small class="text-danger" *ngIf="(esemenyForm.get('datum')?.touched || esemenyForm.get('datum')?.dirty) && esemenyForm.get('datum')?.hasError('required')">
                   A dátum megadása kötelező.
               </small>
