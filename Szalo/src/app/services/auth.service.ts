@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -9,6 +9,8 @@ export class AuthService {
   private TOKEN_KEY = 'accessToken';
   private TOKEN_Role = 'role';
   private TOKEN_FULLNAME = 'name';
+
+  loggedInEvent = new EventEmitter();
 
   constructor(
     private router: Router

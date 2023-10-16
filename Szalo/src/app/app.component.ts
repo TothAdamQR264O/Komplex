@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './services/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Szaló';
   userFullname = this.authService.getName();
 
@@ -17,6 +17,10 @@ export class AppComponent {
     public authService: AuthService,
     private toastrService: ToastrService
   ) { }
+
+  ngOnInit(): void {
+    this.authService.loggedInEvent.subscribe(() => this.updateUserData());
+  }
 
   goToPage(pageName:string):void {
     if(pageName == "/home"){
@@ -33,7 +37,6 @@ export class AppComponent {
   }
 
   updateUserData() {
-    console.log('Updating')
     this.userFullname = this.authService.getName();
   }
 
