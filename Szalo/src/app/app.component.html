@@ -23,14 +23,14 @@
         <li class="nav-item" *ngIf="!authService.isLoggedIn()">
           <a class="nav-link active" aria-current="page" (click)="goToPage('/reg')">Regisztrálás</a>
         </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.isUser('tulaj')">
           <a class="nav-link" (click)="goToPage('/home')">Ház</a>
         </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.isUser('berlo')">
           <a class="nav-link" (click)="goToPage('/lak')">Lakás</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" (click)="goToPage('/keres')">Keres</a>
+          <a class="nav-link" (click)="goToPage('/keres')">Hirdetés</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link" href="#" (click)="logout()">Kilépés</a>
