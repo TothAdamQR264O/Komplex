@@ -39,8 +39,6 @@ export class BejelentkezesComponent {
     telfb: this.formBuilder.control(0)
   });
 
-  @Output() loggedIn = new EventEmitter();
-
   constructor(
     private formBuilder: FormBuilder,
     private berloService: BerloService,
@@ -110,7 +108,7 @@ export class BejelentkezesComponent {
             this.authService.setToken(response.accessToken);
             this.authService.setRole(response.role);
             this.authService.setName(response.name);
-            this.loggedIn.emit();
+            this.authService.loggedInEvent.emit();
             this.router.navigateByUrl('/home');
           },
           error: (err) => {
@@ -123,7 +121,7 @@ export class BejelentkezesComponent {
             this.authService.setToken(response.accessToken);
             this.authService.setRole(response.role);
             this.authService.setName(response.name);
-            this.loggedIn.emit();
+            this.authService.loggedInEvent.emit();
             this.router.navigateByUrl('/lak');
           },
           error: (err) => {
