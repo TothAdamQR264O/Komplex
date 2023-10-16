@@ -3,6 +3,7 @@ import { HazDTO, SzerzodesDTO } from '../../../models';
 import { Foberlo } from './Foberlo';
 import { Berlo } from './Berlo';
 import { Haz } from './Haz';
+import { Esemeny } from './Esemeny';
 
 @Entity()
 export class Szerzodes implements SzerzodesDTO {
@@ -44,4 +45,7 @@ export class Szerzodes implements SzerzodesDTO {
 
     @ManyToOne(() => Haz, (haz) => haz.szerzodesek, { eager: true })
     hid: Haz;
+
+    @OneToMany(() => Esemeny, esemeny => esemeny.dokumentum)
+    esemenyek: Esemeny[];
 }

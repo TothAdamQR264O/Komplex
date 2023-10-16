@@ -75,7 +75,7 @@ export interface SzamlaDTO {
     id: number;
     idopotn: Date;
     osszeg: number;
-    szid: number;
+    szid: SzerzodesDTO;
 }
 
 export interface OsszegekDTO {
@@ -91,7 +91,7 @@ export interface EsemenyDTO {
     koltsvis: string;
     alapot: string;
     megjegyzes: string;
-    szid: number;
+    dokumentum: SzerzodesDTO;
 }
 
 export interface BerendezesJegyDTO {

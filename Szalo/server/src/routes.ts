@@ -5,6 +5,7 @@ import { HazController } from './controller/haz.controller';
 import { checkUser } from './protect-routes';
 import { JelentkezesController } from './controller/jelentkezes.controller';
 import { SzerzodesController } from './controller/szerzodes.controller';
+import { EsemenyController } from './controller/esemeny.controller';
 
 export function getRoutes() {
     const router = express.Router();
@@ -48,6 +49,13 @@ export function getRoutes() {
     router.post('/szerzodes/:applyId', checkUser, szerzodesController.create);
     router.get('/lak', szerzodesController.getBerlo);
     router.get('/home/:hazId', szerzodesController.getTulaj);
+
+
+    const esemenyController = new EsemenyController();
+
+    router.post('/esemeny', checkUser, esemenyController.create);
+    router.get('/esemeny', esemenyController.getAll);
+    router.get('/esemeny/:hazId', esemenyController.getOne);
 
     return router;
 }

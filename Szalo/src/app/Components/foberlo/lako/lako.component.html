@@ -1,0 +1,102 @@
+<div class="row" *ngIf="changeVisable()">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Helyrajzi szám</th>
+            <th scope="col">Írszám</th>
+            <th scope="col">Település</th>
+            <th scope="col">Cím</th>
+            <th scope="col">Rezsi</th>
+            <th scope="col">Ár</th>
+            <th scope="col">Főbérlő neve</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefon szám</th>
+            <th scope="col">Befizetés</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let szer of Szer">
+            <th scope="col">{{ szer.hid.hrsz }}</th>
+            <th scope="col">{{ szer.hid.irsz }}</th>
+            <th scope="col">{{ szer.hid.telepules }}</th>
+            <th scope="col">{{ szer.hid.cim }}</th>
+            <th scope="col">{{ szer.hid.reszi }}</th>
+            <th scope="col">{{ szer.hid.ar }}</th>
+            <th scope="col">{{ szer.bid.nameb }}</th>
+            <th scope="col">{{ szer.bid.email }}</th>
+            <th scope="col">{{ szer.bid.telb }}</th>
+            <th scope="col"><button class="btn btn-outline-primary" >Befizetés</button></th>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button  class="btn btn-outline-primary" (click)="eventMake()">Esemény</button>
+      </div>
+</div>
+
+<div class="row justify-content-center" *ngIf="!changeVisable()">
+  <div class="col-md-12">
+      <h4>Esemény felivitel</h4>
+      <hr>
+  </div>
+  
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+      <form [formGroup]="esemenyForm" *ngIf="!changeVisable()">
+          <div class="mb-3">
+              <label for="datum" class="form-label">Dátum</label>
+              <input type="text" class="form-control" id="datum" name="datum" formControlName="datum">
+              <small class="text-danger" *ngIf="(esemenyForm.get('datum')?.touched || esemenyForm.get('datum')?.dirty) && esemenyForm.get('datum')?.hasError('required')">
+                  A dátum megadása kötelező.
+              </small>
+          </div>
+          <div class="mb-3">
+              <label for="koltseg" class="form-label">Költség</label>
+              <input type="number" class="form-control" id="koltseg" name="koltseg" placeholder="35000" formControlName="koltseg">
+              <small class="text-danger" *ngIf="(esemenyForm.get('koltseg')?.touched || esemenyForm.get('koltseg')?.dirty) && esemenyForm.get('koltseg')?.hasError('required')">
+                  A költség megadása kötelező.
+              </small>
+          </div>
+
+          <div class="mb-3">
+            <label for="koltsvis" class="form-label">Költség viselő</label>
+            <select name="koltsvis" id="koltsvis" class="form-select" formControlName="koltsvis">
+                <option value="Nem megállapítot">Nem megállapítot</option>
+                <option value="Tulaj">Tulaj</option>
+                <option value="Bérlő">Bérlő</option>
+            </select>
+            <small class="text-danger" *ngIf="(esemenyForm.get('koltsvis')?.touched || esemenyForm.get('koltsvis')?.dirty) && esemenyForm.get('koltsvis')?.hasError('required')">
+                A költség viselő megadása kötelező.
+            </small>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="alapot" class="form-label">Álapot</label>
+            <select name="alapot" id="alapot" class="form-select" formControlName="alapot">
+                <option value="Új esemény">Új esemény</option>
+                <option value="Fojamatban">Fojamatban</option>
+                <option value="Lezárt">Lezárt</option>
+            </select>
+            <small class="text-danger" *ngIf="(esemenyForm.get('alapot')?.touched || esemenyForm.get('alapot')?.dirty) && esemenyForm.get('alapot')?.hasError('required')">
+                Az álapot megadása kötelező.
+            </small>
+          </div>
+
+          <div class="mb-3">
+              <label for="megjegyzes" class="form-label">Megjegyzés</label>
+              <input type="text" class="form-control" id="megjegyzes" name="megjegyzes" placeholder="Esemény leírása" formControlName="megjegyzes">
+              <small class="text-danger" *ngIf="(esemenyForm.get('megjegyzes')?.touched || esemenyForm.get('megjegyzes')?.dirty) && esemenyForm.get('megjegyzes')?.hasError('required')">
+                  A megjegyzés megadása kötelező.
+              </small>
+          </div>
+
+          <div class="input-group">
+              <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
+              <button class="btn btn-outline-primary" (click)="saveEvent()">Mentés</button>
+          </div>
+      </form>
+  </div>
+</div>

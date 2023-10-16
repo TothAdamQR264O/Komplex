@@ -18,9 +18,10 @@ export class SzerzodesService {
     return this.http.get<SzerzodesDTO[]>('/api/lak');
   }
 
-  getTulaj(){
-    return this.http.get<SzerzodesDTO[]>('/api/home/:hazId');
+  getTulaj(hazId: number){
+    return this.http.get<SzerzodesDTO[]>(`/api/home/${hazId}`);
   }
+
   /*
 
   create(hazId: number, applyId: number){

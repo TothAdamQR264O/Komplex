@@ -71,6 +71,10 @@ export class HazComponent {
     this.router.navigate([ '/appys', id ]);
   }
 
+  goToTheApply(id: number) {
+    this.router.navigate([ '/resident', id ]);
+  }
+
   reloadPage() {
     setTimeout(() => {
       window.location.reload();

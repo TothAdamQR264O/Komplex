@@ -78,15 +78,15 @@ export class SzerzodesController extends Controller{
 
     getTulaj = async (req, res) => {
         try {
-            const tulaj = await this.foberloRepository.findOneBy({
-                id: req.auth.id
+            const haz = await this.hazRepository.findOneBy({
+                id: req.params.hazId
             });
-            if (!tulaj) {
-                return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
+            if (!haz) {
+                return this.handleError(res, null, 400, "A megadott azonosítóval nem található ház.");
             }
 
             const entities = await this.repository.findBy({
-                tid: { id: req.auth.id }
+                hid: { id: haz.id }
             });
             res.json(entities);
         } catch (err) {

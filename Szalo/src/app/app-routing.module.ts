@@ -9,6 +9,7 @@ import { RegisztralasComponent } from './Components/logreg/regisztralas/regisztr
 import { AuthService } from './services/auth.service';
 import { JelentkezokComponent } from './Components/foberlo/jelentkezok/jelentkezok.component';
 import { SzerzodesComponent } from './Components/foberlo/szerzodes/szerzodes.component';
+import { LakoComponent } from './Components/foberlo/lako/lako.component';
 
 const routes: Routes = [
   { path: '', component: BejelentkezesComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'keres', component: KeresoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'appys/:hazId', component: JelentkezokComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'contract/:id', component: SzerzodesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  { path: 'resident/:hazId', component: LakoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] } 
 ];
 
