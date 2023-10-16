@@ -33,14 +33,14 @@
       <form [formGroup]="szerzodesForm" *ngIf="!changeVisable()">
           <div class="mb-3">
               <label for="kezdido" class="form-label">Bérlési idő kezdete</label>
-              <input type="text" class="form-control" id="kezdido" name="kezdido" placeholder="2023.09.01" formControlName="kezdido">
+              <input type="date" class="form-control" id="kezdido" name="kezdido" placeholder="2023.09.01" formControlName="kezdido">
               <small class="text-danger" *ngIf="(szerzodesForm.get('kezdido')?.touched || szerzodesForm.get('kezdido')?.dirty) && szerzodesForm.get('kezdido')?.hasError('required')">
                   A kezdés idejének megadása kötelező.
               </small>
           </div>
           <div class="mb-3">
               <label for="vegido" class="form-label">Bérlési idő vége</label>
-              <input type="text" class="form-control" id="vegido" name="vegido" placeholder="2024.08.30" formControlName="vegido">
+              <input type="date" class="form-control" id="vegido" name="vegido" placeholder="2024.08.30" formControlName="vegido">
               <small class="text-danger" *ngIf="(szerzodesForm.get('vegido')?.touched || szerzodesForm.get('vegido')?.dirty) && szerzodesForm.get('vegido')?.hasError('required')">
                   A bérlési idő végének megadása kötelező.
               </small>
