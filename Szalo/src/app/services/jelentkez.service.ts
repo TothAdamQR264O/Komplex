@@ -18,6 +18,6 @@ export class JelentkezService {
   }
 
   getOne(id: number){
-    return this.http.get<JelentkezesDTO>(`/api/contract/` + id);
+    return this.http.get<JelentkezesDTO>(`/api/jelentkez/` + id);
   }
 }

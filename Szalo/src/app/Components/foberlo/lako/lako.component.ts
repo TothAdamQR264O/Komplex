@@ -16,64 +16,8 @@ export class LakoComponent {
   visable = true;
   isNewEvent = true;
 
-  fberlo: FoberloDTO = ({
-    id: 0,
-    namefb: '',
-    email: '',
-    password: '',
-    szamlaszamfb: '',
-    telfb: 0
-  });
-  haziko: HazDTO = ({
-    id: 0,
-    hrsz: "",
-    irsz: 0,
-    telepules: "",
-    cim: "",
-    reszi: 0,
-    ar: 0,
-    szobakszama: 0,
-    meret: 0,
-    tulaj: this.fberlo,
-    alapot: "",
-    konfort: "",
-    emelet: 0,
-    szint: 0,
-    lift: "",
-    legkondi: "",
-    butorozott: "",
-    koltozheto: "",
-    minberido: 0,
-    fureswc: "",
-    kilatas: "",
-    erkelymeret: 0,
-    gepesitet: "",
-    hirdet: "",
-  });
-  berlo: BerloDTO = ({
-    id: 0,
-    nameb: '',
-    email: '',
-    password: '',
-    szamlaszamb: '',
-    telb: 0
-  });
-  szerzodes: SzerzodesDTO = ({
-    id: 0,
-    kezdido: new Date,
-    vegido: new Date,
-    kaukcio: 0,
-    ggyszam: 0,
-    agyszam: 0,
-    vgyszam: 0,
-    gora: 0,
-    aora: 0,
-    vora: 0,
-    tid: this.fberlo,
-    bid: this.berlo,
-    hid: this.haziko,
-  });
-  Szer: SzerzodesDTO[] = [];
+  
+  szerzodes?: SzerzodesDTO;
   esemenyek: EsemenyDTO[] = [];
 
   esemenyForm = this.formBuilder.group({
@@ -96,11 +40,12 @@ export class LakoComponent {
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['hazId'];
+    const id = this.activatedRoute.snapshot.params['szerzodesId'];
     if (id) {
-      this.szerzodesService.getTulaj(id).subscribe({
+      this.szerzodesService.getSzerzodes(id).subscribe({
         next: (szerzodes) => {
-          this.Szer = szerzodes;
+          this.szerzodes = szerzodes;
+          console.log(this.szerzodes)
         },
         error: (err) => {
           console.error(err);

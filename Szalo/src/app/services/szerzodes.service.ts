@@ -10,8 +10,12 @@ export class SzerzodesService {
   constructor(private http: HttpClient) { }
 
 
-  create(applyId: number){
-    return this.http.post<SzerzodesDTO>(`/api/szerzodes/${applyId}`, null);
+  create(szerzodes: SzerzodesDTO){
+    return this.http.post<SzerzodesDTO>(`/api/szerzodes`, szerzodes);
+  }
+
+  getSzerzodes(id: number) {
+    return this.http.get<SzerzodesDTO>(`/api/szerzodes/${id}`);
   }
 
   getBerlo(){

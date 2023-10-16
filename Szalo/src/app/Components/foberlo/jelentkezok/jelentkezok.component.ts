@@ -17,7 +17,7 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
 })
 export class JelentkezokComponent {
   ideiglenesHazID = 0;
-  jelentkezok: JelentkezesDTO[] = [];
+  jelentkezesek: JelentkezesDTO[] = [];
   visable = true;
   applyId = -300;
   fberlo: FoberloDTO = ({
@@ -100,7 +100,7 @@ export class JelentkezokComponent {
       this.ideiglenesHazID = id;
       this.jelentkezService.getAll(id).subscribe({
         next: (appy) => {
-          this.jelentkezok = appy;
+          this.jelentkezesek = appy;
         },
         error: (err) => {
           console.error(err);
@@ -117,7 +117,7 @@ export class JelentkezokComponent {
   }
 
   saveContract(){
-    const apply = this.szerzodesForm.value as SzerzodesDTO;
+    /*const apply = this.szerzodesForm.value as SzerzodesDTO;
     console.log(this.jelentkezo.id);
     this.szerzodesService.create(this.jelentkezo.id).subscribe({
       next: (apply) => { 
@@ -126,7 +126,7 @@ export class JelentkezokComponent {
         error: (err) => {
           this.toastrService.error('Nem sikerült létrehozni a szerződést.', 'Hiba');
         }
-    });
+    });*/
 
   }
 
@@ -134,19 +134,9 @@ export class JelentkezokComponent {
     this.visable = true;
   }
 
-  selectApply(id: number){
-    /*this.jelentkezService.getOne(id).subscribe({
-      next: (apply) => {
-        this.jelentkezo = apply;
-        this.applyId = apply.id;
-      },
-      error: (err) => {
-        console.error(err);
-        this.toastrService.error('A jelentkező adatai betöltése sikertelen.', 'Hiba');
-      }
-    });
-    this.visable = false;*/
+  selectApply(id: number) {
     this.router.navigate([ '/contract', id ]);
+
   }
 
 

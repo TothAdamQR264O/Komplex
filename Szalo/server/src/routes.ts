@@ -42,20 +42,22 @@ export function getRoutes() {
 
     router.post('/jelentkez/:hazId', checkUser, jelentkezesController.create);
     router.get('/jelentkez/:hazId', checkUser, jelentkezesController.getAll);
-    router.get('/jelentkez/:id', hazController.getOne);
+    router.get('/jelentkez/:id', checkUser, jelentkezesController.getOne);
 
     const szerzodesController = new SzerzodesController();
 
-    router.post('/szerzodes/:applyId', checkUser, szerzodesController.create);
-    router.get('/lak', szerzodesController.getBerlo);
-    router.get('/home/:hazId', szerzodesController.getTulaj);
+    router.post('/szerzodes', checkUser, szerzodesController.create);
+    router.get('/szerzodes/:id', checkUser, szerzodesController.getOne);
+    router.get('/lak', checkUser, szerzodesController.getBerlo);
+    router.get('/home/:hazId', checkUser, szerzodesController.getTulaj);
 
 
     const esemenyController = new EsemenyController();
 
-    router.post('/esemeny', checkUser, esemenyController.create);
-    router.get('/esemeny', esemenyController.getAll);
-    router.get('/esemeny/:hazId', esemenyController.getOne);
+    router.post('/esemeny/:szerzodesId', checkUser, esemenyController.create);
+    router.get('/esemeny/osszes/:szerzodesId', checkUser, esemenyController.getAll);
+    router.get('/esemeny/:id', checkUser, esemenyController.getOne);
+    router.put('/esemeny/:id', checkUser, esemenyController.update);
 
     return router;
 }

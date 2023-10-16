@@ -10,10 +10,10 @@ export class Szerzodes implements SzerzodesDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'date' })
     kezdido: Date;
 
-    @Column()
+    @Column({ type: 'date' })
     vegido: Date;
 
     @Column()

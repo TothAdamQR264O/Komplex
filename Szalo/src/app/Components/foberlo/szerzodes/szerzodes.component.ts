@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BerloDTO, FoberloDTO, HazDTO, JelentkezesDTO } from 'models';
+import { BerloDTO, FoberloDTO, HazDTO, JelentkezesDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { JelentkezService } from 'src/app/services/jelentkez.service';
@@ -13,6 +13,8 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
   styleUrls: ['./szerzodes.component.css']
 })
 export class SzerzodesComponent {
+  visable = true;
+
   fberlo: FoberloDTO = ({
     id: 0,
     namefb: '',
@@ -56,7 +58,20 @@ export class SzerzodesComponent {
     telb: 0
   });
 
-  jelentkezo: JelentkezesDTO = ({
+  szerzodesForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
+    kezdido: this.formBuilder.control(new Date(), [Validators.required]),
+    vegido: this.formBuilder.control(this.getNowPlus1Year(), [Validators.required]),
+    kaukcio: this.formBuilder.control(0, [Validators.required]),
+    ggyszam: this.formBuilder.control(0, [Validators.required]),
+    agyszam: this.formBuilder.control(0, [Validators.required]),
+    vgyszam: this.formBuilder.control(0, [Validators.required]),
+    gora: this.formBuilder.control(0, [Validators.required]),
+    aora: this.formBuilder.control(0, [Validators.required]),
+    vora: this.formBuilder.control(0, [Validators.required])
+  })
+
+  jelentkezes: JelentkezesDTO = ({
     id: 0,
     berlo: this.berlo,
     haz: this.haziko,
@@ -77,7 +92,7 @@ export class SzerzodesComponent {
     if (id) {
       this.jelentkezService.getOne(id).subscribe({
         next: (apply) => {
-          this.jelentkezo = apply;
+          this.jelentkezes = apply;
           console.log("ID bent: " + id)
         },
         error: (err) => {
@@ -86,6 +101,31 @@ export class SzerzodesComponent {
         }
       });
     }
+  }
+
+  getNowPlus1Year() {
+    const now = new Date();
+    now.setFullYear(now.getFullYear() + 1);
+
+    return now;
+  }
+
+
+  saveContract(){
+    const szerzodes = this.szerzodesForm.value as SzerzodesDTO;
+    this.szerzodesService.create(szerzodes).subscribe({
+      next: (apply) => { 
+        this.toastrService.success('A szerződés sikeresen létre lett hozva.', 'Siker');
+        },
+        error: (err) => {
+          this.toastrService.error('Nem sikerült létrehozni a szerződést.', 'Hiba');
+        }
+    });
+
+  }
+
+  canceled() {
+    this.visable = true;
   }
 
 }

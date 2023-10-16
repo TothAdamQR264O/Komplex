@@ -21,21 +21,6 @@ export class SzerzodesController extends Controller{
             if (!tulaj) {
                 return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
             }
-            /*
-            const ingatlan = await this.hazRepository.findOneBy({
-                id: req.params.hazId
-            });
-            if (!ingatlan) {
-                return this.handleError(res, null, 400, "A megadott azonosítóval nem található ingatlan.");
-            }
-
-            const berlo = await this.berloRepository.findOneBy({
-                id: req.params.berloId
-            });
-            if (!berlo) {
-                return this.handleError(res, null, 400, "A megadott azonosítóval nem található ingatlan.");
-            }*/
-
             const apply= await this.jelntkezrepository.findOneBy({
                 id: req.params.applyId
             });
@@ -51,6 +36,11 @@ export class SzerzodesController extends Controller{
             
             const result = await this.repository.insert(entity);
             const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
+
+            const masJelentkezesek = await this.jelntkezrepository.findBy({
+                haz: { id: entity.hid.id }
+            });
+            await this.jelntkezrepository.remove(masJelentkezesek);
  
             res.json(inserted);
         } catch (err) {
