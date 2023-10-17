@@ -12,6 +12,12 @@ export class Esemeny implements EsemenyDTO {
     @Column({nullable: false })
     datum: Date;
 
+    @Column({ type: "varchar", nullable: false})
+    tipus: string;
+
+    @Column({ type: "varchar", nullable: false})
+    rendhasz: string;
+
     @Column({nullable: false })
     koltseg: number;
 

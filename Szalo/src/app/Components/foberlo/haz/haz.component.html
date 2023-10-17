@@ -169,7 +169,7 @@
                     Az álapot megadása kötelező.
                 </small>
             </div>
-            <div class="mb-3">
+            <!--<div class="mb-3">
                 <label for="konfort" class="form-label">Konfort</label>
                 <select name="konfort" id="konfort" class="form-select" formControlName="konfort">
                     <option value="Luxus">Luxus</option>
@@ -182,7 +182,17 @@
                 <small class="text-danger" *ngIf="(hazForm.get('konfort')?.touched || hazForm.get('konfort')?.dirty) && hazForm.get('konfort')?.hasError('required')">
                     A konfort megadása kötelező.
                 </small>
+            </div>-->
+
+            <div *ngFor="let konfort of konfortArr">
+            <input type="radio" name="konfort" id="konfort" for="konfort" formControlName="konfort" value="{{konfort.value}}" (change)="onRadioChange($event)">
+            <label>{{konfort.label}}</label>
             </div>
+            <small class="text-danger" *ngIf="(hazForm.get('konfort')?.touched || hazForm.get('konfort')?.dirty) && hazForm.get('konfort')?.hasError('required')">
+                A konfort megadása kötelező.
+            </small>
+
+
             <div class="mb-3">
                 <label for="emelet" class="form-label">Emelet</label>
                 <input type="number" class="form-control" id="emelet" name="emelet" placeholder="3" formControlName="emelet">
@@ -206,7 +216,8 @@
                     Az épület szintjeinek számának értéke nem lehet minusz.
                 </small>
             </div>
-            <div class="mb-3">
+
+            <!--<div class="mb-3">
                 <label for="lift" class="form-label">Lift</label>
                 <select name="lift" id="lift" class="form-select" formControlName="lift">
                     <option value="Nincs">Nincs</option>
@@ -215,7 +226,13 @@
                 <small class="text-danger" *ngIf="(hazForm.get('lift')?.touched || hazForm.get('lift')?.dirty) && hazForm.get('lift')?.hasError('required')">
                     A lift megadása kötelező.
                 </small>
+            </div>-->
+
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="lift" (change)="onSwicChange($event)">
+                <label class="form-check-label" for="lift">Lift</label>
             </div>
+            
             <div class="mb-3">
                 <label for="legkondi" class="form-label">Légkondicionáló</label>
                 <select name="legkondi" id="legkondi" class="form-select" formControlName="legkondi">

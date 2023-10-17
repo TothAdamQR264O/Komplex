@@ -37,7 +37,7 @@ export class HazComponent {
     konfort: this.formBuilder.control("", [Validators.required]),
     emelet: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
     szint: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
-    lift: this.formBuilder.control("", [Validators.required]),
+    lift: this.formBuilder.control(""),
     legkondi: this.formBuilder.control("", [Validators.required]),
     butorozott: this.formBuilder.control("", [Validators.required]),
     koltozheto: this.formBuilder.control("", [Validators.required]),
@@ -59,6 +59,66 @@ export class HazComponent {
     private foberloService: FoberloService,
     private activatedRoute: ActivatedRoute
   ) { }
+
+  selectedKonfort: any = ';'
+  konfortArr = [
+    {
+      label:'Luxus',
+      value: 'Luxus'
+    },
+    {
+      label:'Duplakonfort',
+      value: 'Duplakonfort'
+    },
+    {
+      label:'Összkonfort',
+      value: 'Összkonfort'
+    },
+    {
+      label:'Konfortos',
+      value: 'Konfortos'
+    },
+    {
+      label:'Félkonfortos',
+      value: 'Félkonfortos'
+    },
+    {
+      label:'Konfort nélküli',
+      value: 'Konfort nélküli'
+    },
+  ];
+
+  onRadioChange(event:any){
+    
+    // Kiválasztja az értéket
+    this.selectedKonfort = event.target.value;
+    if(event.target.value == "Luxus"){
+      this.hazForm.value.konfort = event.target.value;
+    }else if(event.target.value == "Duplakonfort"){
+      this.hazForm.value.konfort = event.target.value;
+    }else if(event.target.value == "Összkonfort"){
+      this.hazForm.value.konfort = event.target.value;
+    }else if(event.target.value == "Konfortos"){
+      this.hazForm.value.konfort = event.target.value;
+    }else if(event.target.value == "Félkonfortos"){
+      this.hazForm.value.konfort = event.target.value;
+    }else if(event.target.value == "Konfort nélküli"){
+      this.hazForm.value.konfort = event.target.value;
+    }
+  }
+
+  switchVolume = -1;
+  onSwicChange(event:any){
+    this.switchVolume *=-1;
+  }
+
+  liftVolume(){
+    if(this.switchVolume == 1){
+      this.hazForm.value.lift = "Igen";
+    }else{
+      this.hazForm.value.lift = "Nem";
+    }
+  }
 
 
   logout() {

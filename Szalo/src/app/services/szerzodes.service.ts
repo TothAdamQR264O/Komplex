@@ -23,7 +23,7 @@ export class SzerzodesService {
   }
 
   getTulaj(hazId: number){
-    return this.http.get<SzerzodesDTO[]>(`/api/home/${hazId}`);
+    return this.http.get<SzerzodesDTO[]>(`/api/szerzodes/${hazId}`);
   }
 
   /*

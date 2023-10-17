@@ -11,18 +11,18 @@ export class EsemenyService {
 
 
   getAll(){
-    return this.http.get<EsemenyDTO[]>('/api/event');
+    return this.http.get<EsemenyDTO[]>('/api/esemeny/osszes');
   }
 
   create(event: EsemenyDTO){
-    return this.http.post<EsemenyDTO>('/api/event', event);
+    return this.http.post<EsemenyDTO>('/api/esemeny', event);
   }
 
   getOne(id: number){
-    return this.http.get<EsemenyDTO>('/api/event/' + id);
+    return this.http.get<EsemenyDTO>('/api/esemeny/' + id);
   }
 
   update(event: EsemenyDTO){
-    return this.http.put<EsemenyDTO>('/api/event', event);
+    return this.http.put<EsemenyDTO>('/api/esemeny', event);
   }
 }

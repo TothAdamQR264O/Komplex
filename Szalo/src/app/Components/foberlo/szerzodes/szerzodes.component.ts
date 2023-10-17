@@ -88,12 +88,10 @@ export class SzerzodesComponent {
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
-    console.log("ID kint: " + id)
     if (id) {
       this.jelentkezService.getOne(id).subscribe({
         next: (apply) => {
           this.jelentkezes = apply;
-          console.log("ID bent: " + id)
         },
         error: (err) => {
           console.error(err);

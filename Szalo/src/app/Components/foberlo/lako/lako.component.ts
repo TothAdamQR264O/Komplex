@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BerloDTO, EsemenyDTO, FoberloDTO, HazDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,6 +23,8 @@ export class LakoComponent {
   esemenyForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     datum: this.formBuilder.control(new Date(), [Validators.required]),
+    tipus: this.formBuilder.control("", [Validators.required]),
+    rendhasz: this.formBuilder.control("", [Validators.required]),
     koltseg: this.formBuilder.control(0, [Validators.required]),
     koltsvis: this.formBuilder.control("", [Validators.required]),
     alapot: this.formBuilder.control("", [Validators.required]),
@@ -35,6 +37,7 @@ export class LakoComponent {
     private toastrService: ToastrService,
     private szerzodesService: SzerzodesService,
     private formBuilder: FormBuilder,
+    private router: Router,
     private esemenyService: EsemenyService,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -49,7 +52,7 @@ export class LakoComponent {
         },
         error: (err) => {
           console.error(err);
-          this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
+          this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
         }
       });
 
@@ -57,14 +60,14 @@ export class LakoComponent {
         next: (esemeny) => this.esemenyek = esemeny,
         error: (err) => {
           console.error(err);
-          this.toastrService.error('Nem létezik esemény, vagy nem lehet betölteni0', 'Hiba');
+          this.toastrService.error('Nem létezik esemény, vagy nem lehet betölteni', 'Hiba');
         }
       })
     }
   }
 
   eventMake(){
-    this.visable = false;
+    this.router.navigate([ '/event' ]);
   }
 
   canceled() {

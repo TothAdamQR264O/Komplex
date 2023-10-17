@@ -87,6 +87,8 @@ export interface OsszegekDTO {
 export interface EsemenyDTO {
     id: number;
     datum: Date;
+    tipus: string;
+    rendhasz: string;
     koltseg: number;
     koltsvis: string;
     alapot: string;

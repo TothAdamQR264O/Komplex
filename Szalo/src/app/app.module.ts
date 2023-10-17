@@ -19,6 +19,7 @@ import { SzerkesztesComponent } from './Components/foberlo/szerkesztes/szerkeszt
 import { JelentkezokComponent } from './Components/foberlo/jelentkezok/jelentkezok.component';
 import { SzerzodesComponent } from './Components/foberlo/szerzodes/szerzodes.component';
 import { LakoComponent } from './Components/foberlo/lako/lako.component';
+import { EsemenyComponent } from './Components/foberlo/esemeny/esemeny.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { LakoComponent } from './Components/foberlo/lako/lako.component';
     SzerkesztesComponent,
     JelentkezokComponent,
     SzerzodesComponent,
-    LakoComponent
+    LakoComponent,
+    EsemenyComponent
   ],
   imports: [
     BrowserModule,
