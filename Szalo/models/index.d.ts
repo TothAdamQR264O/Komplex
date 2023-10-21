@@ -109,3 +109,13 @@ export interface JelentkezesDTO {
     berlo: BerloDTO;
     haz: HazDTO;
 }
+
+export interface HaviosszesitoDTO {
+    id: number;
+    datum: Date;
+    ar: number;
+    rezsi: number;
+    egyeb: number;
+    osszesen: number;
+    szid: SzerzodesDTO;
+}

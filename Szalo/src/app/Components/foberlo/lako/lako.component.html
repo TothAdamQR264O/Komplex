@@ -1,3 +1,4 @@
+<!--
 <div class="row" *ngIf="changeVisable()">
     <table class="table">
         <thead>
@@ -11,7 +12,7 @@
             <th scope="col">Főbérlő neve</th>
             <th scope="col">Email</th>
             <th scope="col">Telefon szám</th>
-            <th scope="col">Befizetés</th>
+            <th scope="col">Havi összesítés</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -25,12 +26,76 @@
             <th scope="col">{{ szerzodes?.bid?.nameb }}</th>
             <th scope="col">{{ szerzodes?.bid?.email }}</th>
             <th scope="col">{{ szerzodes?.bid?.telb }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" >Befizetés</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" >Havi összesítés</button></th>
           </tr>
         </tbody>
       </table>
-</div>
+</div>-->
 
+<div class="row"  *ngIf="changeVisable()">
+  <div>Másik módszer</div>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Helyrajzi szám</th>
+          <th scope="col">Írszám</th>
+          <th scope="col">Település</th>
+          <th scope="col">Cím</th>
+          <th scope="col">Rezsi</th>
+          <th scope="col">Ár</th>
+          <th scope="col">Főbérlő neve</th>
+          <th scope="col">Email</th>
+          <th scope="col">Telefon szám</th>
+          <th scope="col">Havi összesítés</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr *ngFor="let haz of sze">
+          <th scope="col">{{ haz.hid.hrsz }}</th>
+          <th scope="col">{{ haz.hid.irsz }}</th>
+          <th scope="col">{{ haz.hid.telepules }}</th>
+          <th scope="col">{{ haz.hid.cim }}</th>
+          <th scope="col">{{ haz.hid.reszi }}</th>
+          <th scope="col">{{ haz.hid.ar }}</th>
+          <th scope="col">{{ haz.bid.nameb }}</th>
+          <th scope="col">{{ haz.bid.email }}</th>
+          <th scope="col">{{ haz.bid.telb }}</th>
+          <th scope="col"><button class="btn btn-outline-primary" >Havi összesítés</button></th>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<!--
+<div class="row"  *ngIf="changeVisable()">
+  <div>Harmadik módszer</div>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Helyrajzi szám</th>
+          <th scope="col">Írszám</th>
+          <th scope="col">Település</th>
+          <th scope="col">Cím</th>
+          <th scope="col">Szerkesztés</th>
+          <th scope="col">Jelentkezők</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr *ngFor="let haz2 of sze2">
+          <th scope="col">{{ haz2.hid.id }}</th>
+          <th scope="col">{{ haz2.hid.hrsz }}</th>
+          <th scope="col">{{ haz2.hid.irsz }}</th>
+          <th scope="col">{{ haz2.hid.telepules }}</th>
+          <th scope="col">{{ haz2.hid.cim }}</th>
+          <th scope="col">{{ haz2.hid.reszi }}</th>
+          <th scope="col">{{ haz2.hid.ar }}</th>
+          <th scope="col">{{ haz2.bid.nameb }}</th>
+          <th scope="col">{{ haz2.bid.email }}</th>
+          <th scope="col">{{ haz2.bid.telb }}</th>
+        </tr>
+      </tbody>
+    </table>
+</div>
+-->
 <div class="row"  *ngIf="changeVisable()">
   <div>Események</div>
   <table class="table">

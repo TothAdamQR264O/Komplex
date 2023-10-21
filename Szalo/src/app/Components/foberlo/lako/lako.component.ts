@@ -18,6 +18,8 @@ export class LakoComponent {
 
   
   szerzodes?: SzerzodesDTO;
+  sze: SzerzodesDTO[] = [];
+  sze2: SzerzodesDTO[] = [];
   esemenyek: EsemenyDTO[] = [];
 
   esemenyForm = this.formBuilder.group({
@@ -44,26 +46,41 @@ export class LakoComponent {
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['szerzodesId'];
-    if (id) {
-      this.szerzodesService.getSzerzodes(id).subscribe({
-        next: (szerzodes) => {
-          this.szerzodes = szerzodes;
-          console.log(this.szerzodes)
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
+    console.log("Az ID értéke: " + id);
+    this.szerzodesService.getAll().subscribe({
+      next: (szerzodes) => {
+        for(var index in szerzodes){
+          console.log(index + ". lekérés ID-je: " + szerzodes[index].hid.id)
+          if(szerzodes[index].hid.id == id){
+            this.sze.push(szerzodes[index]);
+          }
         }
-      });
+        console.log(this.szerzodes)
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
+      }
+    });
 
-      this.esemenyService.getAll().subscribe({
-        next: (esemeny) => this.esemenyek = esemeny,
-        error: (err) => {
-          console.error(err);
-          this.toastrService.error('Nem létezik esemény, vagy nem lehet betölteni', 'Hiba');
-        }
-      })
-    }
+    this.szerzodesService.getTulaj(id).subscribe({
+      next: (szerzodes) => {
+        this.sze2 = szerzodes;
+        console.log(this.szerzodes)
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
+      }
+    });
+
+    this.esemenyService.getAll().subscribe({
+      next: (esemeny) => this.esemenyek = esemeny,
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('Nem létezik esemény, vagy nem lehet betölteni', 'Hiba');
+      }
+    })
   }
 
   eventMake(){

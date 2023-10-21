@@ -5,9 +5,11 @@ import { AppDataSource } from "../data-source";
 import { Esemeny } from "../entity/Esemeny";
 import { Foberlo } from "../entity/Foberlo";
 import { Szerzodes } from "../entity/Szerzodes";
+import { Haviosszesito } from "../entity/Haviosszesito";
 
-export class EsemenyController extends Controller{
-    repository = AppDataSource.getRepository(Esemeny);
+export class HaviosszesitoController extends Controller{
+    repository = AppDataSource.getRepository(Haviosszesito);
+    esemenyRepository = AppDataSource.getRepository(Esemeny);
     hazRepository = AppDataSource.getRepository(Haz);
     berloRepository = AppDataSource.getRepository(Berlo);
     foberloRepository = AppDataSource.getRepository(Foberlo);
@@ -16,7 +18,7 @@ export class EsemenyController extends Controller{
     create = async (req, res) => {
         try {
             const szerzodes = await this.szerzodesRepository.findOneBy({
-                id: req.params.dokumentum
+                id: req.params.szid
             });
             if (!szerzodes) {
                 return this.handleError(res, null, 400, "A megadott azonosítóval nem található ház.");
@@ -24,7 +26,11 @@ export class EsemenyController extends Controller{
 
             const entity = this.repository.create(req.body as object);
             entity.id = null;
-            entity.dokumentum = szerzodes;
+            entity.ar = szerzodes.hid.ar;
+            entity.rezsi = szerzodes.hid.reszi;
+            
+            entity.osszesen = entity.ar + entity.rezsi + entity.egyeb;
+            entity.szid = szerzodes;
             
             const result = await this.repository.insert(entity);
             const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
@@ -34,37 +40,4 @@ export class EsemenyController extends Controller{
             this.handleError(res, err);
         }
     };
-
-    getAll = async (req, res) => {
-        try {
-            const haz = await this.hazRepository.findOneBy({
-                id: req.params.hazId
-            });
-            if (!haz) {
-                return this.handleError(res, null, 400, "A megadott azonosítóval nem található ház.");
-            }
-
-            const entities = await this.repository.findBy({
-                dokumentum: { id: haz.id }
-            });
-            res.json(entities);
-        } catch (err) {
-            this.handleError(res, err);
-        }
-    };
-
-    getOne = async (req, res) => {
-        try {
-            const id = req.params.id;
-            const entity = await this.repository.findOneBy({ id: id });
-            if (!entity) {
-                return this.handleError(res, null, 404, 'Nem található entitás ezzel az azonosítóval.');
-            }
-
-            res.json(entity);
-        } catch (err) {
-            this.handleError(res, err);
-        }
-    };
-
 }

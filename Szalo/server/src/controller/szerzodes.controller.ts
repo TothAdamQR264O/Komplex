@@ -67,16 +67,18 @@ export class SzerzodesController extends Controller{
     };
 
     getTulaj = async (req, res) => {
+        console.log("Le fut ez a vacak?")
         try {
             const haz = await this.hazRepository.findOneBy({
-                id: req.params.hazId
+                id: req.params.hid
             });
             if (!haz) {
                 return this.handleError(res, null, 400, "A megadott azonosítóval nem található ház.");
             }
+            console.log("A lekérdezésben adott ház ID-je: " + haz.id)
 
             const entities = await this.repository.findBy({
-                hid: { id: haz.id }
+                hid: { id: req.params.hid }
             });
             res.json(entities);
         } catch (err) {

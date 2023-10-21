@@ -4,6 +4,7 @@ import { Foberlo } from './Foberlo';
 import { Berlo } from './Berlo';
 import { Haz } from './Haz';
 import { Esemeny } from './Esemeny';
+import { Haviosszesito } from './Haviosszesito';
 
 @Entity()
 export class Szerzodes implements SzerzodesDTO {
@@ -48,4 +49,7 @@ export class Szerzodes implements SzerzodesDTO {
 
     @OneToMany(() => Esemeny, esemeny => esemeny.dokumentum)
     esemenyek: Esemeny[];
+
+    @OneToMany(() => Haviosszesito, haviosszeg => haviosszeg.szid)
+    haviosszeg: Esemeny[];
 }

@@ -20,6 +20,7 @@ import { JelentkezokComponent } from './Components/foberlo/jelentkezok/jelentkez
 import { SzerzodesComponent } from './Components/foberlo/szerzodes/szerzodes.component';
 import { LakoComponent } from './Components/foberlo/lako/lako.component';
 import { EsemenyComponent } from './Components/foberlo/esemeny/esemeny.component';
+import { HaviosszesitoComponent } from './Components/foberlo/haviosszesito/haviosszesito.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EsemenyComponent } from './Components/foberlo/esemeny/esemeny.component
     JelentkezokComponent,
     SzerzodesComponent,
     LakoComponent,
-    EsemenyComponent
+    EsemenyComponent,
+    HaviosszesitoComponent
   ],
   imports: [
     BrowserModule,
