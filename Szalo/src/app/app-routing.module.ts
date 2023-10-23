@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'appys/:hazId', component: JelentkezokComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'contract/:id', component: SzerzodesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'event', component: EsemenyComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  { path: 'event/:id', component: EsemenyComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'monthlysummary', component: HaviosszesitoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'resident/:szerzodesId', component: LakoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] } 

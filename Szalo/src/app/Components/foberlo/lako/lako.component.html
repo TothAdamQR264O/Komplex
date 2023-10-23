@@ -33,7 +33,6 @@
 </div>-->
 
 <div class="row"  *ngIf="changeVisable()">
-  <div>Másik módszer</div>
   <table class="table">
       <thead>
         <tr>
@@ -46,21 +45,19 @@
           <th scope="col">Főbérlő neve</th>
           <th scope="col">Email</th>
           <th scope="col">Telefon szám</th>
-          <th scope="col">Havi összesítés</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
-        <tr *ngFor="let haz of sze">
-          <th scope="col">{{ haz.hid.hrsz }}</th>
-          <th scope="col">{{ haz.hid.irsz }}</th>
-          <th scope="col">{{ haz.hid.telepules }}</th>
-          <th scope="col">{{ haz.hid.cim }}</th>
-          <th scope="col">{{ haz.hid.reszi }}</th>
-          <th scope="col">{{ haz.hid.ar }}</th>
-          <th scope="col">{{ haz.bid.nameb }}</th>
-          <th scope="col">{{ haz.bid.email }}</th>
-          <th scope="col">{{ haz.bid.telb }}</th>
-          <th scope="col"><button class="btn btn-outline-primary" (click)="makeMonSumary()" >Havi összesítés</button></th>
+        <tr>
+          <th scope="col">{{ szerzodes?.hid?.hrsz }}</th>
+          <th scope="col">{{ szerzodes?.hid?.irsz }}</th>
+          <th scope="col">{{ szerzodes?.hid?.telepules }}</th>
+          <th scope="col">{{ szerzodes?.hid?.cim }}</th>
+          <th scope="col">{{ szerzodes?.hid?.reszi }}</th>
+          <th scope="col">{{ szerzodes?.hid?.ar }}</th>
+          <th scope="col">{{ szerzodes?.bid?.nameb }}</th>
+          <th scope="col">{{ szerzodes?.bid?.email }}</th>
+          <th scope="col">{{ szerzodes?.bid?.telb }}</th>
         </tr>
       </tbody>
     </table>
@@ -104,7 +101,6 @@
           <th scope="col">ID</th>
           <th scope="col">Dátum</th>
           <th scope="col">Költség</th>
-          <th scope="col">Cím</th>
           <th scope="col">Megjegyzés</th>
           <th scope="col">Szerkeztés</th>
         </tr>
@@ -115,12 +111,37 @@
           <th scope="col">{{ event.datum }}</th>
           <th scope="col">{{ event.koltseg }}</th>
           <th scope="col">{{ event.megjegyzes }}</th>
-          <th scope="col"><button class="btn btn-outline-primary" >Szerkesztés</button></th>
+          <th scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">Szerkesztés</button></th>
         </tr>
       </tbody>
     </table>
   <div class="text-center">
       <button class="btn btn-outline-primary" (click)="eventMake()">+</button>
+  </div>
+</div>
+
+<div class="row"  *ngIf="changeVisable()">
+  <div>Események</div>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr *ngFor="let osszesito of osszesitok">
+          <th scope="col">{{ osszesito.id }}</th>
+          
+        </tr>
+      </tbody>
+    </table>
+  <div class="text-center">
+      <select [(ngModel)]="osszesitoLehetoseg">
+        <option *ngFor="let lehetoseg of osszesitoLehetosegek" [ngValue]="lehetoseg">
+          {{ lehetoseg.ev }}/{{ lehetoseg.honap }}
+        </option>
+      </select>
+      <button class="btn btn-outline-primary" (click)="osszesitoGeneralas()">Új összesítő</button>
   </div>
 </div>
 

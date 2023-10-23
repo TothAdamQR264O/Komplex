@@ -86,13 +86,14 @@ export interface OsszegekDTO {
 
 export interface EsemenyDTO {
     id: number;
-    datum: Date;
+    datum: string;
     tipus: string;
-    rendhasz: string;
+    rendhasz: boolean;
     koltseg: number;
     koltsvis: string;
     alapot: string;
     megjegyzes: string;
+    zarasDatum: string;
     dokumentum: SzerzodesDTO;
 }
 
@@ -113,9 +114,28 @@ export interface JelentkezesDTO {
 export interface HaviosszesitoDTO {
     id: number;
     datum: Date;
-    ar: number;
-    rezsi: number;
-    egyeb: number;
-    osszesen: number;
-    szid: SzerzodesDTO;
+    ev: number;
+    honap: number; 
+    fizetve: boolean;
+    //tetelek: OsszesitoTetel[]; 
+    //szamla: Szamla;
+    szerzodes: SzerzodesDTO;
+}
+
+export interface OsszesitoLehetosegDTO {
+    ev: number;
+    honap: number;
+}
+
+export interface OsszesitoTetelDTO {
+    id: number;
+    megnevezes: string;
+    mennyiseg: number;
+    osszeg: number;
+}
+
+export interface SzamlazzHuIntegracioDTO {
+    id: number;
+    apiKulcs: string;
+    tulajdonos: FoberloDTO;
 }

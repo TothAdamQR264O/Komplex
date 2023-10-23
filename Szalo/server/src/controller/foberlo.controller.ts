@@ -4,7 +4,6 @@ import { Controller } from "./base.controller";
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-require('dotenv').config()
 
 export class FoberloController extends Controller{
     repository = AppDataSource.getRepository(Foberlo);

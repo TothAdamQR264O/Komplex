@@ -6,7 +6,7 @@ import { checkUser } from './protect-routes';
 import { JelentkezesController } from './controller/jelentkezes.controller';
 import { SzerzodesController } from './controller/szerzodes.controller';
 import { EsemenyController } from './controller/esemeny.controller';
-import { HaviosszesitoController } from './controller/Haviosszesito';
+import { HaviosszesitoController } from './controller/haviosszesito.controller';
 
 export function getRoutes() {
     const router = express.Router();
@@ -49,21 +49,21 @@ export function getRoutes() {
 
     router.post('/szerzodes', checkUser, szerzodesController.create);
     router.get('/szerzodes', checkUser, szerzodesController.getAll);
+    router.get('/szerzodes/sajat', checkUser, szerzodesController.getTulaj);
     router.get('/szerzodes/:id', checkUser, szerzodesController.getOne);
     router.get('/lak', checkUser, szerzodesController.getBerlo);
-    router.get('/szerzodes:hazId', checkUser, szerzodesController.getTulaj);
-
-
+    
     const esemenyController = new EsemenyController();
 
     router.post('/esemeny', checkUser, esemenyController.create);
     router.get('/esemeny/osszes/:szerzodesId', checkUser, esemenyController.getAll);
     router.get('/esemeny/:id', checkUser, esemenyController.getOne);
-    router.put('/esemeny/:id', checkUser, esemenyController.update);
+    router.put('/esemeny', checkUser, esemenyController.update);
 
     const haviosszController = new HaviosszesitoController();
 
-    router.post('/monsummary', checkUser, haviosszController.create);
+    router.get('/osszesito/:szerzodesId/lehetosegek', checkUser, haviosszController.getLehetosegek);
+    router.post('/osszesito/:szerzodesId/:evszam/:honapszam', checkUser, haviosszController.create);
 
     return router;
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BerloDTO, EsemenyDTO, FoberloDTO, HaviosszesitoDTO, HazDTO, SzerzodesDTO } from 'models';
+import { BerloDTO, EsemenyDTO, FoberloDTO, HaviosszesitoDTO, HazDTO, OsszesitoLehetosegDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { EsemenyService } from 'src/app/services/esemeny.service';
@@ -19,30 +19,22 @@ export class LakoComponent {
 
   
   szerzodes?: SzerzodesDTO;
-  sze: SzerzodesDTO[] = [];
-  sze2: SzerzodesDTO[] = [];
   esemenyek: EsemenyDTO[] = [];
+  osszesitok: HaviosszesitoDTO[] = [];
+  osszesitoLehetosegek: OsszesitoLehetosegDTO[] = [];
+
+  osszesitoLehetoseg!: OsszesitoLehetosegDTO;
 
   esemenyForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
-    datum: this.formBuilder.control(new Date(), [Validators.required]),
+    datum: this.formBuilder.control("2023-10-23", [Validators.required]),
     tipus: this.formBuilder.control("", [Validators.required]),
-    rendhasz: this.formBuilder.control("", [Validators.required]),
+    rendhasz: this.formBuilder.control(true, [Validators.required]),
     koltseg: this.formBuilder.control(0, [Validators.required]),
     koltsvis: this.formBuilder.control("", [Validators.required]),
     alapot: this.formBuilder.control("", [Validators.required]),
     megjegyzes: this.formBuilder.control("", [Validators.required]),
     dokumentum: this.formBuilder.control(this.szerzodes),
-  })
-
-  haviosszesitoForm = this.formBuilder.group({
-    id: this.formBuilder.control(0),
-    datum: this.formBuilder.control(new Date(), [Validators.required]),
-    ar: this.formBuilder.control(0, [Validators.required]),
-    rezsi: this.formBuilder.control(0, [Validators.required]),
-    egyeb: this.formBuilder.control(0, [Validators.required]),
-    osszesen: this.formBuilder.control(0, [Validators.required]),
-    szid: this.formBuilder.control(this.szerzodes),
   })
   
   constructor(
@@ -57,17 +49,11 @@ export class LakoComponent {
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['szerzodesId'];
-    console.log("Az ID értéke: " + id);
-    this.szerzodesService.getAll().subscribe({
+    const szerzodesId = this.activatedRoute.snapshot.params['szerzodesId'];
+    console.log("Az ID értéke: " + szerzodesId);
+    this.szerzodesService.getOne(szerzodesId).subscribe({
       next: (szerzodes) => {
-        for(var index in szerzodes){
-          console.log(index + ". lekérés ID-je: " + szerzodes[index].hid.id)
-          if(szerzodes[index].hid.id == id){
-            this.sze.push(szerzodes[index]);
-          }
-        }
-        console.log(this.szerzodes)
+        this.szerzodes = szerzodes;
       },
       error: (err) => {
         console.error(err);
@@ -75,22 +61,18 @@ export class LakoComponent {
       }
     });
 
-    this.szerzodesService.getTulaj(id).subscribe({
-      next: (szerzodes) => {
-        this.sze2 = szerzodes;
-        console.log(this.szerzodes)
-      },
-      error: (err) => {
-        console.error(err);
-        this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
-      }
-    });
-
-    this.esemenyService.getAll().subscribe({
+    this.esemenyService.getAll(szerzodesId).subscribe({
       next: (esemeny) => this.esemenyek = esemeny,
       error: (err) => {
         console.error(err);
         this.toastrService.error('Nem létezik esemény, vagy nem lehet betölteni', 'Hiba');
+      }
+    })
+
+    this.haviosszesitoService.getLehetosegek(szerzodesId).subscribe({
+      next: (lehetosegek) => this.osszesitoLehetosegek = lehetosegek,
+      error: (err) => {
+        console.error(err);
       }
     })
   }
@@ -142,19 +124,16 @@ export class LakoComponent {
     return this.visable;
   }
 
-  makeMonSumary(){
-    const esemeny = this.haviosszesitoForm.value as HaviosszesitoDTO;
-    this.haviosszesitoService.create(esemeny).subscribe({
-      next: (apply) => { 
-        this.toastrService.success('Az esemény sikeresen létre lett hozva.', 'Siker');
-        },
-        error: (err) => {
-          this.toastrService.error('Nem sikerült létrehozni az eseményt.', 'Hiba');
-        }
-    });
-
-    this.router.navigate([ '/monthlysummary' ]);
+  osszesitoGeneralas() {
+    if (this.szerzodes) {
+      this.haviosszesitoService.create(this.szerzodes.id, this.osszesitoLehetoseg).subscribe({
+        next: () => this.toastrService.success('Az összesítő sikeresen létre lett hozva.', 'Siker'),
+        error: () => this.toastrService.error('Nem sikerült létrehozni az összesítőt.', 'Hiba')
+      });
+    }
   }
 
-
+  goToEvent(id: number) {
+    this.router.navigate([ 'event', id ]);
+  }
 }

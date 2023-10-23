@@ -1,7 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { FoberloDTO, SzerzodesDTO } from '../../../models';
 import { Haz } from './Haz';
 import { Szerzodes } from './Szerzodes';
+import { SzamlazzHuIntegracio } from './SzamlazzHuIntegracio';
 
 @Entity()
 export class Foberlo implements FoberloDTO{
@@ -22,6 +23,9 @@ export class Foberlo implements FoberloDTO{
 
     @Column()
     telfb: number;
+
+    @OneToOne(() => SzamlazzHuIntegracio)
+    szamlazzHuIntegracio: SzamlazzHuIntegracio;
 
     @OneToMany(() => Haz, haz => haz.tulaj)
     hazak: Haz[];

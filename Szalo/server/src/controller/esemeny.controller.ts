@@ -6,6 +6,8 @@ import { Esemeny } from "../entity/Esemeny";
 import { Foberlo } from "../entity/Foberlo";
 import { Szerzodes } from "../entity/Szerzodes";
 
+import moment from 'moment';
+
 export class EsemenyController extends Controller{
     repository = AppDataSource.getRepository(Esemeny);
     hazRepository = AppDataSource.getRepository(Haz);
@@ -37,15 +39,8 @@ export class EsemenyController extends Controller{
 
     getAll = async (req, res) => {
         try {
-            const haz = await this.hazRepository.findOneBy({
-                id: req.params.hazId
-            });
-            if (!haz) {
-                return this.handleError(res, null, 400, "A megadott azonosítóval nem található ház.");
-            }
-
             const entities = await this.repository.findBy({
-                dokumentum: { id: haz.id }
+                dokumentum: { id: req.params.szerzodesId }
             });
             res.json(entities);
         } catch (err) {
@@ -62,6 +57,27 @@ export class EsemenyController extends Controller{
             }
 
             res.json(entity);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    update = async (req, res) => {
+        try {
+            let oldEntity = await this.repository.findOneBy({ id: req.body.id });
+            if (!oldEntity || !req.body.id) {
+                return this.handleError(res, null, 404, 'Nem található entitás ezzel az azonosítóval.');
+            }
+
+            let newEntity = this.repository.create(req.body as object);
+
+            if (oldEntity.alapot != newEntity.alapot && newEntity.alapot == 'Lezárt') {
+                newEntity.zarasDatum = moment().format('YYYY-MM-DD');
+            }
+
+            const result = await this.repository.save(newEntity);
+ 
+            res.json(result);
         } catch (err) {
             this.handleError(res, err);
         }

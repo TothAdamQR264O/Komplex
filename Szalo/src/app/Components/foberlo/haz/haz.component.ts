@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HazDTO, FoberloDTO } from 'models';
+import { HazDTO, FoberloDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { FoberloService } from 'src/app/services/foberlo.service';
 import { HouseService } from 'src/app/services/house.service';
 
 import * as _ from 'lodash';
+import { SzerzodesService } from 'src/app/services/szerzodes.service';
 
 @Component({
   selector: 'app-haz',
@@ -20,6 +21,8 @@ export class HazComponent {
   visable = true;
   valide = true;
   isNewHouse = true;
+
+  sajatSzerzodesek: SzerzodesDTO[] = [];
 
 
 
@@ -57,6 +60,7 @@ export class HazComponent {
     private router: Router,
     private formBuilder: FormBuilder,
     private foberloService: FoberloService,
+    private szerzodesService: SzerzodesService,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -131,8 +135,8 @@ export class HazComponent {
     this.router.navigate([ '/appys', id ]);
   }
 
-  goToTheApply(id: number) {
-    this.router.navigate([ '/resident', id ]);
+  goToTheApply(szerzodesId: number) {
+    this.router.navigate([ '/resident', szerzodesId ]);
   }
 
   reloadPage() {
@@ -181,6 +185,11 @@ export class HazComponent {
         }
       });
     }
+
+    this.szerzodesService.getTulaj().subscribe({
+      next: (szerzodesek) => this.sajatSzerzodesek = szerzodesek,
+      error: (err) => this.toastrService.error('Hiba a szerződések betöltésekor.', 'Hiba')
+    })
 
     this.hazForm.valueChanges.subscribe({
       next: () => this.valueValidate()

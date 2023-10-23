@@ -15,15 +15,6 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
 export class HaviosszesitoComponent {
   szerzodes?: SzerzodesDTO;
   haviosszesito?: HaviosszesitoDTO;
-  haviosszesitoForm = this.formBuilder.group({
-    id: this.formBuilder.control(0),
-    datum: this.formBuilder.control(new Date(), [Validators.required]),
-    ar: this.formBuilder.control(0, [Validators.required]),
-    rezsi: this.formBuilder.control(0, [Validators.required]),
-    egyeb: this.formBuilder.control(0, [Validators.required]),
-    osszesen: this.formBuilder.control(0, [Validators.required]),
-    szid: this.formBuilder.control(this.szerzodes),
-  })
   sze: SzerzodesDTO[] = [];
   haviossz: HaviosszesitoDTO[] = [];
   szID?: SzerzodesDTO;
@@ -89,14 +80,7 @@ export class HaviosszesitoComponent {
     });
 
     this.haviosszesitoService.getAll().subscribe({
-      next: (haviossz) => {
-        for(var index in haviossz){
-          if(haviossz[index].szid == this.szID){
-            this.haviossz.push(haviossz[index]);
-          }
-        }
-        console.log(this.szerzodes)
-      },
+      next: (haviossz) => { console.log(haviossz) },
       error: (err) => {
         console.error(err);
         this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
@@ -106,15 +90,15 @@ export class HaviosszesitoComponent {
   }
 
   saveEvent(){
-    const esemeny = this.haviosszesitoForm.value as HaviosszesitoDTO;
-    this.haviosszesitoService.create(esemeny).subscribe({
-      next: (apply) => { 
-        this.toastrService.success('Az esemény sikeresen létre lett hozva.', 'Siker');
-        },
-        error: (err) => {
-          this.toastrService.error('Nem sikerült létrehozni az eseményt.', 'Hiba');
-        }
-    });
+    // const esemeny = this.haviosszesitoForm.value as HaviosszesitoDTO;
+    // this.haviosszesitoService.create(esemeny).subscribe({
+    //   next: (apply) => { 
+    //     this.toastrService.success('Az esemény sikeresen létre lett hozva.', 'Siker');
+    //     },
+    //     error: (err) => {
+    //       this.toastrService.error('Nem sikerült létrehozni az eseményt.', 'Hiba');
+    //     }
+    // });
 
   }
 }

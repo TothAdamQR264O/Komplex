@@ -1,29 +1,31 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { HaviosszesitoDTO } from '../../../models';
 import { Szerzodes } from './Szerzodes';
+import { OsszesitoTetel } from './OsszesitoTetel';
 
 @Entity()
 export class Haviosszesito implements HaviosszesitoDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'date' })
+    @CreateDateColumn()
     datum: Date;
 
-    @Column({nullable: false })
-    ar: number;
+    @Column()
+    ev: number;
 
-    @Column({ type: 'float', nullable: false })
-    rezsi: number;
+    @Column()
+    honap: number; 
 
-    @Column({nullable: false })
-    egyeb: number;
+    @Column()
+    fizetve: boolean;
 
-    @Column({ type: 'float', nullable: false})
-    osszesen: number;
+    @OneToMany(() => OsszesitoTetel, tetel => tetel.osszesito, { cascade: true })
+    tetelek: OsszesitoTetel[]; 
+
+    //szamla: Szamla;
 
     @ManyToOne(() => Szerzodes, (szerzodes) => szerzodes.haviosszeg, { eager: true })
-    szid: Szerzodes;
+    szerzodes: Szerzodes;
 
-   
 }

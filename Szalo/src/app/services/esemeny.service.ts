@@ -10,8 +10,8 @@ export class EsemenyService {
   constructor(private http: HttpClient) { }
 
 
-  getAll(){
-    return this.http.get<EsemenyDTO[]>('/api/esemeny/osszes');
+  getAll(szerzodesId: number){
+    return this.http.get<EsemenyDTO[]>(`/api/esemeny/osszes/${szerzodesId}`);
   }
 
   create(event: EsemenyDTO){

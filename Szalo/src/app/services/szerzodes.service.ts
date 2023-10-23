@@ -18,6 +18,10 @@ export class SzerzodesService {
     return this.http.get<SzerzodesDTO[]>('/api/szerzodes');
   }
 
+  getOne(id: number){
+    return this.http.get<SzerzodesDTO>(`/api/szerzodes/${id}`);
+  }
+
   getSzerzodes(id: number) {
     return this.http.get<SzerzodesDTO>(`/api/szerzodes/${id}`);
   }
@@ -26,8 +30,8 @@ export class SzerzodesService {
     return this.http.get<SzerzodesDTO[]>('/api/lak');
   }
 
-  getTulaj(hazId: number){
-    return this.http.get<SzerzodesDTO[]>(`/api/szerzodes${hazId}`);
+  getTulaj(){
+    return this.http.get<SzerzodesDTO[]>(`/api/szerzodes/sajat`);
   }
 
   /*

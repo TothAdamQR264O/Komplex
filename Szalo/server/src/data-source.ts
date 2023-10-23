@@ -7,7 +7,9 @@ import { Szerzodes } from "./entity/Szerzodes"
 import { Jelentkezes } from "./entity/Jelentkezes"
 import { Esemeny } from "./entity/Esemeny"
 import { Haviosszesito } from "./entity/Haviosszesito"
-require('dotenv').config()
+import { OsszesitoTetel } from "./entity/OsszesitoTetel"
+import { SzamlazzHuIntegracio } from "./entity/SzamlazzHuIntegracio"
+import 'dotenv/config'
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -18,7 +20,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: true,
-    entities: [Haz, Foberlo, Szerzodes, Berlo, Jelentkezes, Esemeny, Haviosszesito],
+    entities: [Haz, Foberlo, Szerzodes, Berlo, Jelentkezes, Esemeny, Haviosszesito, OsszesitoTetel, SzamlazzHuIntegracio],
     migrations: [],
     subscribers: [],
 })

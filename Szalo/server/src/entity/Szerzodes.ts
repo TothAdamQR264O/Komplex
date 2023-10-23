@@ -50,6 +50,6 @@ export class Szerzodes implements SzerzodesDTO {
     @OneToMany(() => Esemeny, esemeny => esemeny.dokumentum)
     esemenyek: Esemeny[];
 
-    @OneToMany(() => Haviosszesito, haviosszeg => haviosszeg.szid)
-    haviosszeg: Esemeny[];
+    @OneToMany(() => Haviosszesito, haviosszeg => haviosszeg.szerzodes)
+    haviosszeg: Haviosszesito[];
 }
