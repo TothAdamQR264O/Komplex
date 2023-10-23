@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BerloDTO, EsemenyDTO, FoberloDTO, HazDTO, SzerzodesDTO } from 'models';
+import { BerloDTO, EsemenyDTO, FoberloDTO, HaviosszesitoDTO, HazDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { EsemenyService } from 'src/app/services/esemeny.service';
+import { HaviosszesitoService } from 'src/app/services/haviosszesito.service';
 import { SzerzodesService } from 'src/app/services/szerzodes.service';
 
 @Component({
@@ -33,6 +34,16 @@ export class LakoComponent {
     megjegyzes: this.formBuilder.control("", [Validators.required]),
     dokumentum: this.formBuilder.control(this.szerzodes),
   })
+
+  haviosszesitoForm = this.formBuilder.group({
+    id: this.formBuilder.control(0),
+    datum: this.formBuilder.control(new Date(), [Validators.required]),
+    ar: this.formBuilder.control(0, [Validators.required]),
+    rezsi: this.formBuilder.control(0, [Validators.required]),
+    egyeb: this.formBuilder.control(0, [Validators.required]),
+    osszesen: this.formBuilder.control(0, [Validators.required]),
+    szid: this.formBuilder.control(this.szerzodes),
+  })
   
   constructor(
     public authService: AuthService,
@@ -41,6 +52,7 @@ export class LakoComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private esemenyService: EsemenyService,
+    private haviosszesitoService: HaviosszesitoService,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -128,6 +140,20 @@ export class LakoComponent {
 
   changeVisable(): boolean {
     return this.visable;
+  }
+
+  makeMonSumary(){
+    const esemeny = this.haviosszesitoForm.value as HaviosszesitoDTO;
+    this.haviosszesitoService.create(esemeny).subscribe({
+      next: (apply) => { 
+        this.toastrService.success('Az esemény sikeresen létre lett hozva.', 'Siker');
+        },
+        error: (err) => {
+          this.toastrService.error('Nem sikerült létrehozni az eseményt.', 'Hiba');
+        }
+    });
+
+    this.router.navigate([ '/monthlysummary' ]);
   }
 
 

@@ -24,6 +24,9 @@ export class HaviosszesitoComponent {
     osszesen: this.formBuilder.control(0, [Validators.required]),
     szid: this.formBuilder.control(this.szerzodes),
   })
+  sze: SzerzodesDTO[] = [];
+  haviossz: HaviosszesitoDTO[] = [];
+  szID?: SzerzodesDTO;
 
   constructor(
     public authService: AuthService,
@@ -67,6 +70,39 @@ export class HaviosszesitoComponent {
         }
       });
     }*/
+
+    this.szerzodesService.getAll().subscribe({
+      next: (szerzodes) => {
+        for(var index in szerzodes){
+          console.log(index + ". lekérés ID-je: " + szerzodes[index].hid.id)
+          if(szerzodes[index].hid.id == id){
+            this.szID = szerzodes[index];
+            this.sze.push(szerzodes[index]);
+          }
+        }
+        console.log(this.szerzodes)
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
+      }
+    });
+
+    this.haviosszesitoService.getAll().subscribe({
+      next: (haviossz) => {
+        for(var index in haviossz){
+          if(haviossz[index].szid == this.szID){
+            this.haviossz.push(haviossz[index]);
+          }
+        }
+        console.log(this.szerzodes)
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
+      }
+    });
+
   }
 
   saveEvent(){

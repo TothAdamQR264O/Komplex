@@ -12,4 +12,8 @@ export class HaviosszesitoService {
   create(haviossz: HaviosszesitoDTO){
     return this.http.post<HaviosszesitoDTO>('/api/monsummary', haviossz);
   }
+
+  getAll(){
+    return this.http.get<HaviosszesitoDTO[]>('/api/monsummary');
+  }
 }
