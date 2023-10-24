@@ -8,6 +8,7 @@ import { Szerzodes } from "../entity/Szerzodes";
 import { Haviosszesito } from "../entity/Haviosszesito";
 
 import moment from 'moment';
+import { Client, Seller, Buyer, Item, Invoice, PaymentMethods } from 'szamlazz.js';
 import { OsszesitoLehetosegDTO } from "../../../models";
 import { OsszesitoTetel } from "../entity/OsszesitoTetel";
 
@@ -69,51 +70,52 @@ export class HaviosszesitoController extends Controller {
                 tulajdonos: { id: szerzodes.tid.id }
             });
 
-            // TODO: számlázás megoldása
-            // const { Client, Seller, Buyer, Invoice, Item, PaymentMethods } = await import('szamlazz.js');
-            // const szamlazzClient = new Client({
-            //     authToken: szamlazzHuAdatok.apiKulcs,
-            //     eInvoice: true,
-            //     requestInvoiceDownload: true,
-            //     downloadedInvoiceCount: 1,
-            //     responseVersion: 1,
-            //     timeout: 15000
-            // });
+            //TODO: számlázás megoldása
 
-            // const seller = new Seller({
-            //     bank: {
-            //         name: 'OTP Bank',
-            //         accountNumber: szerzodes.tid.szamlaszamfb
-            //     }
-            // });
+            const szamlazzClient = new Client({
+                authToken: szamlazzHuAdatok.apiKulcs,
+                eInvoice: true,
+                requestInvoiceDownload: true,
+                downloadedInvoiceCount: 1,
+                responseVersion: 1,
+                timeout: 15000
+            });
 
-            // const buyer = new Buyer({
-            //     name: szerzodes.bid.nameb,
-            //     zip: '3600',
-            //     city: 'City',
-            //     address: 'Some street address',
-            //     phone: szerzodes.bid.telb,
-            //     email: szerzodes.bid.email
-            // });
+            const seller = new Seller({
+                bank: {
+                    name: 'OTP Bank',
+                    accountNumber: szerzodes.tid.szamlaszamfb
+                }
+            });
 
-            // const items = tetelek.map(tetel => {
-            //     return new Item({
-            //         label: tetel.megnevezes,
-            //         quantity: tetel.mennyiseg,
-            //         vat: 27,
-            //         grossUnitPrice: tetel.osszeg
-            //     });
-            // });
+            const buyer = new Buyer({
+                name: szerzodes.bid.nameb,
+                zip: '3600',
+                city: 'City',
+                address: 'Some street address',
+                phone: szerzodes.bid.telb,
+                email: szerzodes.bid.email
+            });
 
-            // const invoice = new Invoice({
-            //     paymentMethod: PaymentMethods.BankTransfer,
-            //     seller: seller,
-            //     buyer: buyer,
-            //     items: items
-            // });
+            const items = tetelek.map(tetel => {
+                return new Item({
+                    label: tetel.megnevezes,
+                    quantity: tetel.mennyiseg,
+                    unit: 'hónap',
+                    vat: 27,
+                    grossUnitPrice: tetel.osszeg
+                });
+            });
 
-            // const szamla = await szamlazzClient.issueInvoice(invoice)
-            // console.log(szamla);
+            const invoice = new Invoice({
+                paymentMethod: PaymentMethods.BankTransfer,
+                seller: seller,
+                buyer: buyer,
+                items: items
+            });
+
+            const szamla = await szamlazzClient.issueInvoice(invoice);
+            console.log(szamla);
 
             const result = await this.repository.save(osszesitoEntity);
             res.json(result);
