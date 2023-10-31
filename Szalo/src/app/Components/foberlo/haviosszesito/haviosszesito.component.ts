@@ -79,13 +79,13 @@ export class HaviosszesitoComponent {
       }
     });
 
-    this.haviosszesitoService.getAll().subscribe({
-      next: (haviossz) => { console.log(haviossz) },
-      error: (err) => {
-        console.error(err);
-        this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
-      }
-    });
+    // this.haviosszesitoService.getAll().subscribe({
+    //   next: (haviossz) => { console.log(haviossz) },
+    //   error: (err) => {
+    //     console.error(err);
+    //     this.toastrService.error('A szerződési adatok betöltése sikertelen.', 'Hiba');
+    //   }
+    // });
 
   }
 

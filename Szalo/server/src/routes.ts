@@ -7,6 +7,7 @@ import { JelentkezesController } from './controller/jelentkezes.controller';
 import { SzerzodesController } from './controller/szerzodes.controller';
 import { EsemenyController } from './controller/esemeny.controller';
 import { HaviosszesitoController } from './controller/haviosszesito.controller';
+import { SzamlaController } from './controller/szamla.controller';
 
 export function getRoutes() {
     const router = express.Router();
@@ -62,8 +63,13 @@ export function getRoutes() {
 
     const haviosszController = new HaviosszesitoController();
 
+    router.get('/osszesito/:szerzodesId', checkUser, haviosszController.getAll);
     router.get('/osszesito/:szerzodesId/lehetosegek', checkUser, haviosszController.getLehetosegek);
     router.post('/osszesito/:szerzodesId/:evszam/:honapszam', checkUser, haviosszController.create);
+
+    const szamlaController = new SzamlaController();
+
+    router.get('/szamla/:id', checkUser, szamlaController.getOne);
 
     return router;
 }

@@ -125,13 +125,27 @@
   <table class="table">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">Év</th>
+          <th scope="col">Hónap</th>
+          <th scope="col">Fizetve</th>
+          <th scope="col">Műveletek</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
         <tr *ngFor="let osszesito of osszesitok">
-          <th scope="col">{{ osszesito.id }}</th>
-          
+          <td scope="col">{{ osszesito.ev }}</td>
+          <td scope="col">{{ osszesito.honap }}</td>
+          <td scope="col">{{ osszesito.fizetve ? "Igen" : "Nem" }}</td>
+          <td scope="col">
+            <div class="row">
+              <div class="col-md-4" *ngIf="!osszesito.fizetve">
+                <button class="btn btn-outline-primary">Fizetve</button>
+              </div>
+              <div class="col-md-4" *ngIf="osszesito.szamla.id">
+                <button class="btn btn-outline-primary" (click)="szamlaLetoltes(osszesito.szamla.id)">Számla letöltés</button>
+              </div>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>

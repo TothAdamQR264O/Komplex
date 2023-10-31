@@ -6,7 +6,10 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { EsemenyService } from 'src/app/services/esemeny.service';
 import { HaviosszesitoService } from 'src/app/services/haviosszesito.service';
+import { SzamlaService } from 'src/app/services/szamla.service';
 import { SzerzodesService } from 'src/app/services/szerzodes.service';
+
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-lako',
@@ -17,7 +20,7 @@ export class LakoComponent {
   visable = true;
   isNewEvent = true;
 
-  
+  szerzodesId!: number;
   szerzodes?: SzerzodesDTO;
   esemenyek: EsemenyDTO[] = [];
   osszesitok: HaviosszesitoDTO[] = [];
@@ -36,7 +39,7 @@ export class LakoComponent {
     megjegyzes: this.formBuilder.control("", [Validators.required]),
     dokumentum: this.formBuilder.control(this.szerzodes),
   })
-  
+
   constructor(
     public authService: AuthService,
     private toastrService: ToastrService,
@@ -45,13 +48,14 @@ export class LakoComponent {
     private router: Router,
     private esemenyService: EsemenyService,
     private haviosszesitoService: HaviosszesitoService,
+    private szamlaService: SzamlaService,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    const szerzodesId = this.activatedRoute.snapshot.params['szerzodesId'];
-    console.log("Az ID értéke: " + szerzodesId);
-    this.szerzodesService.getOne(szerzodesId).subscribe({
+    this.szerzodesId = this.activatedRoute.snapshot.params['szerzodesId'];
+
+    this.szerzodesService.getOne(this.szerzodesId).subscribe({
       next: (szerzodes) => {
         this.szerzodes = szerzodes;
       },
@@ -61,7 +65,7 @@ export class LakoComponent {
       }
     });
 
-    this.esemenyService.getAll(szerzodesId).subscribe({
+    this.esemenyService.getAll(this.szerzodesId).subscribe({
       next: (esemeny) => this.esemenyek = esemeny,
       error: (err) => {
         console.error(err);
@@ -69,22 +73,32 @@ export class LakoComponent {
       }
     })
 
-    this.haviosszesitoService.getLehetosegek(szerzodesId).subscribe({
+    this.osszesitokFrissitese();
+  }
+
+  eventMake() {
+    this.router.navigate(['/event']);
+  }
+
+  canceled() {
+    this.visable = true;
+  }
+
+  osszesitokFrissitese() {
+    this.haviosszesitoService.getAll(this.szerzodesId).subscribe({
+      next: (osszesitok) => this.osszesitok = osszesitok,
+      error: (err) => {
+        console.error(err);
+      }
+    })
+
+    this.haviosszesitoService.getLehetosegek(this.szerzodesId).subscribe({
       next: (lehetosegek) => this.osszesitoLehetosegek = lehetosegek,
       error: (err) => {
         console.error(err);
       }
     })
   }
-
-  eventMake(){
-    this.router.navigate([ '/event' ]);
-  }
-
-  canceled() {
-    this.visable = true;
-  }
-  
 
   saveEvent() {
     const eve = this.esemenyForm.value as EsemenyDTO;
@@ -127,13 +141,47 @@ export class LakoComponent {
   osszesitoGeneralas() {
     if (this.szerzodes) {
       this.haviosszesitoService.create(this.szerzodes.id, this.osszesitoLehetoseg).subscribe({
-        next: () => this.toastrService.success('Az összesítő sikeresen létre lett hozva.', 'Siker'),
+        next: () => {
+          this.toastrService.success('Az összesítő sikeresen létre lett hozva.', 'Siker');
+          this.osszesitokFrissitese();
+        },
         error: () => this.toastrService.error('Nem sikerült létrehozni az összesítőt.', 'Hiba')
       });
     }
   }
 
+  szamlaLetoltes(id: number) {
+    this.szamlaService.getOne(id).subscribe({
+      next: (szamla) => {
+        const szamlaFile = this.b64toFile(szamla.pdf, `${szamla.szamlaId}.pdf`, 'application/pdf');
+        saveAs(szamlaFile, szamlaFile.name);
+      },
+      error: (err) => {
+        this.toastrService.error(err.error.message, 'Hiba');
+      }
+    });
+  }
+
+  private b64toFile(b64Data: string, filename: string, contentType: string) {
+    var sliceSize = 512;
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+      var byteNumbers = new Array(slice.length);
+
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      var byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    var file = new File(byteArrays, filename, { type: contentType });
+    return file;
+  }
+
   goToEvent(id: number) {
-    this.router.navigate([ 'event', id ]);
+    this.router.navigate(['event', id]);
   }
 }

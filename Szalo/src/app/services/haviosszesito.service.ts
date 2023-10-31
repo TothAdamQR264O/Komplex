@@ -13,8 +13,8 @@ export class HaviosszesitoService {
     return this.http.post<HaviosszesitoDTO>(`/api/osszesito/${szerzodesId}/${lehetoseg.ev}/${lehetoseg.honap}`, null);
   }
 
-  getAll(){
-    return this.http.get<HaviosszesitoDTO[]>('/api/monsummary');
+  getAll(szerzodesId: number){
+    return this.http.get<HaviosszesitoDTO[]>(`/api/osszesito/${szerzodesId}`);
   }
 
   getLehetosegek(szerzodesId: number) {

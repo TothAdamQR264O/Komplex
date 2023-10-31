@@ -71,13 +71,6 @@ export interface SzerzodesDTO {
     hid: HazDTO;
 }
 
-export interface SzamlaDTO {
-    id: number;
-    idopotn: Date;
-    osszeg: number;
-    szid: SzerzodesDTO;
-}
-
 export interface OsszegekDTO {
     szid: number;
     tetel: string;
@@ -117,8 +110,8 @@ export interface HaviosszesitoDTO {
     ev: number;
     honap: number; 
     fizetve: boolean;
-    //tetelek: OsszesitoTetel[]; 
-    //szamla: Szamla;
+    tetelek: OsszesitoTetelDTO[]; 
+    szamla: SzamlaDTO;
     szerzodes: SzerzodesDTO;
 }
 
@@ -138,4 +131,11 @@ export interface SzamlazzHuIntegracioDTO {
     id: number;
     apiKulcs: string;
     tulajdonos: FoberloDTO;
+}
+
+export interface SzamlaDTO {
+    id: number;
+    szamlaId: string;
+    bruttoOsszeg: number;
+    pdf: string;
 }

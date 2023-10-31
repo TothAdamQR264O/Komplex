@@ -13,16 +13,31 @@ import { OsszesitoLehetosegDTO } from "../../../models";
 import { OsszesitoTetel } from "../entity/OsszesitoTetel";
 
 import { SzamlazzHuIntegracio } from "../entity/SzamlazzHuIntegracio";
+import { Szamla } from "../entity/Szamla";
+import { Between } from "typeorm";
 
 export class HaviosszesitoController extends Controller {
     repository = AppDataSource.getRepository(Haviosszesito);
     osszesitoTetelRepository = AppDataSource.getRepository(OsszesitoTetel);
     szamlazzHuIntegracioRepository = AppDataSource.getRepository(SzamlazzHuIntegracio);
+    szamlaRepository = AppDataSource.getRepository(Szamla);
     esemenyRepository = AppDataSource.getRepository(Esemeny);
     hazRepository = AppDataSource.getRepository(Haz);
     berloRepository = AppDataSource.getRepository(Berlo);
     foberloRepository = AppDataSource.getRepository(Foberlo);
     szerzodesRepository = AppDataSource.getRepository(Szerzodes);
+
+    getAll = async (req, res) => {
+        try {
+            const szerzodesId = req.params.szerzodesId;
+            const entities = await this.repository.findBy({
+                szerzodes: { id: szerzodesId }
+            });
+            res.json(entities);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
 
     create = async (req, res) => {
         try {
@@ -62,15 +77,23 @@ export class HaviosszesitoController extends Controller {
                 tetelek: tetelek
             });
 
+            
+            const elsoNap = moment().set('year', req.params.evszam).set('month', req.params.honapszam - 1).startOf('month');
+            const utolsoNap = moment().set('year', req.params.evszam).set('month', req.params.honapszam - 1).endOf('month');
+
+            const karesemenyek = await this.esemenyRepository.findBy({
+                zarasDatum: Between(elsoNap.format('YYYY-MM-DD'), utolsoNap.format('YYYY-MM-DD'))
+            });
+            
             // TODO: események létrehozása tételekként
+
+            // osszesitoEntity.tetelek.push()
 
             // TODO: kezelni azt az esetet, amikor a szerződés első v. utolsó hónapjában vagyunk
 
             const szamlazzHuAdatok = await this.szamlazzHuIntegracioRepository.findOneBy({
                 tulajdonos: { id: szerzodes.tid.id }
             });
-
-            //TODO: számlázás megoldása
 
             const szamlazzClient = new Client({
                 authToken: szamlazzHuAdatok.apiKulcs,
@@ -114,8 +137,19 @@ export class HaviosszesitoController extends Controller {
                 items: items
             });
 
-            const szamla = await szamlazzClient.issueInvoice(invoice);
-            console.log(szamla);
+            try {
+                const szamla = await szamlazzClient.issueInvoice(invoice);
+                const szamlaEntity = this.szamlaRepository.create({
+                    szamlaId: szamla.invoiceId,
+                    bruttoOsszeg: szamla.grossTotal,
+                    pdf: Buffer.from(szamla.pdf).toString('base64')
+                });
+
+                osszesitoEntity.szamla = szamlaEntity;
+            }
+            catch(err) {
+                this.handleError(res, err, 500, "A számlagenerálás során hiba történt, kérjük kézzel állítsa ki a számlát!");
+            }
 
             const result = await this.repository.save(osszesitoEntity);
             res.json(result);
