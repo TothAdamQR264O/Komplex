@@ -51,7 +51,10 @@ export class LakasComponent {
     email: '',
     password: '',
     szamlaszamb: '',
-    telb: 0
+    telb: 0,
+    irsz: 0,
+    telepules: '',
+    cim: '',
   });
   szerzodes: SzerzodesDTO = ({
     id: 0,

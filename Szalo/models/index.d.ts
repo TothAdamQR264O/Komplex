@@ -53,6 +53,9 @@ export interface BerloDTO {
     password: string;
     szamlaszamb: string;
     telb: number;
+    irsz: number;
+    telepules: string;
+    cim: string;
 }
 
 export interface SzerzodesDTO {

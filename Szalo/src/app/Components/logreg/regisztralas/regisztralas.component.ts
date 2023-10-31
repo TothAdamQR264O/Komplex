@@ -29,6 +29,9 @@ export class RegisztralasComponent {
     password: this.formBuilder.control('', [Validators.required]),
     szamlaszamb: this.formBuilder.control('', [Validators.required]),
     telb: this.formBuilder.control(301234567, [Validators.required]),
+    irsz: this.formBuilder.control<number | null>(null, [Validators.required, Validators.min(1000), Validators.max(9999)]),
+    telepules: this.formBuilder.control('', [Validators.required]),
+    cim: this.formBuilder.control('', [Validators.required]),
   });
 
   constructor(

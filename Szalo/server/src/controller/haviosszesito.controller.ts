@@ -113,9 +113,9 @@ export class HaviosszesitoController extends Controller {
 
             const buyer = new Buyer({
                 name: szerzodes.bid.nameb,
-                zip: '3600',
-                city: 'City',
-                address: 'Some street address',
+                zip: szerzodes.bid.irsz,
+                city: szerzodes.bid.telepules,
+                address: szerzodes.bid.cim,
                 phone: szerzodes.bid.telb,
                 email: szerzodes.bid.email
             });

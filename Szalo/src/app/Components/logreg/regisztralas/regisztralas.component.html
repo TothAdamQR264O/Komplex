@@ -96,6 +96,33 @@
                     A Telefonszám megadása kötelező.
                 </small>
             </div>
+            <div class="mb-3">
+                <label for="irsz" class="form-label">Irányítószám</label>
+                <input type="number" class="form-control" id="irsz" name="irsz" placeholder="3533" formControlName="irsz">
+                <small class="text-danger" *ngIf="(berloForm.get('irsz')?.touched || berloForm.get('irsz')?.dirty) && berloForm.get('irsz')?.hasError('required')">
+                    Az irányítószám megadása kötelező.
+                </small>
+                <small class="text-danger" *ngIf="(berloForm.get('irsz')?.touched || berloForm.get('irsz')?.dirty) && berloForm.get('irsz')?.hasError('min')">
+                    Az irányítószám túl kicsi.
+                </small>
+                <small class="text-danger" *ngIf="(berloForm.get('irsz')?.touched || berloForm.get('irsz')?.dirty) && berloForm.get('irsz')?.hasError('max')">
+                    Az irányítószám túl nagy.
+                </small>
+            </div>
+            <div class="mb-3">
+                <label for="telepules" class="form-label">Telepules</label>
+                <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Msikolc" formControlName="telepules">
+                <small class="text-danger" *ngIf="(berloForm.get('telepules')?.touched || berloForm.get('telepules')?.dirty) && berloForm.get('telepules')?.hasError('required')">
+                    A telepules megadása kötelező.
+                </small>
+            </div>
+            <div class="mb-3">
+                <label for="cim" class="form-label">Cím</label>
+                <input type="text" class="form-control" id="cim" name="cim" placeholder="Csermőkei dülő 25" formControlName="cim">
+                <small class="text-danger" *ngIf="(berloForm.get('cim')?.touched || berloForm.get('cim')?.dirty) && berloForm.get('cim')?.hasError('required')">
+                    A cím megadása kötelező.
+                </small>
+            </div>
             <div class="text-end">
                 <button class="btn btn-outline-primary"
                     (click)="saveUser()">Mentés</button>

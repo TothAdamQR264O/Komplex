@@ -60,7 +60,10 @@ export class JelentkezokComponent {
     email: '',
     password: '',
     szamlaszamb: '',
-    telb: 0
+    telb: 0,
+    irsz: 0,
+    telepules: '',
+    cim: '',
   });
 
   jelentkezo: JelentkezesDTO = ({

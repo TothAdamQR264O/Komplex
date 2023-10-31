@@ -23,6 +23,15 @@ export class Berlo implements BerloDTO{
     @Column()
     telb: number;
 
+    @Column({nullable: false })
+    irsz: number;
+
+    @Column({ type: "varchar", nullable: false})
+    telepules: string;
+
+    @Column({ type: "varchar", nullable: false })
+    cim: string;
+
     @OneToMany(() => Szerzodes, szerzodes => szerzodes.bid)
     szerzodesek: Szerzodes[];
 
