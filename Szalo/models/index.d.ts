@@ -127,6 +127,7 @@ export interface OsszesitoTetelDTO {
     id: number;
     megnevezes: string;
     mennyiseg: number;
+    egyseg: string;
     osszeg: number;
 }
 

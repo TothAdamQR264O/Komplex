@@ -63,8 +63,10 @@ export function getRoutes() {
 
     const haviosszController = new HaviosszesitoController();
 
-    router.get('/osszesito/:szerzodesId', checkUser, haviosszController.getAll);
-    router.get('/osszesito/:szerzodesId/lehetosegek', checkUser, haviosszController.getLehetosegek);
+    router.get('/osszesito/szerzodes/:szerzodesId', checkUser, haviosszController.getAll);
+    router.get('/osszesito/szerzodes/:szerzodesId/lehetosegek', checkUser, haviosszController.getLehetosegek);
+    router.get('/osszesito/:id', checkUser, haviosszController.getOne);
+    router.put('/osszesito/:id/fizetve', checkUser, haviosszController.fizetve);
     router.post('/osszesito/:szerzodesId/:evszam/:honapszam', checkUser, haviosszController.create);
 
     const szamlaController = new SzamlaController();

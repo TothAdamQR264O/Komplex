@@ -1,50 +1,18 @@
-<!--
 <div class="row" *ngIf="changeVisable()">
+  <div class="col-md-12">
+    <h4>Alapadatok</h4>
     <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Helyrajzi szám</th>
-            <th scope="col">Írszám</th>
-            <th scope="col">Település</th>
-            <th scope="col">Cím</th>
-            <th scope="col">Rezsi</th>
-            <th scope="col">Ár</th>
-            <th scope="col">Főbérlő neve</th>
-            <th scope="col">Email</th>
-            <th scope="col">Telefon szám</th>
-            <th scope="col">Havi összesítés</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr>
-            <th scope="col">{{ szerzodes?.hid?.hrsz }}</th>
-            <th scope="col">{{ szerzodes?.hid?.irsz }}</th>
-            <th scope="col">{{ szerzodes?.hid?.telepules }}</th>
-            <th scope="col">{{ szerzodes?.hid?.cim }}</th>
-            <th scope="col">{{ szerzodes?.hid?.reszi }}</th>
-            <th scope="col">{{ szerzodes?.hid?.ar }}</th>
-            <th scope="col">{{ szerzodes?.bid?.nameb }}</th>
-            <th scope="col">{{ szerzodes?.bid?.email }}</th>
-            <th scope="col">{{ szerzodes?.bid?.telb }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" >Havi összesítés</button></th>
-          </tr>
-        </tbody>
-      </table>
-</div>-->
-
-<div class="row"  *ngIf="changeVisable()">
-  <table class="table">
       <thead>
         <tr>
           <th scope="col">Helyrajzi szám</th>
-          <th scope="col">Írszám</th>
+          <th scope="col">Ir. szám</th>
           <th scope="col">Település</th>
           <th scope="col">Cím</th>
           <th scope="col">Rezsi</th>
           <th scope="col">Ár</th>
           <th scope="col">Főbérlő neve</th>
           <th scope="col">Email</th>
-          <th scope="col">Telefon szám</th>
+          <th scope="col">Telefonszám</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
@@ -61,48 +29,21 @@
         </tr>
       </tbody>
     </table>
+  </div>
 </div>
-<!--
-<div class="row"  *ngIf="changeVisable()">
-  <div>Harmadik módszer</div>
-  <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Helyrajzi szám</th>
-          <th scope="col">Írszám</th>
-          <th scope="col">Település</th>
-          <th scope="col">Cím</th>
-          <th scope="col">Szerkesztés</th>
-          <th scope="col">Jelentkezők</th>
-        </tr>
-      </thead>
-      <tbody class="table-group-divider">
-        <tr *ngFor="let haz2 of sze2">
-          <th scope="col">{{ haz2.hid.id }}</th>
-          <th scope="col">{{ haz2.hid.hrsz }}</th>
-          <th scope="col">{{ haz2.hid.irsz }}</th>
-          <th scope="col">{{ haz2.hid.telepules }}</th>
-          <th scope="col">{{ haz2.hid.cim }}</th>
-          <th scope="col">{{ haz2.hid.reszi }}</th>
-          <th scope="col">{{ haz2.hid.ar }}</th>
-          <th scope="col">{{ haz2.bid.nameb }}</th>
-          <th scope="col">{{ haz2.bid.email }}</th>
-          <th scope="col">{{ haz2.bid.telb }}</th>
-        </tr>
-      </tbody>
-    </table>
-</div>
--->
-<div class="row"  *ngIf="changeVisable()">
-  <div>Események</div>
-  <table class="table">
+
+
+<div class="row pt-2" *ngIf="changeVisable()">
+  <div class="col-md-12">
+    <h4>Káresemények</h4>
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Dátum</th>
           <th scope="col">Költség</th>
           <th scope="col">Megjegyzés</th>
-          <th scope="col">Szerkeztés</th>
+          <th scope="col">Szerkesztés</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
@@ -111,24 +52,32 @@
           <th scope="col">{{ event.datum }}</th>
           <th scope="col">{{ event.koltseg }}</th>
           <th scope="col">{{ event.megjegyzes }}</th>
-          <th scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">Szerkesztés</button></th>
+          <th scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">Szerkesztés</button>
+          </th>
         </tr>
       </tbody>
     </table>
-  <div class="text-center">
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-end me-2">
       <button class="btn btn-outline-primary" (click)="eventMake()">+</button>
+    </div>
   </div>
 </div>
 
-<div class="row"  *ngIf="changeVisable()">
-  <div>Események</div>
-  <table class="table">
+
+<div class="row pt-2" *ngIf="changeVisable()">
+  <div class="col-md-12">
+    <h4>Összesítők</h4>
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">Év</th>
           <th scope="col">Hónap</th>
           <th scope="col">Fizetve</th>
-          <th scope="col">Műveletek</th>
+          <th scope="col">Fizetés</th>
+          <th scope="col">Számla</th>
+          <th scope="col">Részletek</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
@@ -137,113 +86,133 @@
           <td scope="col">{{ osszesito.honap }}</td>
           <td scope="col">{{ osszesito.fizetve ? "Igen" : "Nem" }}</td>
           <td scope="col">
-            <div class="row">
-              <div class="col-md-4" *ngIf="!osszesito.fizetve">
-                <button class="btn btn-outline-primary">Fizetve</button>
-              </div>
-              <div class="col-md-4" *ngIf="osszesito.szamla.id">
-                <button class="btn btn-outline-primary" (click)="szamlaLetoltes(osszesito.szamla.id)">Számla letöltés</button>
-              </div>
+            <div *ngIf="!osszesito.fizetve">
+              <button class="btn btn-outline-primary" (click)="osszesitoFizetes(osszesito.id)">Fizetve</button>
             </div>
+          </td>
+          <td scope="col">
+            <div *ngIf="osszesito?.szamla?.id">
+              <button class="btn btn-outline-primary" (click)="szamlaLetoltes(osszesito.szamla.id)">Számla
+                letöltés</button>
+            </div>
+          </td>
+          <td scope="col">
+            <button class="btn btn-outline-primary" (click)="osszesitoMegtekintes(osszesito.id)">Részletek</button>
           </td>
         </tr>
       </tbody>
     </table>
-  <div class="text-center">
-      <select [(ngModel)]="osszesitoLehetoseg">
+  </div>
+  <div class="row text-end">
+    <div class="col-md-8"></div>
+    <div class="col-md-2 text-end" *ngIf="osszesitoLehetosegek && osszesitoLehetosegek.length > 0">
+      <select [(ngModel)]="osszesitoLehetoseg" class="form-select">
         <option *ngFor="let lehetoseg of osszesitoLehetosegek" [ngValue]="lehetoseg">
           {{ lehetoseg.ev }}/{{ lehetoseg.honap }}
         </option>
       </select>
+    </div>
+    <div class="col-md-2 text-start" *ngIf="osszesitoLehetosegek && osszesitoLehetosegek.length > 0">
       <button class="btn btn-outline-primary" (click)="osszesitoGeneralas()">Új összesítő</button>
+    </div>
+    <div class="col-md-4 fst-italic" *ngIf="!osszesitoLehetosegek || osszesitoLehetosegek.length === 0">
+      Minden összesítő el lett készítve.
+    </div>
   </div>
 </div>
 
 <div class="row justify-content-center" *ngIf="!changeVisable()">
   <div class="col-md-12">
-      <h4>Esemény felivitel</h4>
-      <hr>
+    <h4>Esemény felvitel</h4>
+    <hr>
   </div>
-  
 </div>
+
 
 <div class="row justify-content-center">
   <div class="col-md-6">
-      <form [formGroup]="esemenyForm" *ngIf="!changeVisable()">
-          <div class="mb-3">
-              <label for="datum" class="form-label">Dátum</label>
-              <input type="date" class="form-control" id="datum" name="datum" formControlName="datum">
-              <small class="text-danger" *ngIf="(esemenyForm.get('datum')?.touched || esemenyForm.get('datum')?.dirty) && esemenyForm.get('datum')?.hasError('required')">
-                  A dátum megadása kötelező.
-              </small>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="tipus" value="Tervezett">
-            <label class="form-check-label" for="tipus">
-              Tervezett
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="tipus" value="Váratlan">
-            <label class="form-check-label" for="tipus">
-              Váratlan
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="tipus" value="Egyéb" checked>
-            <label class="form-check-label" for="tipus">
-              Egyébb
-            </label>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="rendhasz" value="Igen">
-            <label class="form-check-label" for="rendhasz">Rendeltetésszerű használat</label>
-          </div>
-          <div class="mb-3">
-              <label for="koltseg" class="form-label">Költség</label>
-              <input type="number" class="form-control" id="koltseg" name="koltseg" placeholder="35000" formControlName="koltseg">
-              <small class="text-danger" *ngIf="(esemenyForm.get('koltseg')?.touched || esemenyForm.get('koltseg')?.dirty) && esemenyForm.get('koltseg')?.hasError('required')">
-                  A költség megadása kötelező.
-              </small>
-          </div>
+    <form [formGroup]="esemenyForm" *ngIf="!changeVisable()">
+      <div class="mb-3">
+        <label for="datum" class="form-label">Dátum</label>
+        <input type="date" class="form-control" id="datum" name="datum" formControlName="datum">
+        <small class="text-danger"
+          *ngIf="(esemenyForm.get('datum')?.touched || esemenyForm.get('datum')?.dirty) && esemenyForm.get('datum')?.hasError('required')">
+          A dátum megadása kötelező.
+        </small>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="tipus" value="Tervezett">
+        <label class="form-check-label" for="tipus">
+          Tervezett
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="tipus" value="Váratlan">
+        <label class="form-check-label" for="tipus">
+          Váratlan
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="tipus" value="Egyéb" checked>
+        <label class="form-check-label" for="tipus">
+          Egyébb
+        </label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="rendhasz" value="Igen">
+        <label class="form-check-label" for="rendhasz">Rendeltetésszerű használat</label>
+      </div>
+      <div class="mb-3">
+        <label for="koltseg" class="form-label">Költség</label>
+        <input type="number" class="form-control" id="koltseg" name="koltseg" placeholder="35000"
+          formControlName="koltseg">
+        <small class="text-danger"
+          *ngIf="(esemenyForm.get('koltseg')?.touched || esemenyForm.get('koltseg')?.dirty) && esemenyForm.get('koltseg')?.hasError('required')">
+          A költség megadása kötelező.
+        </small>
+      </div>
 
-          <div class="mb-3">
-            <label for="koltsvis" class="form-label">Költség viselő</label>
-            <select name="koltsvis" id="koltsvis" class="form-select" formControlName="koltsvis">
-                <option value="Nem megállapítot">Nem megállapítot</option>
-                <option value="Tulaj">Tulaj</option>
-                <option value="Bérlő">Bérlő</option>
-            </select>
-            <small class="text-danger" *ngIf="(esemenyForm.get('koltsvis')?.touched || esemenyForm.get('koltsvis')?.dirty) && esemenyForm.get('koltsvis')?.hasError('required')">
-                A költség viselő megadása kötelező.
-            </small>
-          </div>
+      <div class="mb-3">
+        <label for="koltsvis" class="form-label">Költség viselő</label>
+        <select name="koltsvis" id="koltsvis" class="form-select" formControlName="koltsvis">
+          <option value="Nem megállapítot">Nem megállapítot</option>
+          <option value="Tulaj">Tulaj</option>
+          <option value="Bérlő">Bérlő</option>
+        </select>
+        <small class="text-danger"
+          *ngIf="(esemenyForm.get('koltsvis')?.touched || esemenyForm.get('koltsvis')?.dirty) && esemenyForm.get('koltsvis')?.hasError('required')">
+          A költség viselő megadása kötelező.
+        </small>
+      </div>
 
 
-          <div class="mb-3">
-            <label for="alapot" class="form-label">Álapot</label>
-            <select name="alapot" id="alapot" class="form-select" formControlName="alapot">
-                <option value="Új esemény">Új esemény</option>
-                <option value="Fojamatban">Fojamatban</option>
-                <option value="Lezárt">Lezárt</option>
-            </select>
-            <small class="text-danger" *ngIf="(esemenyForm.get('alapot')?.touched || esemenyForm.get('alapot')?.dirty) && esemenyForm.get('alapot')?.hasError('required')">
-                Az álapot megadása kötelező.
-            </small>
-          </div>
+      <div class="mb-3">
+        <label for="alapot" class="form-label">Álapot</label>
+        <select name="alapot" id="alapot" class="form-select" formControlName="alapot">
+          <option value="Új esemény">Új esemény</option>
+          <option value="Fojamatban">Fojamatban</option>
+          <option value="Lezárt">Lezárt</option>
+        </select>
+        <small class="text-danger"
+          *ngIf="(esemenyForm.get('alapot')?.touched || esemenyForm.get('alapot')?.dirty) && esemenyForm.get('alapot')?.hasError('required')">
+          Az álapot megadása kötelező.
+        </small>
+      </div>
 
-          <div class="mb-3">
-              <label for="megjegyzes" class="form-label">Megjegyzés</label>
-              <input type="text" class="form-control" id="megjegyzes" name="megjegyzes" placeholder="Esemény leírása" formControlName="megjegyzes">
-              <small class="text-danger" *ngIf="(esemenyForm.get('megjegyzes')?.touched || esemenyForm.get('megjegyzes')?.dirty) && esemenyForm.get('megjegyzes')?.hasError('required')">
-                  A megjegyzés megadása kötelező.
-              </small>
-          </div>
+      <div class="mb-3">
+        <label for="megjegyzes" class="form-label">Megjegyzés</label>
+        <input type="text" class="form-control" id="megjegyzes" name="megjegyzes" placeholder="Esemény leírása"
+          formControlName="megjegyzes">
+        <small class="text-danger"
+          *ngIf="(esemenyForm.get('megjegyzes')?.touched || esemenyForm.get('megjegyzes')?.dirty) && esemenyForm.get('megjegyzes')?.hasError('required')">
+          A megjegyzés megadása kötelező.
+        </small>
+      </div>
 
-          <div class="input-group">
-              <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
-              <button class="btn btn-outline-primary" (click)="saveEvent()">Mentés</button>
-          </div>
-      </form>
+      <div class="input-group">
+        <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
+        <button class="btn btn-outline-primary" (click)="saveEvent()">Mentés</button>
+      </div>
+    </form>
   </div>
 </div>

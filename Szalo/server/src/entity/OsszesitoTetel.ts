@@ -12,6 +12,9 @@ export class OsszesitoTetel implements OsszesitoTetelDTO {
 
     @Column()
     mennyiseg: number;
+    
+    @Column()
+    egyseg: string;
 
     @Column()
     osszeg: number;

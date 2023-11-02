@@ -21,7 +21,7 @@ export class Haviosszesito implements HaviosszesitoDTO {
     @Column()
     fizetve: boolean;
 
-    @OneToMany(() => OsszesitoTetel, tetel => tetel.osszesito, { cascade: true })
+    @OneToMany(() => OsszesitoTetel, tetel => tetel.osszesito, { eager: true, cascade: true })
     tetelek: OsszesitoTetel[]; 
 
     @OneToOne(() => Szamla, { eager: true, cascade: true })

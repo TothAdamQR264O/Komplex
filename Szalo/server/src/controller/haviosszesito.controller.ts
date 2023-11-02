@@ -9,12 +9,12 @@ import { Haviosszesito } from "../entity/Haviosszesito";
 
 import moment from 'moment';
 import { Client, Seller, Buyer, Item, Invoice, PaymentMethods } from 'szamlazz.js';
-import { OsszesitoLehetosegDTO } from "../../../models";
 import { OsszesitoTetel } from "../entity/OsszesitoTetel";
 
 import { SzamlazzHuIntegracio } from "../entity/SzamlazzHuIntegracio";
 import { Szamla } from "../entity/Szamla";
 import { Between } from "typeorm";
+import { OsszesitoService } from "./osszesito.service";
 
 export class HaviosszesitoController extends Controller {
     repository = AppDataSource.getRepository(Haviosszesito);
@@ -27,11 +27,16 @@ export class HaviosszesitoController extends Controller {
     foberloRepository = AppDataSource.getRepository(Foberlo);
     szerzodesRepository = AppDataSource.getRepository(Szerzodes);
 
+    osszesitoService = new OsszesitoService(this.repository);
+
     getAll = async (req, res) => {
         try {
             const szerzodesId = req.params.szerzodesId;
-            const entities = await this.repository.findBy({
-                szerzodes: { id: szerzodesId }
+            const entities = await this.repository.find({
+                where: {
+                    szerzodes: { id: szerzodesId }
+                },
+                order: { ev: 'ASC', honap: 'ASC' }
             });
             res.json(entities);
         } catch (err) {
@@ -45,24 +50,39 @@ export class HaviosszesitoController extends Controller {
                 id: req.params.szerzodesId
             });
             if (!szerzodes) {
-                return this.handleError(res, null, 400, "A megadott szerződés nem létezik.");
+                return this.handleError(res, null, 404, "A megadott szerződés nem létezik.");
             }
 
-            // TODO: létrehozható-e a kért összesítő?
+            const osszesitoEv = req.params.evszam;
+            const osszesitoHonap = req.params.honapszam;
+
+            if (!osszesitoEv || !osszesitoHonap) {
+                return this.handleError(res, null, 400, "Az összesítő létrehozásához év és hónapszám megadása szükséges.");
+            }
+            
+            // az összesítés nem hozható létre:
+            // - ha már létezik
+            // - ha a szerződés időtartamán kívüli
+            // - ha az aktuális hónapra vagy azt követő időszakra vonatkozik
+            const letrehozhato = await this.osszesitoService.letrehozhato(szerzodes, osszesitoEv, osszesitoHonap);
+            if (!letrehozhato) {
+                return this.handleError(res, null, 400, 'A megadott hónapra nem készíthető összesítés.') 
+            }
 
             const haviDij = szerzodes.hid.ar;
             const rezsi = szerzodes.hid.reszi;
-            const kaucio = szerzodes.kaukcio;
 
             const havidijEntity = this.osszesitoTetelRepository.create({
                 megnevezes: 'Havi bérleti díj',
                 mennyiseg: 1,
+                egyseg: 'hónap',
                 osszeg: haviDij
             });
 
             const rezsiEntity = this.osszesitoTetelRepository.create({
                 megnevezes: 'Rezsiköltség',
                 mennyiseg: 1,
+                egyseg: 'hónap',
                 osszeg: rezsi
             });
 
@@ -80,16 +100,12 @@ export class HaviosszesitoController extends Controller {
             
             const elsoNap = moment().set('year', req.params.evszam).set('month', req.params.honapszam - 1).startOf('month');
             const utolsoNap = moment().set('year', req.params.evszam).set('month', req.params.honapszam - 1).endOf('month');
-
+            
+            // TODO: események létrehozása tételekként
             const karesemenyek = await this.esemenyRepository.findBy({
                 zarasDatum: Between(elsoNap.format('YYYY-MM-DD'), utolsoNap.format('YYYY-MM-DD'))
             });
-            
-            // TODO: események létrehozása tételekként
-
             // osszesitoEntity.tetelek.push()
-
-            // TODO: kezelni azt az esetet, amikor a szerződés első v. utolsó hónapjában vagyunk
 
             const szamlazzHuAdatok = await this.szamlazzHuIntegracioRepository.findOneBy({
                 tulajdonos: { id: szerzodes.tid.id }
@@ -106,7 +122,7 @@ export class HaviosszesitoController extends Controller {
 
             const seller = new Seller({
                 bank: {
-                    name: 'OTP Bank',
+                    name: 'OTP Bank', // TODO
                     accountNumber: szerzodes.tid.szamlaszamfb
                 }
             });
@@ -124,7 +140,7 @@ export class HaviosszesitoController extends Controller {
                 return new Item({
                     label: tetel.megnevezes,
                     quantity: tetel.mennyiseg,
-                    unit: 'hónap',
+                    unit: tetel.egyseg,
                     vat: 27,
                     grossUnitPrice: tetel.osszeg
                 });
@@ -147,8 +163,8 @@ export class HaviosszesitoController extends Controller {
 
                 osszesitoEntity.szamla = szamlaEntity;
             }
-            catch(err) {
-                this.handleError(res, err, 500, "A számlagenerálás során hiba történt, kérjük kézzel állítsa ki a számlát!");
+            catch (err) {
+                return this.handleError(res, err, 500, "A számlagenerálás során hiba történt, kérjük kézzel állítsa ki a számlát!");
             }
 
             const result = await this.repository.save(osszesitoEntity);
@@ -160,51 +176,33 @@ export class HaviosszesitoController extends Controller {
 
     getLehetosegek = async (req, res) => {
         try {
-            const szerzodes = await this.szerzodesRepository.findOneBy({
-                id: req.params.szerzodesId
-            });
+            const szerzodes = await this.szerzodesRepository.findOneBy({ id: req.params.szerzodesId });
             if (!szerzodes) {
                 return this.handleError(res, null, 400, "A megadott szerződés nem létezik.");
             }
 
-            const kezdoDatum = moment(szerzodes.kezdido).format('YYYY-MM-DD');
-            const zaroDatum = moment().subtract(1, 'months').format('YYYY-MM-DD');
-            const lehetosegek = this.getYearMonthPairs(kezdoDatum, zaroDatum);
-
-            const osszesitok = await this.repository.findBy({
-                szerzodes: {
-                    id: req.params.szerzodesId
-                }
-            });
-
-            for (const osszesito of osszesitok) {
-                for (let i = 0; i < lehetosegek.length; i++) {
-                    if (osszesito.ev == lehetosegek[i].ev && osszesito.honap == lehetosegek[i].honap) {
-                        lehetosegek.splice(i, 1);
-                    }
-                }
-            }
-
+            const lehetosegek = await this.osszesitoService.lehetosegek(szerzodes);
             res.json(lehetosegek);
         } catch (err) {
             this.handleError(res, err);
         }
     };
 
-    private getYearMonthPairs = (startDate, endDate): OsszesitoLehetosegDTO[] => {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        const yearMonthPairs = [];
+    fizetve = async (req, res) => {
+        try {
+            const osszesito = await this.repository.findOneBy({ id: req.params.id });
+            if (!osszesito || osszesito.fizetve) {
+                return this.handleError(res, null, 400, "A megadott összesítő nem létezik vagy már ki lett fizetve.");
+            }
 
-        let current = new Date(start);
+            osszesito.fizetve = true;
+            this.repository.save(osszesito);
 
-        while (current <= end) {
-            const year = current.getFullYear();
-            const month = current.getMonth() + 1;
-            yearMonthPairs.push({ ev: year, honap: month });
-            current.setMonth(current.getMonth() + 1);
+            res.status(200).send();
+        }
+        catch(err) {
+            this.handleError(res, err);
         }
 
-        return yearMonthPairs;
-    }
+    };
 }

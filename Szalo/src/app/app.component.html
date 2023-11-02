@@ -1,6 +1,6 @@
 <div class="jumbotron text-center bg-primary fixed-top">
-  <h3 *ngIf="!authService.isLoggedIn()">Üdvözlégy az Albin</h3>
-  <h3 *ngIf="authService.isLoggedIn()">Üdvözlégy {{ userFullname }} !</h3>
+  <h3 *ngIf="!authService.isLoggedIn()">Üdvözöljük az Albin!</h3>
+  <h3 *ngIf="authService.isLoggedIn()">Üdvözöljük, {{ userFullname }}!</h3>
 </div>
 
 <body>

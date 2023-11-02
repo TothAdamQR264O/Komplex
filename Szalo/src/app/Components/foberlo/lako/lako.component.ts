@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BerloDTO, EsemenyDTO, FoberloDTO, HaviosszesitoDTO, HazDTO, OsszesitoLehetosegDTO, SzerzodesDTO } from 'models';
+import { EsemenyDTO, HaviosszesitoDTO, OsszesitoLehetosegDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { EsemenyService } from 'src/app/services/esemeny.service';
@@ -9,7 +9,7 @@ import { HaviosszesitoService } from 'src/app/services/haviosszesito.service';
 import { SzamlaService } from 'src/app/services/szamla.service';
 import { SzerzodesService } from 'src/app/services/szerzodes.service';
 
-import { saveAs } from 'file-saver';
+import moment from 'moment';
 
 @Component({
   selector: 'app-lako',
@@ -30,7 +30,7 @@ export class LakoComponent {
 
   esemenyForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
-    datum: this.formBuilder.control("2023-10-23", [Validators.required]),
+    datum: this.formBuilder.control(moment().format("YYYY-MM-DD"), [Validators.required]),
     tipus: this.formBuilder.control("", [Validators.required]),
     rendhasz: this.formBuilder.control(true, [Validators.required]),
     koltseg: this.formBuilder.control(0, [Validators.required]),
@@ -93,7 +93,12 @@ export class LakoComponent {
     })
 
     this.haviosszesitoService.getLehetosegek(this.szerzodesId).subscribe({
-      next: (lehetosegek) => this.osszesitoLehetosegek = lehetosegek,
+      next: (lehetosegek) => {
+        this.osszesitoLehetosegek = lehetosegek;
+        if (lehetosegek.length > 0) {
+          this.osszesitoLehetoseg = lehetosegek[0];
+        }
+      },
       error: (err) => {
         console.error(err);
       }
@@ -102,10 +107,6 @@ export class LakoComponent {
 
   saveEvent() {
     const eve = this.esemenyForm.value as EsemenyDTO;
-
-    /*if (!this.valueValidate()) {
-      return;
-    }*/
 
     if (this.isNewEvent) {
       this.esemenyService.create(eve).subscribe({
@@ -131,7 +132,6 @@ export class LakoComponent {
       });
       this.visable = true;
     }
-    //location.reload();
   }
 
   changeVisable(): boolean {
@@ -145,40 +145,27 @@ export class LakoComponent {
           this.toastrService.success('Az összesítő sikeresen létre lett hozva.', 'Siker');
           this.osszesitokFrissitese();
         },
-        error: () => this.toastrService.error('Nem sikerült létrehozni az összesítőt.', 'Hiba')
+        error: (err) => this.toastrService.error(err.error.error, 'Hiba')
       });
     }
   }
 
   szamlaLetoltes(id: number) {
-    this.szamlaService.getOne(id).subscribe({
-      next: (szamla) => {
-        const szamlaFile = this.b64toFile(szamla.pdf, `${szamla.szamlaId}.pdf`, 'application/pdf');
-        saveAs(szamlaFile, szamlaFile.name);
+    this.szamlaService.letoltes(id);
+  }
+
+  osszesitoFizetes(id: number) {
+    this.haviosszesitoService.fizetve(id).subscribe({
+      next: () => {
+        this.toastrService.success('A változás rögzítésre került.', 'Siker')
+        this.osszesitokFrissitese();
       },
-      error: (err) => {
-        this.toastrService.error(err.error.message, 'Hiba');
-      }
+      error: () => this.toastrService.error('Hiba a mentés során.', 'Hiba')
     });
   }
 
-  private b64toFile(b64Data: string, filename: string, contentType: string) {
-    var sliceSize = 512;
-    var byteCharacters = atob(b64Data);
-    var byteArrays = [];
-
-    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      var slice = byteCharacters.slice(offset, offset + sliceSize);
-      var byteNumbers = new Array(slice.length);
-
-      for (var i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-      var byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-    var file = new File(byteArrays, filename, { type: contentType });
-    return file;
+  osszesitoMegtekintes(osszesitoId: number) {
+    this.router.navigate([ 'osszesito', osszesitoId ]);
   }
 
   goToEvent(id: number) {

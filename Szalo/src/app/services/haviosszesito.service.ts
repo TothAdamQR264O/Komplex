@@ -14,10 +14,18 @@ export class HaviosszesitoService {
   }
 
   getAll(szerzodesId: number){
-    return this.http.get<HaviosszesitoDTO[]>(`/api/osszesito/${szerzodesId}`);
+    return this.http.get<HaviosszesitoDTO[]>(`/api/osszesito/szerzodes/${szerzodesId}`);
+  }
+
+  get(id: number){
+    return this.http.get<HaviosszesitoDTO>(`/api/osszesito/${id}`);
   }
 
   getLehetosegek(szerzodesId: number) {
-    return this.http.get<OsszesitoLehetosegDTO[]>(`/api/osszesito/${szerzodesId}/lehetosegek`);
+    return this.http.get<OsszesitoLehetosegDTO[]>(`/api/osszesito/szerzodes/${szerzodesId}/lehetosegek`);
+  }
+
+  fizetve(id: number) {
+    return this.http.put(`/api/osszesito/${id}/fizetve`, null);
   }
 }

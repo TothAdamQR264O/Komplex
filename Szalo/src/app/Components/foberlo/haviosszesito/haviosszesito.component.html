@@ -1,23 +1,69 @@
-<div class="row">
-    <div>Másik módszer</div>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Ár</th>
-            <th scope="col">Rezsi</th>
-            <th scope="col">Egyébb</th>
-            <th scope="col">Dátum</th>
-            <th scope="col">Összesen</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr *ngFor="let haviossz of haviossz">
-            <!-- <th scope="col">{{ haviossz.ar }}</th>
-            <th scope="col">{{ haviossz.rezsi }}</th>
-            <th scope="col">{{ haviossz.egyeb }}</th>
-            <th scope="col">{{ haviossz.datum }}</th>
-            <th scope="col">{{ haviossz.osszesen }}</th> -->
-          </tr>
-        </tbody>
-      </table>
+<div class="row text-end">
+  <div class="col-md-12">
+    <button class="btn btn-outline-primary" (click)="vissza()">Vissza</button>
   </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-md-12">
+    <h4>Havi összesítés </h4>
+    <hr>
+    Szerződés: #{{ osszesito?.szerzodes?.id }}
+    <span class="fst-italic">({{ osszesito?.szerzodes?.kezdido }} - {{osszesito?.szerzodes?.vegido }})</span>
+    <br>
+    Év: {{ osszesito?.ev }}
+    <br>
+    Hónap: {{ osszesito?.honap }}
+    <br>
+    Generálva: {{ formatDate(osszesito?.datum) }}
+  </div>
+</div>
+
+<div class="row pt-2">
+  <div class="col-md-12">
+    <h5>Lakás</h5>
+    <hr>
+    <!-- TODO: néhány alapadat -->
+
+    <h5>Tulajdonos</h5>
+    <hr>
+    <!-- TODO: néhány alapadat -->
+
+    <h5>Bérlő</h5>
+    <hr>
+    <!-- TODO: néhány alapadat -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h5>Tételek</h5>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-sm">
+      <tr>
+        <th>Megnevezés</th>
+        <th>Mennyiség</th>
+        <th class="text-end">Összeg</th>
+      </tr>
+      <tr *ngFor="let tetel of osszesito?.tetelek">
+        <td>{{ tetel.megnevezes }}</td>
+        <td>{{ tetel.mennyiseg }} {{ tetel.egyseg }}</td>
+        <td class="text-end">{{ tetel.osszeg }} Ft</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="fw-bold">Összesen:</td>
+        <td class="fw-bold text-end">{{ osszesito?.szamla?.bruttoOsszeg }} Ft</td>
+      </tr>
+      <tr *ngIf="osszesito?.szamla">
+        <td colspan="3" class="text-end">
+          <button class="btn btn-outline-primary" (click)="szamlaLetoltes(osszesito?.szamla?.id || 0)">Számla letöltése</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
