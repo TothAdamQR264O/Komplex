@@ -26,7 +26,8 @@ export class JelentkezokComponent {
     email: '',
     password: '',
     szamlaszamfb: '',
-    telfb: 0
+    telfb: 0,
+    bank: ''
   });
   haziko: HazDTO = ({
     id: 0,

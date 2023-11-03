@@ -51,6 +51,13 @@
                     A Telefonszám megadása kötelező.
                 </small>
             </div>
+            <div class="mb-3">
+                <label for="bank" class="form-label">Bank neve</label>
+                <input type="text" class="form-control" id="bank" name="bank" placeholder="OTP" formControlName="bank">
+                <small class="text-danger" *ngIf="(foberloForm.get('bank')?.touched || foberloForm.get('bank')?.dirty) && foberloForm.get('bank')?.hasError('required')">
+                    A bank nevének megadása kötelező.
+                </small>
+            </div>
             <div class="text-end">
                 <button class="btn btn-outline-primary"
                     (click)="saveUser()">Mentés</button>

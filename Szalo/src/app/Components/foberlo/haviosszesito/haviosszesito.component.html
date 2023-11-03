@@ -23,15 +23,24 @@
   <div class="col-md-12">
     <h5>Lakás</h5>
     <hr>
-    <!-- TODO: néhány alapadat -->
-
+    Irányítószám: {{ osszesito?.szerzodes?.hid?.irsz }}
+    <br>
+    Település: {{ osszesito?.szerzodes?.hid?.telepules }}
+    <br>
+    Cím: {{ osszesito?.szerzodes?.hid?.cim }}
+    <br>
+    Ár: {{ osszesito?.szerzodes?.hid?.ar }}
     <h5>Tulajdonos</h5>
     <hr>
-    <!-- TODO: néhány alapadat -->
+    Név: {{ osszesito?.szerzodes?.tid?.namefb}}
+    <br>
+    Telefonszám: {{ osszesito?.szerzodes?.tid?.telfb }}
 
     <h5>Bérlő</h5>
     <hr>
-    <!-- TODO: néhány alapadat -->
+    Név: {{ osszesito?.szerzodes?.bid?.nameb}}
+    <br>
+    Telefonszám: {{ osszesito?.szerzodes?.bid?.telb }}
   </div>
 </div>
 

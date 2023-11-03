@@ -16,6 +16,7 @@ export interface FoberloDTO {
     password: string;
     szamlaszamfb: string;
     telfb: number;
+    bank: string;
 }
 
 export interface HazDTO {

@@ -20,7 +20,8 @@ export class RegisztralasComponent {
     email: this.formBuilder.control('', [Validators.required, Validators.email]),
     password: this.formBuilder.control('', [Validators.required]),
     szamlaszamfb: this.formBuilder.control('', [Validators.required]),
-    telfb: this.formBuilder.control(301234567, [Validators.required])
+    telfb: this.formBuilder.control(301234567, [Validators.required]),
+    bank: this.formBuilder.control('', [Validators.required]),
   });
 
   berloForm = this.formBuilder.group({

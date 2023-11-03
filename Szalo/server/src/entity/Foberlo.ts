@@ -24,6 +24,9 @@ export class Foberlo implements FoberloDTO{
     @Column()
     telfb: number;
 
+    @Column({ type: "varchar", unique: true })
+    bank: string;
+
     @OneToOne(() => SzamlazzHuIntegracio)
     szamlazzHuIntegracio: SzamlazzHuIntegracio;
 

@@ -63,7 +63,13 @@ export class HaviosszesitoController extends Controller {
             // az összesítés nem hozható létre:
             // - ha már létezik
             // - ha a szerződés időtartamán kívüli
+            if(osszesitoEv > szerzodes.vegido.getFullYear || osszesitoHonap > szerzodes.vegido.getMonth){
+                return this.handleError(res, null, 400, "Az összesítő csak a szerződésben meghatározott időig lehet létrehozni.");
+            }
             // - ha az aktuális hónapra vagy azt követő időszakra vonatkozik
+            if(osszesitoHonap <= moment){
+                return this.handleError(res, null, 400, "Az összesítő csak a már elmult hónapra hozható létre.");
+            }
             const letrehozhato = await this.osszesitoService.letrehozhato(szerzodes, osszesitoEv, osszesitoHonap);
             if (!letrehozhato) {
                 return this.handleError(res, null, 400, 'A megadott hónapra nem készíthető összesítés.') 
@@ -105,6 +111,9 @@ export class HaviosszesitoController extends Controller {
             const karesemenyek = await this.esemenyRepository.findBy({
                 zarasDatum: Between(elsoNap.format('YYYY-MM-DD'), utolsoNap.format('YYYY-MM-DD'))
             });
+            
+            
+
             // osszesitoEntity.tetelek.push()
 
             const szamlazzHuAdatok = await this.szamlazzHuIntegracioRepository.findOneBy({
@@ -122,7 +131,7 @@ export class HaviosszesitoController extends Controller {
 
             const seller = new Seller({
                 bank: {
-                    name: 'OTP Bank', // TODO
+                    name: szerzodes.tid.bank,
                     accountNumber: szerzodes.tid.szamlaszamfb
                 }
             });
