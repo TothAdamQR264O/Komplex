@@ -62,6 +62,7 @@ export class SzerzodesComponent {
     cim: '',
   });
 
+  // TODO: oraallasok
   szerzodesForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     kezdido: this.formBuilder.control(new Date(), [Validators.required]),

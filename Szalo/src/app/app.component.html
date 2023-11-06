@@ -4,7 +4,7 @@
 </div>
 
 <body>
-  <div class="container-full">
+  <div class="container-fluid">
     <router-outlet></router-outlet>
   </div>
 </body>
@@ -32,11 +32,11 @@
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link" (click)="goToPage('/keres')">Hirdetés</a>
         </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" href="#" (click)="logout()">Kilépés</a>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.isUser('tulaj')">
+          <a class="nav-link" (click)="goToPage('/szamla-integracio')">Számlázás</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" (click)="reloadPage()">Frissítés</a>
+          <a class="nav-link" href="#" (click)="logout()">Kilépés</a>
         </li>
       </ul>
     </div>

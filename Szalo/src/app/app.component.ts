@@ -27,13 +27,6 @@ export class AppComponent implements OnInit {
       localStorage.removeItem('hid');
     }
     this.router.navigate([ `${pageName}` ]);
-    this.reloadPage();
-  }
-
-  reloadPage() {
-    setTimeout(()=>{
-      window.location.reload();
-    }, 100);
   }
 
   updateUserData() {

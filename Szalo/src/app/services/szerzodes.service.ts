@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SzerzodesDTO } from 'models';
+import { SzerzodesDTO, SzerzodesZarasDTO } from 'models';
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +34,7 @@ export class SzerzodesService {
     return this.http.get<SzerzodesDTO[]>(`/api/szerzodes/sajat`);
   }
 
-  /*
-
-  create(hazId: number, applyId: number){
-    return this.http.post<SzerzodesDTO>(`/api/jelentkez/${hazId}/${applyId}`, null);
-  }*/
+  zaras(beallitasok: SzerzodesZarasDTO) {
+    return this.http.put<SzerzodesDTO>(`/api/szerzodes/${beallitasok.szerzodesId}/zaras`, beallitasok);
+  }
 }

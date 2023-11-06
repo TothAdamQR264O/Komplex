@@ -21,6 +21,8 @@ import { SzerzodesComponent } from './Components/foberlo/szerzodes/szerzodes.com
 import { LakoComponent } from './Components/foberlo/lako/lako.component';
 import { EsemenyComponent } from './Components/foberlo/esemeny/esemeny.component';
 import { HaviosszesitoComponent } from './Components/foberlo/haviosszesito/haviosszesito.component';
+import { SzerzodesLezarasComponent } from './Components/foberlo/szerzodes-lezaras/szerzodes-lezaras.component';
+import { SzamlaIntegracioComponent } from './Components/foberlo/szamla-integracio/szamla-integracio.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { HaviosszesitoComponent } from './Components/foberlo/haviosszesito/havio
     SzerzodesComponent,
     LakoComponent,
     EsemenyComponent,
-    HaviosszesitoComponent
+    HaviosszesitoComponent,
+    SzerzodesLezarasComponent,
+    SzamlaIntegracioComponent
   ],
   imports: [
     BrowserModule,

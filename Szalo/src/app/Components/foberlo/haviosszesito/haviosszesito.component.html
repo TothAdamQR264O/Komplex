@@ -7,7 +7,6 @@
 <div class="row mt-2">
   <div class="col-md-12">
     <h4>Havi összesítés </h4>
-    <hr>
     Szerződés: #{{ osszesito?.szerzodes?.id }}
     <span class="fst-italic">({{ osszesito?.szerzodes?.kezdido }} - {{osszesito?.szerzodes?.vegido }})</span>
     <br>
@@ -21,8 +20,8 @@
 
 <div class="row pt-2">
   <div class="col-md-12">
-    <h5>Lakás</h5>
     <hr>
+    <h5>Lakás</h5>
     Irányítószám: {{ osszesito?.szerzodes?.hid?.irsz }}
     <br>
     Település: {{ osszesito?.szerzodes?.hid?.telepules }}
@@ -30,14 +29,15 @@
     Cím: {{ osszesito?.szerzodes?.hid?.cim }}
     <br>
     Ár: {{ osszesito?.szerzodes?.hid?.ar }}
-    <h5>Tulajdonos</h5>
+
     <hr>
+    <h5 class="pt-2">Tulajdonos</h5>
     Név: {{ osszesito?.szerzodes?.tid?.namefb}}
     <br>
     Telefonszám: {{ osszesito?.szerzodes?.tid?.telfb }}
 
-    <h5>Bérlő</h5>
     <hr>
+    <h5 class="pt-2">Bérlő</h5>
     Név: {{ osszesito?.szerzodes?.bid?.nameb}}
     <br>
     Telefonszám: {{ osszesito?.szerzodes?.bid?.telb }}
@@ -46,8 +46,8 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h5>Tételek</h5>
     <hr>
+    <h5 class="pt-2">Tételek</h5>
   </div>
 </div>
 

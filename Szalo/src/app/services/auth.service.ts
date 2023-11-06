@@ -62,5 +62,27 @@ export class AuthService {
     }
 
     return isLoggedIn;
-}
+  }
+
+  csakTulaj(): boolean {
+    const szerepkor = this.getRole();
+
+    if (szerepkor != 'tulaj') {
+      this.router.navigateByUrl('/');
+      return false;
+    }
+
+    return true;
+  }
+
+  csakBerlo(): boolean {
+    const szerepkor = this.getRole();
+
+    if (szerepkor != 'berlo') {
+      this.router.navigateByUrl('/');
+      return false;
+    }
+
+    return true;
+  }
 }

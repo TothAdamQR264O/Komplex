@@ -34,14 +34,20 @@
           <tr>
             <th scope="col">Település</th>
             <th scope="col">Cím</th>
-            <th scope="col">Bérlő</th>
+            <th scope="col">Kezdődátum</th>
+            <th scope="col">Végdátum</th>
+            <th scope="col">Kezelés</th>
+            <th scope="col">Lezárás</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor="let szerzodes of sajatSzerzodesek">
             <th scope="col">{{ szerzodes.hid.telepules }}</th>
             <th scope="col">{{ szerzodes.hid.cim }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheApply(szerzodes.id)">Bérlő</button></th>
+            <th scope="col">{{ szerzodes.kezdido }}</th>
+            <th scope="col">{{ szerzodes.vegido }}</th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheApply(szerzodes.id)">Kezelés</button></th>
+            <th scope="col"><button class="btn btn-outline-danger" (click)="szerzodesLezaras(szerzodes.id)">Lezárás</button></th>
           </tr>
         </tbody>
       </table>

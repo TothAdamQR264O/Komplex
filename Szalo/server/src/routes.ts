@@ -2,7 +2,7 @@ import express from 'express';
 import { BerloController } from './controller/Berlo.controller';
 import { FoberloController } from './controller/foberlo.controller';
 import { HazController } from './controller/haz.controller';
-import { checkUser } from './protect-routes';
+import { checkUser, csakTulaj } from './protect-routes';
 import { JelentkezesController } from './controller/jelentkezes.controller';
 import { SzerzodesController } from './controller/szerzodes.controller';
 import { EsemenyController } from './controller/esemeny.controller';
@@ -53,6 +53,7 @@ export function getRoutes() {
     router.get('/szerzodes/sajat', checkUser, szerzodesController.getTulaj);
     router.get('/szerzodes/:id', checkUser, szerzodesController.getOne);
     router.get('/lak', checkUser, szerzodesController.getBerlo);
+    router.put('/szerzodes/:id/zaras', checkUser, szerzodesController.zaras);
     
     const esemenyController = new EsemenyController();
 
@@ -66,12 +67,14 @@ export function getRoutes() {
     router.get('/osszesito/szerzodes/:szerzodesId', checkUser, haviosszController.getAll);
     router.get('/osszesito/szerzodes/:szerzodesId/lehetosegek', checkUser, haviosszController.getLehetosegek);
     router.get('/osszesito/:id', checkUser, haviosszController.getOne);
-    router.put('/osszesito/:id/fizetve', checkUser, haviosszController.fizetve);
-    router.post('/osszesito/:szerzodesId/:evszam/:honapszam', checkUser, haviosszController.create);
+    router.put('/osszesito/:id/fizetve', checkUser, csakTulaj, haviosszController.fizetve);
+    router.post('/osszesito/:szerzodesId/:evszam/:honapszam', checkUser, csakTulaj, haviosszController.create);
 
     const szamlaController = new SzamlaController();
 
     router.get('/szamla/:id', checkUser, szamlaController.getOne);
+    router.get('/szamla/integracio/statusz', checkUser, szamlaController.integracioLetezik);
+    router.post('/szamla/integracio', checkUser, szamlaController.integracioLetrehozas);
 
     return router;
 }

@@ -17,26 +17,41 @@ export class Szerzodes implements SzerzodesDTO {
     @Column({ type: 'date' })
     vegido: Date;
 
+    @Column({ default: true })
+    aktiv: boolean;
+
+    @Column({ type: 'date' })
+    lezarasDatum: string;
+    
     @Column()
     kaukcio: number;
 
     @Column()
-    ggyszam: number;
+    gazOraGyariszam: number;
 
     @Column()
-    agyszam: number;
+    gazOraKezdoAllas: number;
 
     @Column()
-    vgyszam: number;
+    gazOraVegAllas: number;
 
     @Column()
-    gora: number;
+    villanyOraGyariszam: number;
 
     @Column()
-    aora: number;
+    villanyOraKezdoAllas: number;
 
     @Column()
-    vora: number;
+    villanyOraVegAllas: number;
+
+    @Column()
+    vizOraGyariszam: number;
+
+    @Column()
+    vizOraKezdoAllas: number;
+
+    @Column()
+    vizOraVegAllas: number;
 
     @ManyToOne(() => Foberlo, (foberlo) => foberlo.szerzodesek, { eager: true })
     tid: Foberlo;

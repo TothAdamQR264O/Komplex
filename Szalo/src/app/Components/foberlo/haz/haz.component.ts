@@ -138,6 +138,9 @@ export class HazComponent {
   goToTheApply(szerzodesId: number) {
     this.router.navigate([ '/resident', szerzodesId ]);
   }
+  szerzodesLezaras(szerzodesId: number) {
+    this.router.navigate([ '/szerzodes-lezaras', szerzodesId ]);
+  }
 
   reloadPage() {
     setTimeout(() => {

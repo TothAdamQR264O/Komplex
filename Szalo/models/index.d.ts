@@ -63,16 +63,28 @@ export interface SzerzodesDTO {
     id: number;
     kezdido: Date;
     vegido: Date;
+    aktiv: boolean;
+    lezarasDatum: string;
     kaukcio: number;
-    ggyszam: number;
-    agyszam: number;
-    vgyszam: number;
-    gora: number;
-    aora: number;
-    vora: number;
+    gazOraGyariszam: number;
+    villanyOraGyariszam: number;
+    vizOraGyariszam: number;
+    gazOraKezdoAllas: number;
+    villanyOraKezdoAllas: number;
+    vizOraKezdoAllas: number;
+    gazOraVegAllas: number;
+    villanyOraVegAllas: number;
+    vizOraVegAllas: number;
     tid: FoberloDTO;
     bid: BerloDTO;
     hid: HazDTO;
+}
+
+export interface SzerzodesZarasDTO {
+    szerzodesId: number;
+    gazOraZaroAllas: number;
+    villanyOraZaroAllas: number;
+    vizOraZaroAllas: number;
 }
 
 export interface OsszegekDTO {
@@ -87,7 +99,7 @@ export interface EsemenyDTO {
     tipus: string;
     rendhasz: boolean;
     koltseg: number;
-    koltsvis: string;
+    koltsvis: "Tulaj" | "Bérlő";
     alapot: string;
     megjegyzes: string;
     zarasDatum: string;
@@ -143,4 +155,8 @@ export interface SzamlaDTO {
     szamlaId: string;
     bruttoOsszeg: number;
     pdf: string;
+}
+
+export interface LogikaiDTO {
+    result: boolean;
 }

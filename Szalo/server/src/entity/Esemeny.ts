@@ -20,7 +20,7 @@ export class Esemeny implements EsemenyDTO {
     koltseg: number;
 
     @Column({ type: "varchar", nullable: false})
-    koltsvis: string;
+    koltsvis: "Tulaj" | "Bérlő";
 
     @Column({ type: "varchar", nullable: false })
     alapot: string;

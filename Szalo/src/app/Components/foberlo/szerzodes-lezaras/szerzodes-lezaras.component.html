@@ -1,0 +1,53 @@
+
+<h4>Óraállások rögzítése</h4>
+
+<form [formGroup]="szerzodesZarasForm">
+    <div class="row">
+        <div class="col-md-3">
+            Gázóra gyári száma: {{ szerzodes?.gazOraGyariszam }}
+        </div>
+        <div class="col-md-3">
+            Gázóra kezdőállása: {{ szerzodes?.gazOraKezdoAllas }} m<sup>3</sup>
+        </div>
+        <div class="col-md-2">
+            <label for="gazOraZaroAllas">Gázóra záróállása:</label>
+        </div>
+        <div class="col-md-2">
+            <input type="number" id="gazOraZaroAllas" class="form-control" formControlName="gazOraZaroAllas">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Villanyóra gyári száma: {{ szerzodes?.villanyOraGyariszam }}
+        </div>
+        <div class="col-md-3">
+            Villanyóra kezdőállása: {{ szerzodes?.villanyOraKezdoAllas }} kWh
+        </div>
+        <div class="col-md-2">
+            <label for="villanyOraZaroAllas">Villanyóra záróállása:</label>
+        </div>
+        <div class="col-md-2">
+            <input type="number" id="villanyOraZaroAllas" class="form-control" formControlName="villanyOraZaroAllas">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Vízóra gyári száma: {{ szerzodes?.vizOraGyariszam }}
+        </div>
+        <div class="col-md-3">
+            Vízóra kezdőállása: {{ szerzodes?.vizOraKezdoAllas }} m<sup>3</sup>
+        </div>
+        <div class="col-md-2">
+            <label for="vizOraZaroAllas">Vízóra záróállása:</label>
+        </div>
+        <div class="col-md-2">
+            <input type="number" id="vizOraZaroAllas" class="form-control" formControlName="vizOraZaroAllas">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-end">
+            <button class="btn btn-outline-primary" (click)="szerzodesZaras()">Mentés</button>
+        </div>
+    </div>
+</form>

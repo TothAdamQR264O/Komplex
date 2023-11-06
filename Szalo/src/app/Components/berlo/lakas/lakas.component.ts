@@ -57,21 +57,7 @@ export class LakasComponent {
     telepules: '',
     cim: '',
   });
-  szerzodes: SzerzodesDTO = ({
-    id: 0,
-    kezdido: new Date,
-    vegido: new Date,
-    kaukcio: 0,
-    ggyszam: 0,
-    agyszam: 0,
-    vgyszam: 0,
-    gora: 0,
-    aora: 0,
-    vora: 0,
-    tid: this.fberlo,
-    bid: this.berlo,
-    hid: this.haziko,
-  });
+  szerzodes?: SzerzodesDTO;
   Szer: SzerzodesDTO[] = [];
 
   constructor(

@@ -12,6 +12,8 @@ import { SzerzodesComponent } from './Components/foberlo/szerzodes/szerzodes.com
 import { LakoComponent } from './Components/foberlo/lako/lako.component';
 import { EsemenyComponent } from './Components/foberlo/esemeny/esemeny.component';
 import { HaviosszesitoComponent } from './Components/foberlo/haviosszesito/haviosszesito.component';
+import { SzerzodesLezarasComponent } from './Components/foberlo/szerzodes-lezaras/szerzodes-lezaras.component';
+import { SzamlaIntegracioComponent } from './Components/foberlo/szamla-integracio/szamla-integracio.component';
 
 const routes: Routes = [
   { path: '', component: BejelentkezesComponent },
@@ -22,11 +24,16 @@ const routes: Routes = [
   { path: 'keres', component: KeresoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'appys/:hazId', component: JelentkezokComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'contract/:id', component: SzerzodesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  {
+    path: 'szerzodes-lezaras/:id', component: SzerzodesLezarasComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ]
+  },
   { path: 'event', component: EsemenyComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'event/:id', component: EsemenyComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'osszesito/:id', component: HaviosszesitoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'resident/:szerzodesId', component: LakoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
-  { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] } 
+  { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  { path: 'szamla-integracio', component: SzamlaIntegracioComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] }
 ];
 
 @NgModule({

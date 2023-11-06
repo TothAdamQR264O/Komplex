@@ -63,19 +63,21 @@ export class HaviosszesitoController extends Controller {
             // az összesítés nem hozható létre:
             // - ha már létezik
             // - ha a szerződés időtartamán kívüli
-            if(osszesitoEv > szerzodes.vegido.getFullYear || osszesitoHonap > szerzodes.vegido.getMonth){
-                return this.handleError(res, null, 400, "Az összesítő csak a szerződésben meghatározott időig lehet létrehozni.");
-            }
             // - ha az aktuális hónapra vagy azt követő időszakra vonatkozik
-            if(osszesitoHonap <= moment){
-                return this.handleError(res, null, 400, "Az összesítő csak a már elmult hónapra hozható létre.");
-            }
             const letrehozhato = await this.osszesitoService.letrehozhato(szerzodes, osszesitoEv, osszesitoHonap);
             if (!letrehozhato) {
                 return this.handleError(res, null, 400, 'A megadott hónapra nem készíthető összesítés.') 
             }
 
-            const haviDij = szerzodes.hid.ar;
+            const szerzodesKezdoDatum = moment(szerzodes.kezdido);
+
+            let haviDij = szerzodes.hid.ar;
+            if (szerzodesKezdoDatum.get('year') == osszesitoEv && szerzodesKezdoDatum.get('month') == osszesitoHonap - 1) {
+                const honapNapjai = szerzodesKezdoDatum.daysInMonth();
+                const szamlazandoNapok = honapNapjai - szerzodesKezdoDatum.get('date');
+                haviDij = Math.floor(szamlazandoNapok / honapNapjai * haviDij);
+            }
+            
             const rezsi = szerzodes.hid.reszi;
 
             const havidijEntity = this.osszesitoTetelRepository.create({
@@ -99,26 +101,62 @@ export class HaviosszesitoController extends Controller {
                 ev: req.params.evszam,
                 honap: req.params.honapszam,
                 fizetve: false,
-                szerzodes: szerzodes,
-                tetelek: tetelek
+                szerzodes: szerzodes
             });
 
-            
             const elsoNap = moment().set('year', req.params.evszam).set('month', req.params.honapszam - 1).startOf('month');
             const utolsoNap = moment().set('year', req.params.evszam).set('month', req.params.honapszam - 1).endOf('month');
             
-            // TODO: események létrehozása tételekként
             const karesemenyek = await this.esemenyRepository.findBy({
                 zarasDatum: Between(elsoNap.format('YYYY-MM-DD'), utolsoNap.format('YYYY-MM-DD'))
             });
-            
-            
 
-            // osszesitoEntity.tetelek.push()
+            for (const karesemeny of karesemenyek) {
+                if (karesemeny.koltseg === 0) {
+                    continue;
+                }
+
+                if (karesemeny.koltsvis === 'Tulaj' && karesemeny.rendhasz) {
+                    continue;
+                }
+
+                if (karesemeny.koltsvis === 'Tulaj' && !karesemeny.rendhasz) {
+                    tetelek.push(this.osszesitoTetelRepository.create({
+                        megnevezes: `${karesemeny.id}. káresemény megtérítése`,
+                        mennyiseg: 1,
+                        egyseg: 'alkalom',
+                        osszeg: karesemeny.koltseg
+                    }));
+                }
+
+                if (karesemeny.koltsvis === 'Bérlő' && karesemeny.rendhasz) {
+                    tetelek.push(this.osszesitoTetelRepository.create({
+                        megnevezes: `${karesemeny.id}. káresemény megtérítése`,
+                        mennyiseg: 1,
+                        egyseg: 'alkalom',
+                        osszeg: -karesemeny.koltseg
+                    }));
+                }
+
+                if (karesemeny.koltsvis === 'Bérlő' && !karesemeny.rendhasz) {
+                    tetelek.push(this.osszesitoTetelRepository.create({
+                        megnevezes: `${karesemeny.id}. káresemény megtérítése`,
+                        mennyiseg: 1,
+                        egyseg: 'alkalom',
+                        osszeg: karesemeny.koltseg
+                    }));
+                }
+            }
+
+            osszesitoEntity.tetelek = tetelek;
 
             const szamlazzHuAdatok = await this.szamlazzHuIntegracioRepository.findOneBy({
                 tulajdonos: { id: szerzodes.tid.id }
             });
+
+            if (!szamlazzHuAdatok || !szamlazzHuAdatok.apiKulcs) {
+                return this.handleError(res, null, 400, 'Nem létező Számlázz.hu integráció. Kérjük állítsa be API-kulcsát!');
+            }
 
             const szamlazzClient = new Client({
                 authToken: szamlazzHuAdatok.apiKulcs,
@@ -138,7 +176,7 @@ export class HaviosszesitoController extends Controller {
 
             const buyer = new Buyer({
                 name: szerzodes.bid.nameb,
-                zip: szerzodes.bid.irsz,
+                zip: String(szerzodes.bid.irsz),
                 city: szerzodes.bid.telepules,
                 address: szerzodes.bid.cim,
                 phone: szerzodes.bid.telb,

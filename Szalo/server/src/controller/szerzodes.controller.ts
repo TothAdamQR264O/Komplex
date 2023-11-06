@@ -5,6 +5,8 @@ import { Haz } from "../entity/Haz";
 import { AppDataSource } from "../data-source";
 import { Foberlo } from "../entity/Foberlo";
 import { Szerzodes } from "../entity/Szerzodes";
+import moment from "moment";
+import { SzerzodesZarasDTO } from "../../../models";
 
 export class SzerzodesController extends Controller{
     repository = AppDataSource.getRepository(Szerzodes);
@@ -78,4 +80,42 @@ export class SzerzodesController extends Controller{
         }
     };
 
+    zaras = async (req, res) => {
+        try {
+            const szerzodes = await this.repository.findOneBy({
+                id: req.params.id
+            });
+            if (!szerzodes) {
+                return this.handleError(res, null, 404, "A megadott szerződés nem létezik.");
+            }
+
+            const beallitasok = req.body as SzerzodesZarasDTO;
+
+            szerzodes.aktiv = false;
+            szerzodes.lezarasDatum = moment().format('YYYY-MM-DD');
+
+            if (beallitasok.gazOraZaroAllas < szerzodes.gazOraKezdoAllas) {
+                return this.handleError(res, null, 400, 'A gázóra állása nem lehet kisebb, mint a kezdőállás.');
+            }
+
+            if (beallitasok.villanyOraZaroAllas < szerzodes.villanyOraKezdoAllas) {
+                return this.handleError(res, null, 400, 'A villanyóra állása nem lehet kisebb, mint a kezdőállás.');
+            }
+
+            if (beallitasok.vizOraZaroAllas < szerzodes.vizOraKezdoAllas) {
+                return this.handleError(res, null, 400, 'A vízóra állása nem lehet kisebb, mint a kezdőállás.');
+            }
+
+            szerzodes.gazOraVegAllas = beallitasok.gazOraZaroAllas;
+            szerzodes.villanyOraVegAllas = beallitasok.villanyOraZaroAllas;
+            szerzodes.vizOraVegAllas = beallitasok.vizOraZaroAllas;
+
+            // TODO: összesítés
+
+            await this.repository.save(szerzodes);
+            res.json(szerzodes);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    }
 }

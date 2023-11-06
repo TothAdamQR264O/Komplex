@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SzamlaDTO } from 'models';
+import { LogikaiDTO, SzamlaDTO, SzamlazzHuIntegracioDTO } from 'models';
 import { saveAs } from 'file-saver';
 import { ToastrService } from 'ngx-toastr';
 
@@ -27,6 +27,14 @@ export class SzamlaService {
         this.toastrService.error(err.error.message, 'Hiba');
       }
     });
+  }
+
+  integracioStatusz() {
+    return this.http.get<LogikaiDTO>('/api/szamla/integracio/statusz');
+  }
+
+  integracioLetrehozas(integracio: Partial<SzamlazzHuIntegracioDTO>) {
+    return this.http.post<SzamlazzHuIntegracioDTO>('/api/szamla/integracio', integracio);
   }
 
   private b64toFile(b64Data: string, filename: string, contentType: string) {
