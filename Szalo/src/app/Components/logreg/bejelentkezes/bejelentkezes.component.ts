@@ -21,15 +21,7 @@ export class BejelentkezesComponent {
   serviceChoice = 0;
   email = "";
   valide = true;
-  fberlo: FoberloDTO = ({
-    id: 0,
-    namefb: '',
-    email: '',
-    password: '',
-    szamlaszamfb: '',
-    telfb: 0,
-    bank: ''
-  });
+  fberlo?: FoberloDTO;
 
   foberloForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
@@ -82,19 +74,6 @@ export class BejelentkezesComponent {
     this.valide = true;
     if(!this.loginForm.value.email || !this.loginForm.value.password || this.serviceChoice == 0){
       this.valide = false;
-    }else{
-      /*this.foberloService.getOneOnEmil(this.email).subscribe({
-        next: (fberlo) => {
-          this.foberloForm.setValue(fberlo),
-          this.toastrService.success('Elentett adat: ' + fberlo, 'Inf');
-          localStorage.setItem('namefb', ""+this.foberloForm.value.namefb);
-        },
-        error: (err) => {
-          this.toastrService.error('Az adatot nem tudta lekérdezi.', 'Hiba');
-          this.toastrService.error('Email a formból: ' + this.email + ', namefb: ' + this.foberloForm.value.namefb, 'Hiba');
-        }
-      });*/
-
     }
     return this.valide;
   }

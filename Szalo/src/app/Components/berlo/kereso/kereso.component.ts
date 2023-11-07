@@ -51,23 +51,7 @@ export class KeresoComponent {
     hirdet: "",
   });
 
-  berlo: BerloDTO = ({
-    id: 0,
-    nameb: '',
-    email: '',
-    password: '',
-    szamlaszamb: '',
-    telb: 0,
-    irsz: 0,
-    telepules: '',
-    cim: '',
-  });
-
-  jelentkez: JelentkezesDTO = ({
-    id: 0,
-    berlo: this.berlo,
-    haz: this.haziko,
-  });
+  jelentkez?: JelentkezesDTO;
 
   visable = true;
   szures = false;

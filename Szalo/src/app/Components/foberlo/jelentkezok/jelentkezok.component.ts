@@ -20,70 +20,18 @@ export class JelentkezokComponent {
   jelentkezesek: JelentkezesDTO[] = [];
   visable = true;
   applyId = -300;
-  fberlo: FoberloDTO = ({
-    id: 0,
-    namefb: '',
-    email: '',
-    password: '',
-    szamlaszamfb: '',
-    telfb: 0,
-    bank: ''
-  });
-  haziko: HazDTO = ({
-    id: 0,
-    hrsz: "",
-    irsz: 0,
-    telepules: "",
-    cim: "",
-    reszi: 0,
-    ar: 0,
-    szobakszama: 0,
-    meret: 0,
-    tulaj: this.fberlo,
-    alapot: "",
-    konfort: "",
-    emelet: 0,
-    szint: 0,
-    lift: "",
-    legkondi: "",
-    butorozott: "",
-    koltozheto: "",
-    minberido: 0,
-    fureswc: "",
-    kilatas: "",
-    erkelymeret: 0,
-    gepesitet: "",
-    hirdet: "",
-  });
-  berlo: BerloDTO = ({
-    id: 0,
-    nameb: '',
-    email: '',
-    password: '',
-    szamlaszamb: '',
-    telb: 0,
-    irsz: 0,
-    telepules: '',
-    cim: '',
-  });
-
-  jelentkezo: JelentkezesDTO = ({
-    id: 0,
-    berlo: this.berlo,
-    haz: this.haziko,
-  });
 
   szerzodesForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     kezdido: this.formBuilder.control(new Date(), [Validators.required]),
     vegido: this.formBuilder.control(new Date(), [Validators.required]),
     kaukcio: this.formBuilder.control(0, [Validators.required]),
-    ggyszam: this.formBuilder.control(0, [Validators.required]),
-    agyszam: this.formBuilder.control(0, [Validators.required]),
-    vgyszam: this.formBuilder.control(0, [Validators.required]),
-    gora: this.formBuilder.control(0, [Validators.required]),
-    aora: this.formBuilder.control(0, [Validators.required]),
-    vora: this.formBuilder.control(0, [Validators.required])
+    gazOraGyariszam: this.formBuilder.control(0, [Validators.required]),
+    villanyOraGyariszam: this.formBuilder.control(0, [Validators.required]),
+    vizOraGyariszam: this.formBuilder.control(0, [Validators.required]),
+    gazOraKezdoAllas: this.formBuilder.control(0, [Validators.required]),
+    villanyOraKezdoAllas: this.formBuilder.control(0, [Validators.required]),
+    vizOraKezdoAllas: this.formBuilder.control(0, [Validators.required])
   })
 
   constructor(

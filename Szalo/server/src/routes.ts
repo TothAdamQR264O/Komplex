@@ -2,7 +2,7 @@ import express from 'express';
 import { BerloController } from './controller/Berlo.controller';
 import { FoberloController } from './controller/foberlo.controller';
 import { HazController } from './controller/haz.controller';
-import { checkUser, csakTulaj } from './protect-routes';
+import { checkUser, csakBerlo, csakTulaj } from './protect-routes';
 import { JelentkezesController } from './controller/jelentkezes.controller';
 import { SzerzodesController } from './controller/szerzodes.controller';
 import { EsemenyController } from './controller/esemeny.controller';
@@ -17,9 +17,9 @@ export function getRoutes() {
     router.get('/home', checkUser, hazController.getAll);
     router.get('/home/search', checkUser, hazController.getAd);
     router.get('/home/:id', hazController.getOne);
-    router.post('/home', checkUser, hazController.create);
-    router.put('/home', checkUser, hazController.update);
-    router.delete('/home/:id', checkUser, hazController.delete);
+    router.post('/home', checkUser, csakTulaj, hazController.create);
+    router.put('/home', checkUser, csakTulaj, hazController.update);
+    router.delete('/home/:id', checkUser, csakTulaj, hazController.delete);
 
     const foberloController = new FoberloController();
 
@@ -27,8 +27,8 @@ export function getRoutes() {
     router.get('/foberlo/:id', foberloController.getOne);
     router.get('/foberlo/:email', foberloController.getOneOnEmil);
     router.post('/foberlo', foberloController.create);
-    router.put('/foberlo', checkUser, foberloController.update);
-    router.delete('/foberlo/:id', checkUser, foberloController.delete);
+    router.put('/foberlo', checkUser, csakTulaj, foberloController.update);
+    router.delete('/foberlo/:id', checkUser, csakTulaj, foberloController.delete);
     router.post('/foberlo/login', foberloController.login);
 
     const berloController = new BerloController();
@@ -36,31 +36,31 @@ export function getRoutes() {
     router.get('/berlo', berloController.getAll);
     router.get('/berlo/:id', berloController.getOne);
     router.post('/berlo', berloController.create);
-    router.put('/berlo', checkUser, berloController.update);
-    router.delete('/berlo/:id', checkUser, berloController.delete);
+    router.put('/berlo', checkUser, csakBerlo, berloController.update);
+    router.delete('/berlo/:id', checkUser, csakBerlo, berloController.delete);
     router.post('/berlo/login', berloController.login);
 
     const jelentkezesController = new JelentkezesController();
 
-    router.post('/jelentkez/:hazId', checkUser, jelentkezesController.create);
+    router.post('/jelentkez/:hazId', checkUser, csakBerlo, jelentkezesController.create);
     router.get('/jelentkez/:hazId', checkUser, jelentkezesController.getAll);
     router.get('/jelentkez/:id', checkUser, jelentkezesController.getOne);
 
     const szerzodesController = new SzerzodesController();
 
-    router.post('/szerzodes', checkUser, szerzodesController.create);
+    router.post('/szerzodes', checkUser, csakTulaj, szerzodesController.create);
     router.get('/szerzodes', checkUser, szerzodesController.getAll);
     router.get('/szerzodes/sajat', checkUser, szerzodesController.getTulaj);
     router.get('/szerzodes/:id', checkUser, szerzodesController.getOne);
     router.get('/lak', checkUser, szerzodesController.getBerlo);
-    router.put('/szerzodes/:id/zaras', checkUser, szerzodesController.zaras);
+    router.put('/szerzodes/:id/zaras', checkUser, csakTulaj, szerzodesController.zaras);
     
     const esemenyController = new EsemenyController();
 
-    router.post('/esemeny', checkUser, esemenyController.create);
+    router.post('/esemeny', checkUser, csakTulaj, esemenyController.create);
     router.get('/esemeny/osszes/:szerzodesId', checkUser, esemenyController.getAll);
     router.get('/esemeny/:id', checkUser, esemenyController.getOne);
-    router.put('/esemeny', checkUser, esemenyController.update);
+    router.put('/esemeny', checkUser, csakTulaj, esemenyController.update);
 
     const haviosszController = new HaviosszesitoController();
 
@@ -74,7 +74,7 @@ export function getRoutes() {
 
     router.get('/szamla/:id', checkUser, szamlaController.getOne);
     router.get('/szamla/integracio/statusz', checkUser, szamlaController.integracioLetezik);
-    router.post('/szamla/integracio', checkUser, szamlaController.integracioLetrehozas);
+    router.post('/szamla/integracio', checkUser, csakTulaj, szamlaController.integracioLetrehozas);
 
     return router;
 }

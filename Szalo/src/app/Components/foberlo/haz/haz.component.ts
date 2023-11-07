@@ -168,7 +168,6 @@ export class HazComponent {
     else {
       this.houseService.getAll().subscribe({
         next: (hazak) => {
-          //this.hazak = hazak;
           var hir = 0;
           var noHir = 0;
           for(var i = 0; i < hazak.length; i++){

@@ -68,7 +68,7 @@ export class AuthService {
     const szerepkor = this.getRole();
 
     if (szerepkor != 'tulaj') {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/lak');
       return false;
     }
 
@@ -79,7 +79,7 @@ export class AuthService {
     const szerepkor = this.getRole();
 
     if (szerepkor != 'berlo') {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/home');
       return false;
     }
 

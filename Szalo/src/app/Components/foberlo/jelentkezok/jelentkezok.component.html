@@ -53,47 +53,47 @@
               </small>
           </div>
           <div class="mb-3">
-              <label for="ggyszam" class="form-label">Gáz óra gyári száma</label>
-              <input type="text" class="form-control" id="ggyszam" name="ggyszam" placeholder="07264097" formControlName="ggyszam">
-              <small class="text-danger" *ngIf="(szerzodesForm.get('ggyszam')?.touched || szerzodesForm.get('ggyszam')?.dirty) && szerzodesForm.get('ggyszam')?.hasError('required')">
-                  A gáz óra gyári számának megadása kötelező.
-              </small>
-          </div>
-          <div class="mb-3">
-            <label for="gora" class="form-label">Gáz óra értéke</label>
-              <input type="text" class="form-control" id="gora" name="gora" placeholder="500963" formControlName="gora">
-              <small class="text-danger" *ngIf="(szerzodesForm.get('gora')?.touched || szerzodesForm.get('gora')?.dirty) && szerzodesForm.get('gora')?.hasError('required')">
-                  A gáz óra értékének megadása kötelező.
-              </small>
-          </div>
-          <div class="mb-3">
-            <label for="agyszam" class="form-label">Villany óra gyári szám</label>
-            <input type="text" class="form-control" id="agyszam" name="agyszam" placeholder="07264097" formControlName="agyszam">
-            <small class="text-danger" *ngIf="(szerzodesForm.get('agyszam')?.touched || szerzodesForm.get('agyszam')?.dirty) && szerzodesForm.get('agyszam')?.hasError('required')">
-                A villany óra gyári számának megadása kötelező.
+            <label for="gazOraGyariszam" class="form-label">Gáz óra gyári száma</label>
+            <input type="text" class="form-control" id="gazOraGyariszam" name="gazOraGyariszam" placeholder="07264097" formControlName="gazOraGyariszam">
+            <small class="text-danger" *ngIf="(szerzodesForm.get('gazOraGyariszam')?.touched || szerzodesForm.get('gazOraGyariszam')?.dirty) && szerzodesForm.get('gazOraGyariszam')?.hasError('required')">
+                A gáz óra gyári számának megadása kötelező.
             </small>
         </div>
         <div class="mb-3">
-          <label for="aora" class="form-label">Villany óra értéke</label>
-            <input type="text" class="form-control" id="aora" name="aora" placeholder="500963" formControlName="aora">
-            <small class="text-danger" *ngIf="(szerzodesForm.get('aora')?.touched || szerzodesForm.get('aora')?.dirty) && szerzodesForm.get('aora')?.hasError('required')">
-                A villany óra értékének megadása kötelező.
+          <label for="gazOraKezdoAllas" class="form-label">Gáz óra értéke</label>
+            <input type="text" class="form-control" id="gazOraKezdoAllas" name="gazOraKezdoAllas" placeholder="500963" formControlName="gazOraKezdoAllas">
+            <small class="text-danger" *ngIf="(szerzodesForm.get('gazOraKezdoAllas')?.touched || szerzodesForm.get('gazOraKezdoAllas')?.dirty) && szerzodesForm.get('gazOraKezdoAllas')?.hasError('required')">
+                A gáz óra értékének megadása kötelező.
             </small>
         </div>
         <div class="mb-3">
-          <label for="vgyszam" class="form-label">Víz óra gyári száma</label>
-          <input type="text" class="form-control" id="vgyszam" name="vgyszam" placeholder="07264097" formControlName="vgyszam">
-          <small class="text-danger" *ngIf="(szerzodesForm.get('vgyszam')?.touched || szerzodesForm.get('vgyszam')?.dirty) && szerzodesForm.get('vgyszam')?.hasError('required')">
-              A víz óra gyári számának megadása kötelező.
+          <label for="villanyOraGyariszam" class="form-label">Villany óra gyári szám</label>
+          <input type="text" class="form-control" id="villanyOraGyariszam" name="villanyOraGyariszam" placeholder="07264097" formControlName="villanyOraGyariszam">
+          <small class="text-danger" *ngIf="(szerzodesForm.get('villanyOraGyariszam')?.touched || szerzodesForm.get('villanyOraGyariszam')?.dirty) && szerzodesForm.get('villanyOraGyariszam')?.hasError('required')">
+              A villany óra gyári számának megadása kötelező.
           </small>
       </div>
       <div class="mb-3">
-        <label for="vora" class="form-label">Víz óra</label>
-          <input type="text" class="form-control" id="vora" name="vora" placeholder="500963" formControlName="vora">
-          <small class="text-danger" *ngIf="(szerzodesForm.get('vora')?.touched || szerzodesForm.get('vora')?.dirty) && szerzodesForm.get('vora')?.hasError('required')">
-              A víz óra értékének megadása kötelező.
+        <label for="villanyOraKezdoAllas" class="form-label">Villany óra értéke</label>
+          <input type="text" class="form-control" id="villanyOraKezdoAllas" name="villanyOraKezdoAllas" placeholder="500963" formControlName="villanyOraKezdoAllas">
+          <small class="text-danger" *ngIf="(szerzodesForm.get('villanyOraKezdoAllas')?.touched || szerzodesForm.get('villanyOraKezdoAllas')?.dirty) && szerzodesForm.get('villanyOraKezdoAllas')?.hasError('required')">
+              A villany óra értékének megadása kötelező.
           </small>
       </div>
+      <div class="mb-3">
+        <label for="vizOraGyariszam" class="form-label">Víz óra gyári száma</label>
+        <input type="text" class="form-control" id="vizOraGyariszam" name="vizOraGyariszam" placeholder="07264097" formControlName="vizOraGyariszam">
+        <small class="text-danger" *ngIf="(szerzodesForm.get('vizOraGyariszam')?.touched || szerzodesForm.get('vizOraGyariszam')?.dirty) && szerzodesForm.get('vizOraGyariszam')?.hasError('required')">
+            A víz óra gyári számának megadása kötelező.
+        </small>
+    </div>
+    <div class="mb-3">
+      <label for="vizOraKezdoAllas" class="form-label">Víz óra</label>
+        <input type="text" class="form-control" id="vizOraKezdoAllas" name="vizOraKezdoAllas" placeholder="500963" formControlName="vizOraKezdoAllas">
+        <small class="text-danger" *ngIf="(szerzodesForm.get('vizOraKezdoAllas')?.touched || szerzodesForm.get('vizOraKezdoAllas')?.dirty) && szerzodesForm.get('vizOraKezdoAllas')?.hasError('required')">
+            A víz óra értékének megadása kötelező.
+        </small>
+    </div>
 
           <div class="input-group">
               <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
