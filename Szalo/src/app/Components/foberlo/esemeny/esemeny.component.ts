@@ -74,14 +74,6 @@ export class EsemenyComponent {
     this.switchVolume *= -1;
   }
 
-  // rendHaszVolume(){
-  //   if(this.switchVolume == 1){
-  //     this.esemenyForm.value.rendhasz = "Igen";
-  //   }else{
-  //     this.esemenyForm.value.rendhasz = "Nem";
-  //   }
-  // }
-
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];

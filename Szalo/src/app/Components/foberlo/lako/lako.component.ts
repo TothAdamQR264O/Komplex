@@ -17,7 +17,6 @@ import moment from 'moment';
   styleUrls: ['./lako.component.css']
 })
 export class LakoComponent {
-  visable = true;
   isNewEvent = true;
 
   szerzodesId!: number;
@@ -35,7 +34,7 @@ export class LakoComponent {
     rendhasz: this.formBuilder.control(true, [Validators.required]),
     koltseg: this.formBuilder.control(0, [Validators.required]),
     koltsvis: this.formBuilder.control("", [Validators.required]),
-    allapot: this.formBuilder.control("", [Validators.required]),
+    alapot: this.formBuilder.control("", [Validators.required]),
     megjegyzes: this.formBuilder.control("", [Validators.required]),
     dokumentum: this.formBuilder.control(this.szerzodes),
   })
@@ -80,10 +79,6 @@ export class LakoComponent {
     this.router.navigate(['/event']);
   }
 
-  canceled() {
-    this.visable = true;
-  }
-
   osszesitokFrissitese() {
     this.haviosszesitoService.getAll(this.szerzodesId).subscribe({
       next: (osszesitok) => this.osszesitok = osszesitok,
@@ -103,39 +98,6 @@ export class LakoComponent {
         console.error(err);
       }
     })
-  }
-
-  saveEvent() {
-    const eve = this.esemenyForm.value as EsemenyDTO;
-
-    if (this.isNewEvent) {
-      this.esemenyService.create(eve).subscribe({
-        next: (eve) => {
-          this.toastrService.success('Esemény felvitele sikeresen megtörtént', 'Siker');
-          //this.router.navigateByUrl('/home');
-        },
-        error: (err) => {
-          this.toastrService.error('Nem sikerült felvinni az adatokat.', 'Hiba');
-        }
-      });
-      this.visable = true;
-    }
-    else {
-      this.esemenyService.update(eve).subscribe({
-        next: (eve) => {
-          this.toastrService.success('Ház adaainak megváltoztatása sikeresen megtörtént', 'Siker');
-          //this.router.navigateByUrl('/home');
-        },
-        error: (err) => {
-          this.toastrService.error('Nem sikerült megváltoztatni az adatokat.', 'Hiba');
-        }
-      });
-      this.visable = true;
-    }
-  }
-
-  changeVisable(): boolean {
-    return this.visable;
   }
 
   osszesitoGeneralas() {
