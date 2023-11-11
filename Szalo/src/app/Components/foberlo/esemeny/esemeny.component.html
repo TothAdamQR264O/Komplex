@@ -30,26 +30,26 @@
             </div>
   
             <div class="mb-3">
-              <label for="koltsvis" class="form-label">Költség viselő</label>
-              <select name="koltsvis" id="koltsvis" class="form-select" formControlName="koltsvis">
+              <label for="koltsegviselo" class="form-label">Költség viselő</label>
+              <select name="koltsegviselo" id="koltsegviselo" class="form-select" formControlName="koltsegviselo">
                   <option value="Nem megállapítot">Nem megállapítot</option>
                   <option value="Tulaj">Tulaj</option>
                   <option value="Bérlő">Bérlő</option>
               </select>
-              <small class="text-danger" *ngIf="(esemenyForm.get('koltsvis')?.touched || esemenyForm.get('koltsvis')?.dirty) && esemenyForm.get('koltsvis')?.hasError('required')">
+              <small class="text-danger" *ngIf="(esemenyForm.get('koltsegviselo')?.touched || esemenyForm.get('koltsegviselo')?.dirty) && esemenyForm.get('koltsegviselo')?.hasError('required')">
                   A költség viselő megadása kötelező.
               </small>
             </div>
   
   
             <div class="mb-3">
-              <label for="alapot" class="form-label">Álapot</label>
-              <select name="alapot" id="alapot" class="form-select" formControlName="alapot">
+              <label for="allapot" class="form-label">Álapot</label>
+              <select name="allapot" id="allapot" class="form-select" formControlName="allapot">
                   <option value="Új esemény">Új esemény</option>
                   <option value="Fojamatban">Fojamatban</option>
                   <option value="Lezárt">Lezárt</option>
               </select>
-              <small class="text-danger" *ngIf="(esemenyForm.get('alapot')?.touched || esemenyForm.get('alapot')?.dirty) && esemenyForm.get('alapot')?.hasError('required')">
+              <small class="text-danger" *ngIf="(esemenyForm.get('allapot')?.touched || esemenyForm.get('allapot')?.dirty) && esemenyForm.get('allapot')?.hasError('required')">
                   Az álapot megadása kötelező.
               </small>
             </div>

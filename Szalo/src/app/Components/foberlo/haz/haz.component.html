@@ -42,8 +42,8 @@
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor="let szerzodes of sajatSzerzodesek">
-            <th scope="col">{{ szerzodes.hid.telepules }}</th>
-            <th scope="col">{{ szerzodes.hid.cim }}</th>
+            <th scope="col">{{ szerzodes.lakas.telepules }}</th>
+            <th scope="col">{{ szerzodes.lakas.cim }}</th>
             <th scope="col">{{ szerzodes.kezdido }}</th>
             <th scope="col">{{ szerzodes.vegido }}</th>
             <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheApply(szerzodes.id)">Kezelés</button></th>
@@ -123,18 +123,18 @@
                 </small>
             </div>
 
-            <label for="reszi" class="form-label">Reszi</label>
+            <label for="rezsi" class="form-label">rezsi</label>
             <div class="input-group mb-3">
-                <input type="number" class="form-control" id="reszi" name="reszi" placeholder="4000" formControlName="reszi"> 
+                <input type="number" class="form-control" id="rezsi" name="rezsi" placeholder="4000" formControlName="rezsi"> 
                 <div class="input-group-prepend">
                     <span class="input-group-text">Ft</span>
                 </div>
             </div>
-            <small class="text-danger" *ngIf="(hazForm.get('reszi')?.touched || hazForm.get('reszi')?.dirty) && hazForm.get('reszi')?.hasError('required')">
+            <small class="text-danger" *ngIf="(hazForm.get('rezsi')?.touched || hazForm.get('rezsi')?.dirty) && hazForm.get('rezsi')?.hasError('required')">
                 A rezsi megadása kötelező.
             </small>
-            <small class="text-danger" *ngIf="(hazForm.get('reszi')?.touched || hazForm.get('reszi')?.dirty) && hazForm.get('reszi')?.hasError('min')">
-                A reszi értéke nem lehet minusz.
+            <small class="text-danger" *ngIf="(hazForm.get('rezsi')?.touched || hazForm.get('rezsi')?.dirty) && hazForm.get('rezsi')?.hasError('min')">
+                A rezsi értéke nem lehet minusz.
             </small>
 
             <div>
@@ -179,8 +179,8 @@
             </small>
 
             <div class="mb-3">
-                <label for="alapot" class="form-label">Álapot</label>
-                <select name="alapot" id="alapot" class="form-select" formControlName="alapot">
+                <label for="allapot" class="form-label">Álapot</label>
+                <select name="allapot" id="allapot" class="form-select" formControlName="allapot">
                     <option value="Új építésű">Új építésű</option>
                     <option value="Újszerű">Újszerű</option>
                     <option value="Felújított">Felújított</option>
@@ -189,31 +189,31 @@
                     <option value="Felújítandó">Felújítandó</option>
                     <option value="Befejezetlen">Befejezetlen</option>
                 </select>
-                <small class="text-danger" *ngIf="(hazForm.get('alapot')?.touched || hazForm.get('alapot')?.dirty) && hazForm.get('alapot')?.hasError('required')">
+                <small class="text-danger" *ngIf="(hazForm.get('allapot')?.touched || hazForm.get('allapot')?.dirty) && hazForm.get('allapot')?.hasError('required')">
                     Az álapot megadása kötelező.
                 </small>
             </div>
             <!--<div class="mb-3">
-                <label for="konfort" class="form-label">Konfort</label>
-                <select name="konfort" id="konfort" class="form-select" formControlName="konfort">
+                <label for="komfort" class="form-label">komfort</label>
+                <select name="komfort" id="komfort" class="form-select" formControlName="komfort">
                     <option value="Luxus">Luxus</option>
-                    <option value="Duplakonfort">Duplakonfort</option>
-                    <option value="Összkonfort">Összkonfort</option>
-                    <option value="Konfortos">Konfortos</option>
-                    <option value="Félkonfortos">Félkonfortos</option>
-                    <option value="Konfort nélküli">Konfort nélküli</option>
+                    <option value="Duplakomfort">Duplakomfort</option>
+                    <option value="Összkomfort">Összkomfort</option>
+                    <option value="komfortos">komfortos</option>
+                    <option value="Félkomfortos">Félkomfortos</option>
+                    <option value="komfort nélküli">komfort nélküli</option>
                 </select>
-                <small class="text-danger" *ngIf="(hazForm.get('konfort')?.touched || hazForm.get('konfort')?.dirty) && hazForm.get('konfort')?.hasError('required')">
-                    A konfort megadása kötelező.
+                <small class="text-danger" *ngIf="(hazForm.get('komfort')?.touched || hazForm.get('komfort')?.dirty) && hazForm.get('komfort')?.hasError('required')">
+                    A komfort megadása kötelező.
                 </small>
             </div>-->
 
-            <div *ngFor="let konfort of konfortArr">
-            <input type="radio" name="konfort" id="konfort" for="konfort" formControlName="konfort" value="{{konfort.value}}" (change)="onRadioChange($event)">
-            <label>{{konfort.label}}</label>
+            <div *ngFor="let komfort of komfortArr">
+            <input type="radio" name="komfort" id="komfort" for="komfort" formControlName="komfort" value="{{komfort.value}}" (change)="onRadioChange($event)">
+            <label>{{komfort.label}}</label>
             </div>
-            <small class="text-danger" *ngIf="(hazForm.get('konfort')?.touched || hazForm.get('konfort')?.dirty) && hazForm.get('konfort')?.hasError('required')">
-                A konfort megadása kötelező.
+            <small class="text-danger" *ngIf="(hazForm.get('komfort')?.touched || hazForm.get('komfort')?.dirty) && hazForm.get('komfort')?.hasError('required')">
+                A komfort megadása kötelező.
             </small>
 
 
@@ -326,12 +326,12 @@
                 </small>
             </div>
             <div class="mb-3">
-                <label for="gepesitet" class="form-label">Gépesítet</label>
-                <select name="gepesitet" id="gepesitet" class="form-select" formControlName="gepesitet">
+                <label for="gepesitett" class="form-label">Gépesítet</label>
+                <select name="gepesitett" id="gepesitett" class="form-select" formControlName="gepesitett">
                     <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
                 </select>
-                <small class="text-danger" *ngIf="(hazForm.get('gepesitet')?.touched || hazForm.get('gepesitet')?.dirty) && hazForm.get('gepesitet')?.hasError('required')">
+                <small class="text-danger" *ngIf="(hazForm.get('gepesitett')?.touched || hazForm.get('gepesitett')?.dirty) && hazForm.get('gepesitett')?.hasError('required')">
                     A gépesítés megadása kötelező.
                 </small>
             </div>

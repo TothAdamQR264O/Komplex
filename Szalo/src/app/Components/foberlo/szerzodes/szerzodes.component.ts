@@ -21,7 +21,7 @@ export class SzerzodesComponent {
     id: this.formBuilder.control(0),
     kezdido: this.formBuilder.control(new Date(), [Validators.required]),
     vegido: this.formBuilder.control(this.getNowPlus1Year(), [Validators.required]),
-    kaukcio: this.formBuilder.control(0, [Validators.required]),
+    kaucio: this.formBuilder.control(0, [Validators.required]),
     gazOraGyariszam: this.formBuilder.control(0, [Validators.required]),
     villanyOraGyariszam: this.formBuilder.control(0, [Validators.required]),
     vizOraGyariszam: this.formBuilder.control(0, [Validators.required]),

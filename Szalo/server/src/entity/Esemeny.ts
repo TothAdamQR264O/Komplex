@@ -20,10 +20,10 @@ export class Esemeny implements EsemenyDTO {
     koltseg: number;
 
     @Column({ type: "varchar", nullable: false})
-    koltsvis: "Tulaj" | "Bérlő";
+    koltsegviselo: "Tulaj" | "Bérlő";
 
     @Column({ type: "varchar", nullable: false })
-    alapot: string;
+    allapot: string;
 
     @Column({ type: "varchar", nullable: false })
     megjegyzes: string;

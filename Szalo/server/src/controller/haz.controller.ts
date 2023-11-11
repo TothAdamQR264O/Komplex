@@ -22,7 +22,7 @@ export class HazController extends Controller {
             entity.tulaj = tulaj;
             
             const result = await this.repository.insert(entity);
-            const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
+            const inserted = await this.repository.findOneBy({ id: result.raw.insertulajdonos });
  
             res.json(inserted);
         } catch (err) {

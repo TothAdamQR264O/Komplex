@@ -16,20 +16,19 @@ export class RegisztralasComponent {
   valide = true;
 
   foberloForm = this.formBuilder.group({
-    namefb: this.formBuilder.control('', [Validators.required]),
+    nev: this.formBuilder.control('', [Validators.required]),
     email: this.formBuilder.control('', [Validators.required, Validators.email]),
     password: this.formBuilder.control('', [Validators.required]),
-    szamlaszamfb: this.formBuilder.control('', [Validators.required]),
-    telfb: this.formBuilder.control(301234567, [Validators.required]),
+    szamlaszam: this.formBuilder.control('', [Validators.required]),
+    telefonszam: this.formBuilder.control(301234567, [Validators.required]),
     bank: this.formBuilder.control('', [Validators.required]),
   });
 
   berloForm = this.formBuilder.group({
-    nameb: this.formBuilder.control('', [Validators.required]),
+    nev: this.formBuilder.control('', [Validators.required]),
     email: this.formBuilder.control('', [Validators.required, Validators.email]),
     password: this.formBuilder.control('', [Validators.required]),
-    szamlaszamb: this.formBuilder.control('', [Validators.required]),
-    telb: this.formBuilder.control(301234567, [Validators.required]),
+    telefonszam: this.formBuilder.control(301234567, [Validators.required]),
     irsz: this.formBuilder.control<number | null>(null, [Validators.required, Validators.min(1000), Validators.max(9999)]),
     telepules: this.formBuilder.control('', [Validators.required]),
     cim: this.formBuilder.control('', [Validators.required]),

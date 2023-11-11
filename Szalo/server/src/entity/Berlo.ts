@@ -9,19 +9,16 @@ export class Berlo implements BerloDTO{
     id: number;
 
     @Column({ type: "varchar", length: 50 })
-    nameb: string;
+    nev: string;
 
     @Column({ type: "varchar", unique: true })
     email: string;
 
     @Column({ type: "varchar", select: false })
     password: string;
-
-    @Column({ type: "varchar", length: 26 })
-    szamlaszamb: string;
     
     @Column()
-    telb: number;
+    telefonszam: number;
 
     @Column({nullable: false })
     irsz: number;
@@ -32,7 +29,7 @@ export class Berlo implements BerloDTO{
     @Column({ type: "varchar", nullable: false })
     cim: string;
 
-    @OneToMany(() => Szerzodes, szerzodes => szerzodes.bid)
+    @OneToMany(() => Szerzodes, szerzodes => szerzodes.berlo)
     szerzodesek: Szerzodes[];
 
     @OneToMany(() => Jelentkezes, jelentkezes => jelentkezes.berlo)

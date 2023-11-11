@@ -130,7 +130,7 @@ html{
   }
   .toast-container .ngx-toastr {
     position: relative;
-    overflow: hidden;
+    overflow: lakasden;
     margin: 0 0 6px;
     padding: 15px 15px 15px 50px;
     width: 300px;

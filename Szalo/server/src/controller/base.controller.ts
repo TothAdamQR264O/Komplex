@@ -46,7 +46,7 @@ export abstract class Controller {
             entity.id = null;
             
             const result = await this.repository.insert(entity);
-            const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
+            const inserted = await this.repository.findOneBy({ id: result.raw.insertulajdonos });
  
             res.json(inserted);
         } catch (err) {

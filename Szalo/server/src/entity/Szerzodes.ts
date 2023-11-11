@@ -24,7 +24,7 @@ export class Szerzodes implements SzerzodesDTO {
     lezarasDatum: string;
     
     @Column()
-    kaukcio: number;
+    kaucio: number;
 
     @Column()
     gazOraGyariszam: number;
@@ -54,13 +54,13 @@ export class Szerzodes implements SzerzodesDTO {
     vizOraVegAllas: number;
 
     @ManyToOne(() => Foberlo, (foberlo) => foberlo.szerzodesek, { eager: true })
-    tid: Foberlo;
+    tulajdonos: Foberlo;
 
     @ManyToOne(() => Berlo, (berlo) => berlo.szerzodesek, { eager: true })
-    bid: Berlo;
+    berlo: Berlo;
 
     @ManyToOne(() => Haz, (haz) => haz.szerzodesek, { eager: true })
-    hid: Haz;
+    lakas: Haz;
 
     @OneToMany(() => Esemeny, esemeny => esemeny.dokumentum)
     esemenyek: Esemeny[];

@@ -14,9 +14,9 @@
 
         <form [formGroup]="foberloForm" *ngIf="changeUserVisable()">
             <div class="mb-3">
-                <label for="namefb" class="form-label">Főbérlő Név</label>
-                <input type="text" class="form-control" id="namefb" name="namefb" placeholder="Példa Béla" formControlName="namefb">
-                <small class="text-danger" *ngIf="(foberloForm.get('namefb')?.touched || foberloForm.get('namefb')?.dirty) && foberloForm.get('namefb')?.hasError('required')">
+                <label for="nev" class="form-label">Főbérlő Név</label>
+                <input type="text" class="form-control" id="nev" name="nev" placeholder="Példa Béla" formControlName="nev">
+                <small class="text-danger" *ngIf="(foberloForm.get('nev')?.touched || foberloForm.get('nev')?.dirty) && foberloForm.get('nev')?.hasError('required')">
                     A tulaj név megadása kötelező.
                 </small>
             </div>
@@ -38,16 +38,16 @@
                 </small>
             </div>
             <div class="mb-3">
-                <label for="szamlaszamfb" class="form-label">Számlaszám</label>
-                <input type="text" class="form-control" id="szamlaszamfb" name="szamlaszamfb" placeholder="12345678-12345678-12345678" formControlName="szamlaszamfb">
-                <small class="text-danger" *ngIf="(foberloForm.get('szamlaszamfb')?.touched || foberloForm.get('szamlaszamfb')?.dirty) && foberloForm.get('szamlaszamfb')?.hasError('required')">
+                <label for="szamlaszam" class="form-label">Számlaszám</label>
+                <input type="text" class="form-control" id="szamlaszam" name="szamlaszam" placeholder="12345678-12345678-12345678" formControlName="szamlaszam">
+                <small class="text-danger" *ngIf="(foberloForm.get('szamlaszam')?.touched || foberloForm.get('szamlaszam')?.dirty) && foberloForm.get('szamlaszam')?.hasError('required')">
                     A számlaszám megadása kötelező.
                 </small>
             </div>
             <div class="mb-3">
-                <label for="telfb" class="form-label">Telefonszám</label>
-                <input type="text" class="form-control" id="telfb" name="telfb" placeholder="301234567" formControlName="telfb">
-                <small class="text-danger" *ngIf="(foberloForm.get('telfb')?.touched || foberloForm.get('telfb')?.dirty) && foberloForm.get('telfb')?.hasError('required')">
+                <label for="telefonszam" class="form-label">Telefonszám</label>
+                <input type="text" class="form-control" id="telefonszam" name="telefonszam" placeholder="301234567" formControlName="telefonszam">
+                <small class="text-danger" *ngIf="(foberloForm.get('telefonszam')?.touched || foberloForm.get('telefonszam')?.dirty) && foberloForm.get('telefonszam')?.hasError('required')">
                     A Telefonszám megadása kötelező.
                 </small>
             </div>
@@ -66,9 +66,9 @@
 
         <form [formGroup]="berloForm" *ngIf="!changeUserVisable()">
             <div class="mb-3">
-                <label for="nameb" class="form-label">Bérlő Név</label>
-                <input type="text" class="form-control" id="nameb" name="nameb" placeholder="Példa Béla" formControlName="nameb">
-                <small class="text-danger" *ngIf="(berloForm.get('nameb')?.touched || berloForm.get('nameb')?.dirty) && berloForm.get('nameb')?.hasError('required')">
+                <label for="nev" class="form-label">Bérlő Név</label>
+                <input type="text" class="form-control" id="nev" name="nev" placeholder="Példa Béla" formControlName="nev">
+                <small class="text-danger" *ngIf="(berloForm.get('nev')?.touched || berloForm.get('nev')?.dirty) && berloForm.get('nev')?.hasError('required')">
                     A név megadása kötelező.
                 </small>
             </div>
@@ -90,16 +90,9 @@
                 </small>
             </div>
             <div class="mb-3">
-                <label for="szamlaszamb" class="form-label">Számlaszám</label>
-                <input type="text" class="form-control" id="szamlaszamb" name="szamlaszamb" placeholder="12345678-12345678-12345678" formControlName="szamlaszamb">
-                <small class="text-danger" *ngIf="(berloForm.get('szamlaszamb')?.touched || berloForm.get('szamlaszamb')?.dirty) && berloForm.get('szamlaszamb')?.hasError('required')">
-                    A számlaszám megadása kötelező.
-                </small>
-            </div>
-            <div class="mb-3">
-                <label for="telb" class="form-label">Telefonszám</label>
-                <input type="text" class="form-control" id="telb" name="telb" placeholder="301234567" formControlName="telb">
-                <small class="text-danger" *ngIf="(berloForm.get('telb')?.touched || berloForm.get('telb')?.dirty) && berloForm.get('telb')?.hasError('required')">
+                <label for="telefonszam" class="form-label">Telefonszám</label>
+                <input type="text" class="form-control" id="telefonszam" name="telefonszam" placeholder="301234567" formControlName="telefonszam">
+                <small class="text-danger" *ngIf="(berloForm.get('telefonszam')?.touched || berloForm.get('telefonszam')?.dirty) && berloForm.get('telefonszam')?.hasError('required')">
                     A Telefonszám megadása kötelező.
                 </small>
             </div>

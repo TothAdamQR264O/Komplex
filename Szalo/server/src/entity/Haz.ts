@@ -22,7 +22,7 @@ export class Haz implements HazDTO {
     cim: string;
 
     @Column({ type: 'float', nullable: false })
-    reszi: number;
+    rezsi: number;
 
     @Column({ type: 'float', nullable: false })
     ar: number;
@@ -37,10 +37,10 @@ export class Haz implements HazDTO {
     tulaj: Foberlo;
 
     @Column({ type: "varchar", nullable: false })
-    alapot: string;
+    allapot: string;
 
     @Column({ type: "varchar", nullable: false })
-    konfort: string;
+    komfort: string;
 
     @Column({nullable: false })
     emelet: number;
@@ -73,12 +73,12 @@ export class Haz implements HazDTO {
     erkelymeret: number;
 
     @Column({ type: "varchar", nullable: false })
-    gepesitet: string;
+    gepesitett: string;
 
     @Column({ type: "varchar", nullable: false })
     hirdet: string;
 
-    @OneToMany(() => Szerzodes, szerzodes => szerzodes.hid)
+    @OneToMany(() => Szerzodes, szerzodes => szerzodes.lakas)
     szerzodesek: Szerzodes[];
 
     @OneToMany(() => Jelentkezes, jelentkezes => jelentkezes.haz)

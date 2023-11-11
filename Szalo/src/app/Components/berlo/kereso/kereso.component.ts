@@ -17,11 +17,11 @@ export class KeresoComponent {
   hazak: HazDTO[] = [];
   fberlo: FoberloDTO = ({
     id: 0,
-    namefb: '',
+    nev: '',
     email: '',
     password: '',
-    szamlaszamfb: '',
-    telfb: 0,
+    szamlaszam: '',
+    telefonszam: 0,
     bank: ''
   });
   haziko: HazDTO = ({
@@ -30,13 +30,13 @@ export class KeresoComponent {
     irsz: 0,
     telepules: "",
     cim: "",
-    reszi: 0,
+    rezsi: 0,
     ar: 0,
     szobakszama: 0,
     meret: 0,
     tulaj: this.fberlo,
-    alapot: "",
-    konfort: "",
+    allapot: "",
+    komfort: "",
     emelet: 0,
     szint: 0,
     lift: "",
@@ -47,7 +47,7 @@ export class KeresoComponent {
     fureswc: "",
     kilatas: "",
     erkelymeret: 0,
-    gepesitet: "",
+    gepesitett: "",
     hirdet: "",
   });
 

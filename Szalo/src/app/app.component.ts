@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 
   goToPage(pageName:string):void {
     if(pageName == "/home"){
-      localStorage.removeItem('hid');
+      localStorage.removeItem('lakas');
     }
     this.router.navigate([ `${pageName}` ]);
   }
@@ -36,9 +36,9 @@ export class AppComponent implements OnInit {
   logout() {
     this.authService.removeToken();
     localStorage.removeItem('email');
-    localStorage.removeItem('namefb');
+    localStorage.removeItem('nev');
     localStorage.removeItem('fberlo');
-    localStorage.removeItem('hid');
+    localStorage.removeItem('lakas');
     this.router.navigateByUrl('/');
     this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
   }

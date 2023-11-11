@@ -32,15 +32,15 @@ export class SzerzodesController extends Controller{
 
             const entity = this.repository.create(req.body as object);
             entity.id = null;
-            entity.tid = tulaj;
-            entity.hid = apply.haz;
-            entity.bid = apply.berlo;
+            entity.tulajdonos = tulaj;
+            entity.lakas = apply.haz;
+            entity.berlo = apply.berlo;
             
             const result = await this.repository.insert(entity);
-            const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
+            const inserted = await this.repository.findOneBy({ id: result.raw.insertulajdonos });
 
             const masJelentkezesek = await this.jelntkezrepository.findBy({
-                haz: { id: entity.hid.id }
+                haz: { id: entity.lakas.id }
             });
             await this.jelntkezrepository.remove(masJelentkezesek);
  
@@ -60,7 +60,7 @@ export class SzerzodesController extends Controller{
             }
 
             const entities = await this.repository.findBy({
-                bid: { id: req.auth.id }
+                berlo: { id: req.auth.id }
             });
             res.json(entities);
         } catch (err) {
@@ -71,7 +71,7 @@ export class SzerzodesController extends Controller{
     getTulaj = async (req, res) => {
         try {
             const szerzodesek = await this.repository.findBy({
-                tid: { id: req.auth.id }
+                tulajdonos: { id: req.auth.id }
             });
 
             res.json(szerzodesek);

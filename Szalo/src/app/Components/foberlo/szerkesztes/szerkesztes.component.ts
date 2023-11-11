@@ -23,12 +23,12 @@ export class SzerkesztesComponent {
     irsz: this.formBuilder.control<number|null>(null),
     telepules: this.formBuilder.control(''),
     cim: this.formBuilder.control(''),
-    reszi: this.formBuilder.control(0),
+    rezsi: this.formBuilder.control(0),
     ar: this.formBuilder.control(0),
     szobakszama: this.formBuilder.control(0),
     meret: this.formBuilder.control(0),
-    alapot: this.formBuilder.control(""),
-    konfort: this.formBuilder.control(""),
+    allapot: this.formBuilder.control(""),
+    komfort: this.formBuilder.control(""),
     emelet: this.formBuilder.control(0),
     szint: this.formBuilder.control(0),
     lift: this.formBuilder.control(""),
@@ -39,7 +39,7 @@ export class SzerkesztesComponent {
     fureswc: this.formBuilder.control(""),
     kilatas: this.formBuilder.control(""),
     erkelymeret: this.formBuilder.control(0),
-    gepesitet: this.formBuilder.control(""),
+    gepesitett: this.formBuilder.control(""),
   });
 
   constructor(

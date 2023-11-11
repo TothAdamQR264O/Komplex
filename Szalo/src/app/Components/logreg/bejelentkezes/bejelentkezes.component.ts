@@ -25,11 +25,11 @@ export class BejelentkezesComponent {
 
   foberloForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
-    namefb: this.formBuilder.control(''),
+    nev: this.formBuilder.control(''),
     email: this.formBuilder.control(''),
     password: this.formBuilder.control(''),
-    szamlaszamfb: this.formBuilder.control(''),
-    telfb: this.formBuilder.control(0)
+    szamlaszam: this.formBuilder.control(''),
+    telefonszam: this.formBuilder.control(0)
   });
 
   constructor(

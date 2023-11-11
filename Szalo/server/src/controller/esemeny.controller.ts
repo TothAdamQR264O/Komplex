@@ -29,7 +29,7 @@ export class EsemenyController extends Controller{
             entity.dokumentum = szerzodes;
             
             const result = await this.repository.insert(entity);
-            const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
+            const inserted = await this.repository.findOneBy({ id: result.raw.insertulajdonos });
  
             res.json(inserted);
         } catch (err) {
@@ -71,7 +71,7 @@ export class EsemenyController extends Controller{
 
             let newEntity = this.repository.create(req.body as object);
 
-            if (oldEntity.alapot != newEntity.alapot && newEntity.alapot == 'Lezárt') {
+            if (oldEntity.allapot != newEntity.allapot && newEntity.allapot == 'Lezárt') {
                 newEntity.zarasDatum = moment().format('YYYY-MM-DD');
             }
 

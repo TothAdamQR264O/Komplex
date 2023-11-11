@@ -71,14 +71,14 @@ export class HaviosszesitoController extends Controller {
 
             const szerzodesKezdoDatum = moment(szerzodes.kezdido);
 
-            let haviDij = szerzodes.hid.ar;
+            let haviDij = szerzodes.lakas.ar;
             if (szerzodesKezdoDatum.get('year') == osszesitoEv && szerzodesKezdoDatum.get('month') == osszesitoHonap - 1) {
                 const honapNapjai = szerzodesKezdoDatum.daysInMonth();
                 const szamlazandoNapok = honapNapjai - szerzodesKezdoDatum.get('date');
                 haviDij = Math.floor(szamlazandoNapok / honapNapjai * haviDij);
             }
             
-            const rezsi = szerzodes.hid.reszi;
+            const rezsi = szerzodes.lakas.rezsi;
 
             const havidijEntity = this.osszesitoTetelRepository.create({
                 megnevezes: 'Havi bérleti díj',
@@ -116,11 +116,11 @@ export class HaviosszesitoController extends Controller {
                     continue;
                 }
 
-                if (karesemeny.koltsvis === 'Tulaj' && karesemeny.rendhasz) {
+                if (karesemeny.koltsegviselo === 'Tulaj' && karesemeny.rendhasz) {
                     continue;
                 }
 
-                if (karesemeny.koltsvis === 'Tulaj' && !karesemeny.rendhasz) {
+                if (karesemeny.koltsegviselo === 'Tulaj' && !karesemeny.rendhasz) {
                     tetelek.push(this.osszesitoTetelRepository.create({
                         megnevezes: `${karesemeny.id}. káresemény megtérítése`,
                         mennyiseg: 1,
@@ -129,7 +129,7 @@ export class HaviosszesitoController extends Controller {
                     }));
                 }
 
-                if (karesemeny.koltsvis === 'Bérlő' && karesemeny.rendhasz) {
+                if (karesemeny.koltsegviselo === 'Bérlő' && karesemeny.rendhasz) {
                     tetelek.push(this.osszesitoTetelRepository.create({
                         megnevezes: `${karesemeny.id}. káresemény megtérítése`,
                         mennyiseg: 1,
@@ -138,7 +138,7 @@ export class HaviosszesitoController extends Controller {
                     }));
                 }
 
-                if (karesemeny.koltsvis === 'Bérlő' && !karesemeny.rendhasz) {
+                if (karesemeny.koltsegviselo === 'Bérlő' && !karesemeny.rendhasz) {
                     tetelek.push(this.osszesitoTetelRepository.create({
                         megnevezes: `${karesemeny.id}. káresemény megtérítése`,
                         mennyiseg: 1,
@@ -151,7 +151,7 @@ export class HaviosszesitoController extends Controller {
             osszesitoEntity.tetelek = tetelek;
 
             const szamlazzHuAdatok = await this.szamlazzHuIntegracioRepository.findOneBy({
-                tulajdonos: { id: szerzodes.tid.id }
+                tulajdonos: { id: szerzodes.tulajdonos.id }
             });
 
             if (!szamlazzHuAdatok || !szamlazzHuAdatok.apiKulcs) {
@@ -169,18 +169,18 @@ export class HaviosszesitoController extends Controller {
 
             const seller = new Seller({
                 bank: {
-                    name: szerzodes.tid.bank,
-                    accountNumber: szerzodes.tid.szamlaszamfb
+                    name: szerzodes.tulajdonos.bank,
+                    accountNumber: szerzodes.tulajdonos.szamlaszam
                 }
             });
 
             const buyer = new Buyer({
-                name: szerzodes.bid.nameb,
-                zip: String(szerzodes.bid.irsz),
-                city: szerzodes.bid.telepules,
-                address: szerzodes.bid.cim,
-                phone: szerzodes.bid.telb,
-                email: szerzodes.bid.email
+                name: szerzodes.berlo.nev,
+                zip: String(szerzodes.berlo.irsz),
+                city: szerzodes.berlo.telepules,
+                address: szerzodes.berlo.cim,
+                phone: szerzodes.berlo.telefonszam,
+                email: szerzodes.berlo.email
             });
 
             const items = tetelek.map(tetel => {

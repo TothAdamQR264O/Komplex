@@ -17,15 +17,15 @@
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor="let szer of Szer">
-            <th scope="col">{{ szer.hid.hrsz }}</th>
-            <th scope="col">{{ szer.hid.irsz }}</th>
-            <th scope="col">{{ szer.hid.telepules }}</th>
-            <th scope="col">{{ szer.hid.cim }}</th>
-            <th scope="col">{{ szer.hid.reszi }}</th>
-            <th scope="col">{{ szer.hid.ar }}</th>
-            <th scope="col">{{ szer.tid.namefb }}</th>
-            <th scope="col">{{ szer.tid.email }}</th>
-            <th scope="col">{{ szer.tid.telfb }}</th>
+            <th scope="col">{{ szer.lakas.hrsz }}</th>
+            <th scope="col">{{ szer.lakas.irsz }}</th>
+            <th scope="col">{{ szer.lakas.telepules }}</th>
+            <th scope="col">{{ szer.lakas.cim }}</th>
+            <th scope="col">{{ szer.lakas.rezsi }}</th>
+            <th scope="col">{{ szer.lakas.ar }}</th>
+            <th scope="col">{{ szer.tulajdonos.nev }}</th>
+            <th scope="col">{{ szer.tulajdonos.email }}</th>
+            <th scope="col">{{ szer.tulajdonos.telefonszam }}</th>
             <th scope="col"><button class="btn btn-outline-primary" >Befizetés</button></th>
             <th scope="col"><button class="btn btn-outline-primary" >Esemény</button></th>
           </tr>

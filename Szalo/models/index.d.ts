@@ -11,11 +11,11 @@ export interface AccessTokenDTO {
 
 export interface FoberloDTO {
     id: number;
-    namefb: string;
+    nev: string;
     email: string;
     password: string;
-    szamlaszamfb: string;
-    telfb: number;
+    szamlaszam: string;
+    telefonszam: number;
     bank: string;
 }
 
@@ -25,13 +25,13 @@ export interface HazDTO {
     irsz: number;
     telepules: string;
     cim: string;
-    reszi: number;
+    rezsi: number;
     ar: number;
     szobakszama: number;
     meret: number;
     tulaj: FoberloDTO;
-    alapot: string;
-    konfort: string;
+    allapot: string;
+    komfort: string;
     emelet: number;
     szint: number;
     lift: string;
@@ -42,18 +42,17 @@ export interface HazDTO {
     fureswc: string;
     kilatas: string;
     erkelymeret: number;
-    gepesitet: string;
+    gepesitett: string;
     hirdet: string;
 }
 
 
 export interface BerloDTO {
     id: number;
-    nameb: string;
+    nev: string;
     email: string;
     password: string;
-    szamlaszamb: string;
-    telb: number;
+    telefonszam: number;
     irsz: number;
     telepules: string;
     cim: string;
@@ -65,7 +64,7 @@ export interface SzerzodesDTO {
     vegido: Date;
     aktiv: boolean;
     lezarasDatum: string;
-    kaukcio: number;
+    kaucio: number;
     gazOraGyariszam: number;
     villanyOraGyariszam: number;
     vizOraGyariszam: number;
@@ -75,9 +74,9 @@ export interface SzerzodesDTO {
     gazOraVegAllas: number;
     villanyOraVegAllas: number;
     vizOraVegAllas: number;
-    tid: FoberloDTO;
-    bid: BerloDTO;
-    hid: HazDTO;
+    tulajdonos: FoberloDTO;
+    berlo: BerloDTO;
+    lakas: HazDTO;
 }
 
 export interface SzerzodesZarasDTO {
@@ -99,8 +98,8 @@ export interface EsemenyDTO {
     tipus: string;
     rendhasz: boolean;
     koltseg: number;
-    koltsvis: "Tulaj" | "Bérlő";
-    alapot: string;
+    koltsegviselo: "Tulaj" | "Bérlő";
+    allapot: string;
     megjegyzes: string;
     zarasDatum: string;
     dokumentum: SzerzodesDTO;
@@ -109,7 +108,7 @@ export interface EsemenyDTO {
 export interface BerendezesJegyDTO {
     id: number;
     nev: string;
-    alapot: string;
+    allapot: string;
     megjegyzes: string;
     szid: number;
 }

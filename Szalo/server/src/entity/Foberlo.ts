@@ -10,7 +10,7 @@ export class Foberlo implements FoberloDTO{
     id: number;
 
     @Column({ type: "varchar", length: 50 })
-    namefb: string;
+    nev: string;
 
     @Column({ type: "varchar", unique: true })
     email: string;
@@ -19,10 +19,10 @@ export class Foberlo implements FoberloDTO{
     password: string;
 
     @Column({ type: "varchar", length: 26 })
-    szamlaszamfb: string;
+    szamlaszam: string;
 
     @Column()
-    telfb: number;
+    telefonszam: number;
 
     @Column({ type: "varchar" })
     bank: string;
@@ -33,6 +33,6 @@ export class Foberlo implements FoberloDTO{
     @OneToMany(() => Haz, haz => haz.tulaj)
     hazak: Haz[];
 
-    @OneToMany(() => Szerzodes, szerzodes => szerzodes.tid)
+    @OneToMany(() => Szerzodes, szerzodes => szerzodes.tulajdonos)
     szerzodesek: Szerzodes[];
 }

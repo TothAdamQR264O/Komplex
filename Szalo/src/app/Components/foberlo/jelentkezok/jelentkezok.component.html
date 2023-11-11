@@ -10,9 +10,9 @@
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor="let appy of jelentkezesek">
-            <th scope="col">{{ appy.berlo.nameb }}</th>
+            <th scope="col">{{ appy.berlo.nev }}</th>
             <th scope="col">{{ appy.berlo.email }}</th>
-            <th scope="col">{{ appy.berlo.telb }}</th>
+            <th scope="col">{{ appy.berlo.telefonszam }}</th>
             <th scope="col"><button class="btn btn-outline-primary" (click)="selectApply(appy.id)">Elfogad</button></th>
           </tr>
         </tbody>
@@ -46,10 +46,10 @@
               </small>
           </div>
           <div class="mb-3">
-              <label for="kaukcio" class="form-label">Kaukció</label>
-              <input type="text" class="form-control" id="kaukcio" name="kaukcio" placeholder="30000" formControlName="kaukcio">
-              <small class="text-danger" *ngIf="(szerzodesForm.get('kaukcio')?.touched || szerzodesForm.get('kaukcio')?.dirty) && szerzodesForm.get('kaukcio')?.hasError('required')">
-                  A kaukcio megadása kötelező.
+              <label for="kaucio" class="form-label">Kaukció</label>
+              <input type="text" class="form-control" id="kaucio" name="kaucio" placeholder="30000" formControlName="kaucio">
+              <small class="text-danger" *ngIf="(szerzodesForm.get('kaucio')?.touched || szerzodesForm.get('kaucio')?.dirty) && szerzodesForm.get('kaucio')?.hasError('required')">
+                  A kaucio megadása kötelező.
               </small>
           </div>
           <div class="mb-3">

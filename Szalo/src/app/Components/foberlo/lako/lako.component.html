@@ -10,22 +10,22 @@
           <th scope="col">Cím</th>
           <th scope="col">Rezsi</th>
           <th scope="col">Ár</th>
-          <th scope="col">Főbérlő neve</th>
+          <th scope="col">Bbérlő neve</th>
           <th scope="col">Email</th>
           <th scope="col">Telefonszám</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
         <tr>
-          <th scope="col">{{ szerzodes?.hid?.hrsz }}</th>
-          <th scope="col">{{ szerzodes?.hid?.irsz }}</th>
-          <th scope="col">{{ szerzodes?.hid?.telepules }}</th>
-          <th scope="col">{{ szerzodes?.hid?.cim }}</th>
-          <th scope="col">{{ szerzodes?.hid?.reszi }}</th>
-          <th scope="col">{{ szerzodes?.hid?.ar }}</th>
-          <th scope="col">{{ szerzodes?.bid?.nameb }}</th>
-          <th scope="col">{{ szerzodes?.bid?.email }}</th>
-          <th scope="col">{{ szerzodes?.bid?.telb }}</th>
+          <th scope="col">{{ szerzodes?.lakas?.hrsz }}</th>
+          <th scope="col">{{ szerzodes?.lakas?.irsz }}</th>
+          <th scope="col">{{ szerzodes?.lakas?.telepules }}</th>
+          <th scope="col">{{ szerzodes?.lakas?.cim }}</th>
+          <th scope="col">{{ szerzodes?.lakas?.rezsi }}</th>
+          <th scope="col">{{ szerzodes?.lakas?.ar }}</th>
+          <th scope="col">{{ szerzodes?.berlo?.nev }}</th>
+          <th scope="col">{{ szerzodes?.berlo?.email }}</th>
+          <th scope="col">{{ szerzodes?.berlo?.telefonszam }}</th>
         </tr>
       </tbody>
     </table>
@@ -173,28 +173,28 @@
       </div>
 
       <div class="mb-3">
-        <label for="koltsvis" class="form-label">Költség viselő</label>
-        <select name="koltsvis" id="koltsvis" class="form-select" formControlName="koltsvis">
+        <label for="koltsegviselo" class="form-label">Költség viselő</label>
+        <select name="koltsegviselo" id="koltsegviselo" class="form-select" formControlName="koltsegviselo">
           <option value="Nem megállapítot">Nem megállapítot</option>
           <option value="Tulaj">Tulaj</option>
           <option value="Bérlő">Bérlő</option>
         </select>
         <small class="text-danger"
-          *ngIf="(esemenyForm.get('koltsvis')?.touched || esemenyForm.get('koltsvis')?.dirty) && esemenyForm.get('koltsvis')?.hasError('required')">
+          *ngIf="(esemenyForm.get('koltsegviselo')?.touched || esemenyForm.get('koltsegviselo')?.dirty) && esemenyForm.get('koltsegviselo')?.hasError('required')">
           A költség viselő megadása kötelező.
         </small>
       </div>
 
 
       <div class="mb-3">
-        <label for="alapot" class="form-label">Álapot</label>
-        <select name="alapot" id="alapot" class="form-select" formControlName="alapot">
+        <label for="allapot" class="form-label">Álapot</label>
+        <select name="allapot" id="allapot" class="form-select" formControlName="allapot">
           <option value="Új esemény">Új esemény</option>
           <option value="Fojamatban">Fojamatban</option>
           <option value="Lezárt">Lezárt</option>
         </select>
         <small class="text-danger"
-          *ngIf="(esemenyForm.get('alapot')?.touched || esemenyForm.get('alapot')?.dirty) && esemenyForm.get('alapot')?.hasError('required')">
+          *ngIf="(esemenyForm.get('allapot')?.touched || esemenyForm.get('allapot')?.dirty) && esemenyForm.get('allapot')?.hasError('required')">
           Az álapot megadása kötelező.
         </small>
       </div>

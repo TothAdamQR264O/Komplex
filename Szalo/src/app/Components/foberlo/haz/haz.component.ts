@@ -32,12 +32,12 @@ export class HazComponent {
     irsz: this.formBuilder.control<number | null>(null, [Validators.required, Validators.min(1000), Validators.max(9999)]),
     telepules: this.formBuilder.control('', [Validators.required]),
     cim: this.formBuilder.control('', [Validators.required]),
-    reszi: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
+    rezsi: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
     ar: this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
     szobakszama: this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
     meret: this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
-    alapot: this.formBuilder.control("", [Validators.required]),
-    konfort: this.formBuilder.control("", [Validators.required]),
+    allapot: this.formBuilder.control("", [Validators.required]),
+    komfort: this.formBuilder.control("", [Validators.required]),
     emelet: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
     szint: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
     lift: this.formBuilder.control(""),
@@ -48,7 +48,7 @@ export class HazComponent {
     fureswc: this.formBuilder.control("", [Validators.required]),
     kilatas: this.formBuilder.control("", [Validators.required]),
     erkelymeret: this.formBuilder.control<number>(0, [Validators.required, Validators.min(0)]),
-    gepesitet: this.formBuilder.control("", [Validators.required]),
+    gepesitett: this.formBuilder.control("", [Validators.required]),
     hirdet: this.formBuilder.control("", [Validators.required]),
   });
 
@@ -64,50 +64,50 @@ export class HazComponent {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  selectedKonfort: any = ';'
-  konfortArr = [
+  selectedkomfort: any = ';'
+  komfortArr = [
     {
       label:'Luxus',
       value: 'Luxus'
     },
     {
-      label:'Duplakonfort',
-      value: 'Duplakonfort'
+      label:'Duplakomfort',
+      value: 'Duplakomfort'
     },
     {
-      label:'Összkonfort',
-      value: 'Összkonfort'
+      label:'Összkomfort',
+      value: 'Összkomfort'
     },
     {
-      label:'Konfortos',
-      value: 'Konfortos'
+      label:'komfortos',
+      value: 'komfortos'
     },
     {
-      label:'Félkonfortos',
-      value: 'Félkonfortos'
+      label:'Félkomfortos',
+      value: 'Félkomfortos'
     },
     {
-      label:'Konfort nélküli',
-      value: 'Konfort nélküli'
+      label:'komfort nélküli',
+      value: 'komfort nélküli'
     },
   ];
 
   onRadioChange(event:any){
     
     // Kiválasztja az értéket
-    this.selectedKonfort = event.target.value;
+    this.selectedkomfort = event.target.value;
     if(event.target.value == "Luxus"){
-      this.hazForm.value.konfort = event.target.value;
-    }else if(event.target.value == "Duplakonfort"){
-      this.hazForm.value.konfort = event.target.value;
-    }else if(event.target.value == "Összkonfort"){
-      this.hazForm.value.konfort = event.target.value;
-    }else if(event.target.value == "Konfortos"){
-      this.hazForm.value.konfort = event.target.value;
-    }else if(event.target.value == "Félkonfortos"){
-      this.hazForm.value.konfort = event.target.value;
-    }else if(event.target.value == "Konfort nélküli"){
-      this.hazForm.value.konfort = event.target.value;
+      this.hazForm.value.komfort = event.target.value;
+    }else if(event.target.value == "Duplakomfort"){
+      this.hazForm.value.komfort = event.target.value;
+    }else if(event.target.value == "Összkomfort"){
+      this.hazForm.value.komfort = event.target.value;
+    }else if(event.target.value == "komfortos"){
+      this.hazForm.value.komfort = event.target.value;
+    }else if(event.target.value == "Félkomfortos"){
+      this.hazForm.value.komfort = event.target.value;
+    }else if(event.target.value == "komfort nélküli"){
+      this.hazForm.value.komfort = event.target.value;
     }
   }
 

@@ -34,8 +34,8 @@ export class LakoComponent {
     tipus: this.formBuilder.control("", [Validators.required]),
     rendhasz: this.formBuilder.control(true, [Validators.required]),
     koltseg: this.formBuilder.control(0, [Validators.required]),
-    koltsvis: this.formBuilder.control("", [Validators.required]),
-    alapot: this.formBuilder.control("", [Validators.required]),
+    koltsegviselo: this.formBuilder.control("", [Validators.required]),
+    allapot: this.formBuilder.control("", [Validators.required]),
     megjegyzes: this.formBuilder.control("", [Validators.required]),
     dokumentum: this.formBuilder.control(this.szerzodes),
   })
