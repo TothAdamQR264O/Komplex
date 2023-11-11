@@ -79,6 +79,10 @@ export class LakoComponent {
     this.router.navigate(['/event']);
   }
 
+  goToEvent(id: number) {
+    this.router.navigate(['event', id]);
+  }
+
   osszesitokFrissitese() {
     this.haviosszesitoService.getAll(this.szerzodesId).subscribe({
       next: (osszesitok) => this.osszesitok = osszesitok,
@@ -130,7 +134,5 @@ export class LakoComponent {
     this.router.navigate([ 'osszesito', osszesitoId ]);
   }
 
-  goToEvent(id: number) {
-    this.router.navigate(['event', id]);
-  }
+  
 }

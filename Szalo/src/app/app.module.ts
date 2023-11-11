@@ -15,7 +15,7 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AccessTokenInterceptor } from './services/access-token.interceptor';
 import { UnauthorizedInterceptor } from './services/unauthorized.interceptor';
-import { SzerkesztesComponent } from './Components/foberlo/szerkesztes/szerkesztes.component';
+import { SzerkesztesComponent } from './Components/foberlo/haz-letrehozasa/haz-letrehozasa.component';
 import { JelentkezokComponent } from './Components/foberlo/jelentkezok/jelentkezok.component';
 import { SzerzodesComponent } from './Components/foberlo/szerzodes/szerzodes.component';
 import { LakoComponent } from './Components/foberlo/lako/lako.component';

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { KeresoComponent } from './Components/berlo/kereso/kereso.component';
 import { LakasComponent } from './Components/berlo/lakas/lakas.component';
 import { HazComponent } from './Components/foberlo/haz/haz.component';
-import { SzerkesztesComponent } from './Components/foberlo/szerkesztes/szerkesztes.component';
+import { SzerkesztesComponent } from './Components/foberlo/haz-letrehozasa/haz-letrehozasa.component';
 import { BejelentkezesComponent } from './Components/logreg/bejelentkezes/bejelentkezes.component';
 import { RegisztralasComponent } from './Components/logreg/regisztralas/regisztralas.component';
 import { AuthService } from './services/auth.service';
@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'event/:id', component: EsemenyComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
   { path: 'osszesito/:id', component: HaviosszesitoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'resident/:szerzodesId', component: LakoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
+  { path: 'szerk', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
   { path: 'szamla-integracio', component: SzamlaIntegracioComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] }
 ];

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SzerkesztesComponent } from './szerkesztes.component';
+import { SzerkesztesComponent } from './haz-letrehozasa.component';
 
 describe('SzerkesztesComponent', () => {
   let component: SzerkesztesComponent;
