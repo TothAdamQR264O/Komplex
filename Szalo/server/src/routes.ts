@@ -43,16 +43,16 @@ export function getRoutes() {
     const jelentkezesController = new JelentkezesController();
 
     router.post('/jelentkez/:hazId', checkUser, csakBerlo, jelentkezesController.create);
-    router.get('/jelentkez/:hazId', checkUser, jelentkezesController.getAll);
-    router.get('/jelentkez/:id', checkUser, jelentkezesController.getOne);
+    router.get('/jelentkez/:hazId', checkUser, csakTulaj, jelentkezesController.getAll);
+    router.get('/jelentkez/:id', checkUser, csakTulaj, jelentkezesController.getOne);
 
     const szerzodesController = new SzerzodesController();
 
     router.post('/szerzodes', checkUser, csakTulaj, szerzodesController.create);
     router.get('/szerzodes', checkUser, szerzodesController.getAll);
-    router.get('/szerzodes/sajat', checkUser, szerzodesController.getTulaj);
+    router.get('/szerzodes/sajat', checkUser, csakTulaj, szerzodesController.getTulaj);
     router.get('/szerzodes/:id', checkUser, szerzodesController.getOne);
-    router.get('/lak', checkUser, szerzodesController.getBerlo);
+    router.get('/lak', checkUser, csakBerlo, szerzodesController.getBerlo);
     router.put('/szerzodes/:id/zaras', checkUser, csakTulaj, szerzodesController.zaras);
     
     const esemenyController = new EsemenyController();
