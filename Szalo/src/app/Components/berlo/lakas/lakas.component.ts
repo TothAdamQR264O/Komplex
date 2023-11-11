@@ -14,6 +14,7 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
 export class LakasComponent {
   Szer: SzerzodesDTO[] = [];
   esemenyek: EsemenyDTO[] = [];
+  szerzodesId!: number;
 
   constructor(
     public authService: AuthService,
@@ -26,6 +27,7 @@ export class LakasComponent {
 
 
   ngOnInit(): void {
+    this.szerzodesId = this.activatedRoute.snapshot.params['szerzodesId'];
     this.szerodesService.getBerlo().subscribe({
       next: (szerzodes) => {
         this.Szer = szerzodes;
@@ -35,7 +37,7 @@ export class LakasComponent {
       }
     });
 
-    this.esemenyService.getBerlo().subscribe({
+    this.esemenyService.getAll(this.szerzodesId).subscribe({
       next: (esemeny) => {
         this.esemenyek = esemeny;
       },
