@@ -37,7 +37,7 @@ export class SzerzodesController extends Controller{
             entity.berlo = apply.berlo;
             
             const result = await this.repository.insert(entity);
-            const inserted = await this.repository.findOneBy({ id: result.raw.insertulajdonos });
+            const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
 
             const masJelentkezesek = await this.jelntkezrepository.findBy({
                 haz: { id: entity.lakas.id }

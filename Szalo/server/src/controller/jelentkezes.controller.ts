@@ -31,7 +31,7 @@ export class JelentkezesController extends Controller{
             entity.haz = ingatlan;
             
             const result = await this.repository.insert(entity);
-            const inserted = await this.repository.findOneBy({ id: result.raw.insertulajdonos });
+            const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
  
             res.json(inserted);
         } catch (err) {
