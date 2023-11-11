@@ -1,4 +1,5 @@
 <div class="row">
+  <h4>Alapadatok</h4>
     <table class="table">
         <thead>
           <tr>
@@ -31,4 +32,34 @@
           </tr>
         </tbody>
       </table>
+</div>
+
+<div class="row pt-2">
+  <div class="col-md-12">
+    <h4>Káresemények</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Dátum</th>
+          <th scope="col">Költség</th>
+          <th scope="col">Megjegyzés</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr *ngFor="let event of esemenyek">
+          <th scope="col">{{ event.id }}</th>
+          <th scope="col">{{ event.datum }}</th>
+          <th scope="col">{{ event.koltseg }}</th>
+          <th scope="col">{{ event.megjegyzes }}</th>
+          <!--<th scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">Szerkesztés</button></th>-->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-end me-2">
+      <button class="btn btn-outline-primary" (click)="eventMake()">+</button>
+    </div>
+  </div>
 </div>

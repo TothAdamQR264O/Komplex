@@ -22,6 +22,10 @@ export class EsemenyService {
     return this.http.get<EsemenyDTO>('/api/esemeny/' + id);
   }
 
+  getBerlo(){
+    return this.http.get<EsemenyDTO[]>('/api/lak');
+  }
+
   update(event: EsemenyDTO){
     return this.http.put<EsemenyDTO>('/api/esemeny', event);
   }

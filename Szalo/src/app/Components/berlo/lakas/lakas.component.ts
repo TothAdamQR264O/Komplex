@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BerloDTO, FoberloDTO, HazDTO, SzerzodesDTO } from 'models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BerloDTO, EsemenyDTO, FoberloDTO, HazDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { EsemenyService } from 'src/app/services/esemeny.service';
 import { SzerzodesService } from 'src/app/services/szerzodes.service';
 
 @Component({
@@ -12,11 +13,14 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
 })
 export class LakasComponent {
   Szer: SzerzodesDTO[] = [];
+  esemenyek: EsemenyDTO[] = [];
 
   constructor(
     public authService: AuthService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
+    private esemenyService: EsemenyService,
+    private router: Router,
     private szerodesService: SzerzodesService
   ) { }
 
@@ -30,6 +34,19 @@ export class LakasComponent {
         this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');
       }
     });
+
+    this.esemenyService.getBerlo().subscribe({
+      next: (esemeny) => {
+        this.esemenyek = esemeny;
+      },
+      error: (err) => {
+        this.toastrService.error('Az események lista betöltésében hiba keletkezett.', 'Hiba');
+      }
+    });
+  }
+
+  eventMake() {
+    this.router.navigate(['/event']);
   }
 
 }

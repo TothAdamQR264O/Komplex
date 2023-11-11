@@ -62,6 +62,28 @@ export class EsemenyController extends Controller{
         }
     };
 
+    getBerlo = async (req, res) => {
+        try {
+            const berlo = await this.berloRepository.findOneBy({
+                id: req.auth.id
+            });
+            if (!berlo) {
+                return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
+            }
+
+            const szerzodes = await this.szerzodesRepository.findOneBy({
+                berlo: { id: berlo.id}
+            });
+
+            const entities = await this.repository.findBy({
+                dokumentum: { id: szerzodes.id }
+            });
+            res.json(entities);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
     update = async (req, res) => {
         try {
             let oldEntity = await this.repository.findOneBy({ id: req.body.id });

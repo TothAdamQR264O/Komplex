@@ -57,9 +57,10 @@ export function getRoutes() {
     
     const esemenyController = new EsemenyController();
 
-    router.post('/esemeny', checkUser, csakTulaj, esemenyController.create);
+    router.post('/esemeny', checkUser, esemenyController.create);
     router.get('/esemeny/osszes/:szerzodesId', checkUser, esemenyController.getAll);
     router.get('/esemeny/:id', checkUser, esemenyController.getOne);
+    router.get('/lak', checkUser, csakBerlo, esemenyController.getBerlo);
     router.put('/esemeny', checkUser, csakTulaj, esemenyController.update);
 
     const haviosszController = new HaviosszesitoController();
