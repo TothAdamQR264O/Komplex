@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BerloDTO, EsemenyDTO, FoberloDTO, HazDTO, SzerzodesDTO } from 'models';
+import { BerloDTO, EsemenyDTO, FoberloDTO, HaviosszesitoDTO, HazDTO, OsszesitoLehetosegDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { EsemenyService } from 'src/app/services/esemeny.service';
+import { HaviosszesitoService } from 'src/app/services/haviosszesito.service';
+import { SzamlaService } from 'src/app/services/szamla.service';
 import { SzerzodesService } from 'src/app/services/szerzodes.service';
 
 @Component({
@@ -14,6 +16,9 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
 export class LakasComponent {
   Szer: SzerzodesDTO[] = [];
   esemenyek: EsemenyDTO[] = [];
+  osszesitok: HaviosszesitoDTO[] = [];
+  osszesitoLehetosegek: OsszesitoLehetosegDTO[] = [];
+  osszesitoLehetoseg!: OsszesitoLehetosegDTO;
   szerzodesId!: number;
 
   constructor(
@@ -22,6 +27,8 @@ export class LakasComponent {
     private activatedRoute: ActivatedRoute,
     private esemenyService: EsemenyService,
     private router: Router,
+    private haviosszesitoService: HaviosszesitoService,
+    private szamlaService: SzamlaService,
     private szerodesService: SzerzodesService
   ) { }
 
@@ -45,6 +52,37 @@ export class LakasComponent {
         this.toastrService.error('Az események lista betöltésében hiba keletkezett.', 'Hiba');
       }
     });
+
+    this.osszesitokFrissitese();
+  }
+
+  osszesitokFrissitese() {
+    this.haviosszesitoService.getAll(this.szerzodesId).subscribe({
+      next: (osszesitok) => this.osszesitok = osszesitok,
+      error: (err) => {
+        console.error(err);
+      }
+    })
+
+    this.haviosszesitoService.getLehetosegek(this.szerzodesId).subscribe({
+      next: (lehetosegek) => {
+        this.osszesitoLehetosegek = lehetosegek;
+        if (lehetosegek.length > 0) {
+          this.osszesitoLehetoseg = lehetosegek[0];
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+  }
+
+  osszesitoMegtekintes(osszesitoId: number) {
+    this.router.navigate([ 'osszesito', osszesitoId ]);
+  }
+
+  szamlaLetoltes(id: number) {
+    this.szamlaService.letoltes(id);
   }
 
   eventMake() {
