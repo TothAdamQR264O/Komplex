@@ -14,6 +14,7 @@ import { EsemenyComponent } from './Components/foberlo/esemeny/esemeny.component
 import { HaviosszesitoComponent } from './Components/foberlo/haviosszesito/haviosszesito.component';
 import { SzerzodesLezarasComponent } from './Components/foberlo/szerzodes-lezaras/szerzodes-lezaras.component';
 import { SzamlaIntegracioComponent } from './Components/foberlo/szamla-integracio/szamla-integracio.component';
+import { JelentkezesLetrehozasaComponent } from './Components/berlo/jelentkezes-letrehozasa/jelentkezes-letrehozasa.component';
 
 const routes: Routes = [
   { path: '', component: BejelentkezesComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'osszesito/:id', component: HaviosszesitoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'resident/:szerzodesId', component: LakoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
   { path: 'szerk', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
+  { path: 'jelentkezes/:id', component: JelentkezesLetrehozasaComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
   { path: 'szamla-integracio', component: SzamlaIntegracioComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] }
 ];

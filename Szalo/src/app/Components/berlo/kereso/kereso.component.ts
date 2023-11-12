@@ -15,49 +15,9 @@ import { JelentkezService } from 'src/app/services/jelentkez.service';
 })
 export class KeresoComponent {
   hazak: HazDTO[] = [];
-  fberlo: FoberloDTO = ({
-    id: 0,
-    nev: '',
-    email: '',
-    password: '',
-    szamlaszam: '',
-    telefonszam: 0,
-    bank: ''
-  });
-  haziko: HazDTO = ({
-    id: 0,
-    hrsz: "",
-    irsz: 0,
-    telepules: "",
-    cim: "",
-    rezsi: 0,
-    ar: 0,
-    szobakszama: 0,
-    meret: 0,
-    tulaj: this.fberlo,
-    allapot: "",
-    komfort: "",
-    emelet: 0,
-    szint: 0,
-    lift: "",
-    legkondi: "",
-    butorozott: "",
-    koltozheto: "",
-    minberido: 0,
-    fureswc: "",
-    kilatas: "",
-    erkelymeret: 0,
-    gepesitett: "",
-    hirdet: "",
-  });
 
-  jelentkez?: JelentkezesDTO;
-
-  visable = true;
   szures = false;
   szerep = this.authService.getRole;
-
-  
 
   keresForm = this.formBuilder.group({
     minimuAr: this.formBuilder.control(0),
@@ -131,35 +91,9 @@ export class KeresoComponent {
   }
 
   details(id: number) {
-    this.houseService.getOne(id).subscribe({
-      next: (haz) => {
-        this.haziko = haz;
-      },
-      error: (err) => {
-        console.error(err);
-        this.toastrService.error('A ház adatok betöltése sikertelen.', 'Hiba');
-      }
-    });
-    this.visable = false;
+    this.router.navigate(['jelentkezes', id]);
   }
 
-
-  saveJelentkez(){
-    const apply = this.jelentkez as JelentkezesDTO;
-    
-    this.jelentkezService.create(this.haziko.id).subscribe({
-      next: (apply) => { 
-        this.toastrService.success('A jelentkezés sikeresen megtörtént', 'Siker');
-        },
-        error: (err) => {
-          this.toastrService.error('Nem sikerült jelentkezni.', 'Hiba');
-        }
-      });
-  }
-
-  canceled() {
-    this.visable = true;
-  }
 
   keresRoom(){
     this.szures = true;
@@ -174,10 +108,6 @@ export class KeresoComponent {
 
   compareObjects(obj1: any, obj2: any) {
     return obj1 && obj2 && obj1.id == obj2.id;
-  }
-
-  changeVisable(): boolean {
-    return this.visable;
   }
 
   showAppy(): boolean {

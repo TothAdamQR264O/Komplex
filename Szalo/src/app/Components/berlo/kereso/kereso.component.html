@@ -1,4 +1,4 @@
-<div class="row"  *ngIf="changeVisable()">
+<div class="row">
   <form [formGroup]="keresForm">
   <table class="table">
       <tbody class="table-group-divider">
@@ -31,7 +31,7 @@
   </form>
 </div>
 
-<div class="row"  *ngIf="changeVisable()">
+<div class="row">
     <table class="table">
         <thead>
           <tr>
@@ -54,111 +54,4 @@
           </tr>
         </tbody>
       </table>
-</div>
-
-<div class="row justify-content-center" *ngIf="!changeVisable()">
-  <div class="col-md-12">
-      <h4>Ház adatai</h4>
-      <hr>
-  </div>
-  
-</div>
-
-<div class="row justify-content-center">
-  <div class="col-md-4"  *ngIf="!changeVisable()">
-    <table class="table">
-      <tr>
-        <th scope="col">Település</th>
-        <th scope="col">{{ haziko.telepules }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Cím</th>
-        <th scope="col">{{ haziko.cim }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Ár</th>
-        <th scope="col">{{ haziko.ar }} Ft</th>
-      </tr>
-      <tr>
-        <th scope="col">Rezsi</th>
-        <th scope="col">{{ haziko.rezsi }} Ft</th>
-      </tr>
-      <tr>
-        <th scope="col">Szobák száma</th>
-        <th scope="col">{{ haziko.szobakszama }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Mérete</th>
-        <th scope="col">{{ haziko.meret }} m<sup>2</sup></th>
-      </tr>
-      <tr>
-        <th scope="col">Állapot</th>
-        <th scope="col">{{ haziko.allapot }}</th>
-      </tr>
-      <tr>
-        <th scope="col">komfort</th>
-        <th scope="col">{{ haziko.komfort }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Emelet</th>
-         <th scope="col">{{ haziko.emelet }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Épület szintje</th>
-        <th scope="col">{{ haziko.szint }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Lift</th>
-        <th scope="col">{{ haziko.lift }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Légkondicionáló</th>
-        <th scope="col">{{ haziko.legkondi }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Bútorozott</th>
-        <th scope="col">{{ haziko.butorozott }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Költözhető</th>
-        <th scope="col">{{ haziko.koltozheto }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Minimum bérlési idő</th>
-        <th scope="col">{{ haziko.minberido }} hó</th>
-      </tr>
-      <tr>
-        <th scope="col">Fürdőszoba és WC</th>
-        <th scope="col">{{ haziko.fureswc }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Kilátás</th>
-        <th scope="col">{{ haziko.kilatas }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Erkély mérete</th>
-        <th scope="col">{{ haziko.erkelymeret }} m<sup>2</sup></th>
-      </tr>
-      <tr>
-        <th scope="col">Gépesített</th>
-        <th scope="col">{{ haziko.gepesitett }}</th>
-      </tr>
-      <tr>
-        <th scope="col">Tulaj neve</th>
-        <th scope="col">{{ haziko.tulaj.nev}}</th>
-      </tr>
-      <tr>
-        <th scope="col">Tulaj Email címe</th>
-        <th scope="col">{{ haziko.tulaj.email}}</th>
-      </tr>
-      <tr>
-        <th scope="col">Tulaj telefonszáma</th>
-        <th scope="col">{{ haziko.tulaj.telefonszam}}</th>
-      </tr>
-    </table>
-    <div class="input-group">
-      <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
-      <button class="btn btn-outline-primary" *ngIf="authService.isUser('berlo')" (click)="saveJelentkez()">Jelentkezés</button>
-    </div>
-  </div>
 </div>
