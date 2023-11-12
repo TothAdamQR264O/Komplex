@@ -23,6 +23,7 @@ export class KeresoComponent {
     minimuAr: this.formBuilder.control(0),
     maximumAr: this.formBuilder.control(0),
     szobakszama: this.formBuilder.control(0),
+    telepules: this.formBuilder.control(""),
   });
 
   constructor(
@@ -62,24 +63,47 @@ export class KeresoComponent {
 
       this.houseService.getAd().subscribe({
         next: (haz) => {
-          if(Number(this.keresForm.value.szobakszama) == 0){
-            for(var index in haz)
-            { 
-              if(haz[index].ar >= Number(this.keresForm.value.minimuAr) && haz[index].ar <= maxAr){
-                this.hazak.push(haz[index]);
+          if(!this.keresForm.value.telepules){
+            if(Number(this.keresForm.value.szobakszama) == 0){
+              for(var index in haz)
+              { 
+                if(haz[index].ar >= Number(this.keresForm.value.minimuAr) && haz[index].ar <= maxAr){
+                  this.hazak.push(haz[index]);
+                }
               }
             }
-          }
-          else if (Number(this.keresForm.value.szobakszama) > 0){
-            for(var index in haz)
-            { 
-              if(haz[index].ar >= Number(this.keresForm.value.minimuAr) && haz[index].ar <= maxAr && haz[index].szobakszama == Number(this.keresForm.value.szobakszama)){
-                this.hazak.push(haz[index]);
+            else if (Number(this.keresForm.value.szobakszama) > 0){
+              for(var index in haz)
+              { 
+                if(haz[index].ar >= Number(this.keresForm.value.minimuAr) && haz[index].ar <= maxAr && haz[index].szobakszama == Number(this.keresForm.value.szobakszama)){
+                  this.hazak.push(haz[index]);
+                }
               }
             }
+            else if(Number(this.keresForm.value.szobakszama) == 0 && Number(this.keresForm.value.minimuAr) == 0 && Number(this.keresForm.value.maximumAr) == 0){
+              this.reloadPage();
+            }
           }
-          else if(Number(this.keresForm.value.szobakszama) == 0 && Number(this.keresForm.value.minimuAr) == 0 && Number(this.keresForm.value.maximumAr) == 0){
-            this.reloadPage();
+          else{
+            if(Number(this.keresForm.value.szobakszama) == 0){
+              for(var index in haz)
+              { 
+                if(haz[index].ar >= Number(this.keresForm.value.minimuAr) && haz[index].ar <= maxAr && haz[index].telepules === this.keresForm.value.telepules){
+                  this.hazak.push(haz[index]);
+                }
+              }
+            }
+            else if (Number(this.keresForm.value.szobakszama) > 0){
+              for(var index in haz)
+              { 
+                if(haz[index].ar >= Number(this.keresForm.value.minimuAr) && haz[index].ar <= maxAr && haz[index].szobakszama == Number(this.keresForm.value.szobakszama && haz[index].telepules === this.keresForm.value.telepules)){
+                  this.hazak.push(haz[index]);
+                }
+              }
+            }
+            else if(Number(this.keresForm.value.szobakszama) == 0 && Number(this.keresForm.value.minimuAr) == 0 && Number(this.keresForm.value.maximumAr) == 0 && !this.keresForm.value.telepules){
+              this.reloadPage();
+            }
           }
         },
         error: (err) => {
