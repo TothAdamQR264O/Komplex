@@ -43,7 +43,7 @@
           <th scope="col">Dátum</th>
           <th scope="col">Költség</th>
           <th scope="col">Megjegyzés</th>
-          <th scope="col">Szerkesztés</th>
+          <th scope="col">{{ authService.getRole() == 'berlo' ? 'Megtekintés' : 'Szerkesztés'}}</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
@@ -52,7 +52,7 @@
           <th scope="col">{{ event.datum }}</th>
           <th scope="col">{{ event.koltseg }}</th>
           <th scope="col">{{ event.megjegyzes }}</th>
-          <th scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">Szerkesztés</button>
+          <th scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">{{ authService.getRole() == 'berlo' ? 'Megtekintés' : 'Szerkesztés'}}</button>
           </th>
         </tr>
       </tbody>
@@ -75,7 +75,7 @@
           <th scope="col">Év</th>
           <th scope="col">Hónap</th>
           <th scope="col">Fizetve</th>
-          <th scope="col">Fizetés</th>
+          <th scope="col" *ngIf="authService.getRole() == 'tulaj'">Fizetés</th>
           <th scope="col">Számla</th>
           <th scope="col">Részletek</th>
         </tr>
@@ -85,7 +85,7 @@
           <td scope="col">{{ osszesito.ev }}</td>
           <td scope="col">{{ osszesito.honap }}</td>
           <td scope="col">{{ osszesito.fizetve ? "Igen" : "Nem" }}</td>
-          <td scope="col">
+          <td scope="col" *ngIf="authService.getRole() == 'tulaj'">
             <div *ngIf="!osszesito.fizetve">
               <button class="btn btn-outline-primary" (click)="osszesitoFizetes(osszesito.id)">Fizetve</button>
             </div>
@@ -103,7 +103,7 @@
       </tbody>
     </table>
   </div>
-  <div class="row text-end">
+  <div class="row text-end" *ngIf="authService.getRole() == 'tulaj'">
     <div class="col-md-8"></div>
     <div class="col-md-2 text-end" *ngIf="osszesitoLehetosegek && osszesitoLehetosegek.length > 0">
       <select [(ngModel)]="osszesitoLehetoseg" class="form-select">

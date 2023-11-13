@@ -1,5 +1,5 @@
 <div class="row">
-  <h4>Alapadatok</h4>
+  <h4>Aktív szerződések</h4>
     <table class="table">
         <thead>
           <tr>
@@ -12,8 +12,7 @@
             <th scope="col">Főbérlő neve</th>
             <th scope="col">Email</th>
             <th scope="col">Telefon szám</th>
-            <th scope="col">Befizetés</th>
-            <th scope="col">Esemény</th>
+            <th scope="col">Részletek</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -27,87 +26,8 @@
             <th scope="col">{{ szer.tulajdonos.nev }}</th>
             <th scope="col">{{ szer.tulajdonos.email }}</th>
             <th scope="col">{{ szer.tulajdonos.telefonszam }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" >Befizetés</button></th>
-            <th scope="col"><button class="btn btn-outline-primary" >Esemény</button></th>
+            <th scope="col"><button class="btn btn-outline-primary" (click)="reszletek(szer.id)">Részletek</button></th>
           </tr>
         </tbody>
       </table>
-</div>
-
-<div class="row pt-2">
-  <div class="col-md-12">
-    <h4>Káresemények</h4>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Dátum</th>
-          <th scope="col">Költség</th>
-          <th scope="col">Megjegyzés</th>
-        </tr>
-      </thead>
-      <tbody class="table-group-divider">
-        <tr *ngFor="let event of esemenyek">
-          <th scope="col">{{ event.id }}</th>
-          <th scope="col">{{ event.datum }}</th>
-          <th scope="col">{{ event.koltseg }}</th>
-          <th scope="col">{{ event.megjegyzes }}</th>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="row">
-    <div class="col-md-12 text-end me-2">
-      <button class="btn btn-outline-primary" (click)="eventMake()">+</button>
-    </div>
-  </div>
-</div>
-
-<div class="row pt-2">
-  <div class="col-md-12">
-    <h4>Összesítők</h4>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Év</th>
-          <th scope="col">Hónap</th>
-          <th scope="col">Fizetve</th>
-          <th scope="col">Fizetés</th>
-          <th scope="col">Számla</th>
-          <th scope="col">Részletek</th>
-        </tr>
-      </thead>
-      <tbody class="table-group-divider">
-        <tr *ngFor="let osszesito of osszesitok">
-          <td scope="col">{{ osszesito.ev }}</td>
-          <td scope="col">{{ osszesito.honap }}</td>
-          <td scope="col">{{ osszesito.fizetve ? "Igen" : "Nem" }}</td>
-          <td scope="col">
-          </td>
-          <td scope="col">
-            <div *ngIf="osszesito?.szamla?.id">
-              <button class="btn btn-outline-primary" (click)="szamlaLetoltes(osszesito.szamla.id)">Számla
-                letöltés</button>
-            </div>
-          </td>
-          <td scope="col">
-            <button class="btn btn-outline-primary" (click)="osszesitoMegtekintes(osszesito.id)">Részletek</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="row text-end">
-    <div class="col-md-8"></div>
-    <div class="col-md-2 text-end" *ngIf="osszesitoLehetosegek && osszesitoLehetosegek.length > 0">
-      <select [(ngModel)]="osszesitoLehetoseg" class="form-select">
-        <option *ngFor="let lehetoseg of osszesitoLehetosegek" [ngValue]="lehetoseg">
-          {{ lehetoseg.ev }}/{{ lehetoseg.honap }}
-        </option>
-      </select>
-    </div>
-    <div class="col-md-4 fst-italic" *ngIf="!osszesitoLehetosegek || osszesitoLehetosegek.length === 0">
-      Minden összesítő el lett készítve.
-    </div>
-  </div>
 </div>

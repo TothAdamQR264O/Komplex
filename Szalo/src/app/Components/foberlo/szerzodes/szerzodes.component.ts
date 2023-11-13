@@ -65,8 +65,12 @@ export class SzerzodesComponent {
 
 
   saveContract(){
+    if (!this.jelentkezes) {
+      return;
+    }
+
     const szerzodes = this.szerzodesForm.value as SzerzodesDTO;
-    this.szerzodesService.create(szerzodes).subscribe({
+    this.szerzodesService.create(this.jelentkezes.id, szerzodes).subscribe({
       next: (apply) => { 
         this.toastrService.success('A szerződés sikeresen létre lett hozva.', 'Siker');
         },

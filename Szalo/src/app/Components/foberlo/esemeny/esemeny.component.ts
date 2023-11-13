@@ -17,6 +17,7 @@ import moment from 'moment';
 export class EsemenyComponent {
   szerzodes?: SzerzodesDTO;
   esemeny?: EsemenyDTO;
+  esemenySzerkesztheto = true;
   ujEsemeny = true;
   esemenyForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
@@ -90,6 +91,10 @@ export class EsemenyComponent {
           this.toastrService.error('Az esemény betöltése sikertelen.', 'Hiba');
         }
       });
+    }
+
+    if (this.authService.getRole() == 'berlo') {
+      this.esemenyForm.disable();
     }
   }
 

@@ -43,12 +43,12 @@ export function getRoutes() {
     const jelentkezesController = new JelentkezesController();
 
     router.post('/jelentkez/:hazId', checkUser, csakBerlo, jelentkezesController.create);
-    router.get('/jelentkez/:hazId', checkUser, csakTulaj, jelentkezesController.getAll);
+    router.get('/jelentkezes/osszes/:hazId', checkUser, csakTulaj, jelentkezesController.getAll);
     router.get('/jelentkez/:id', checkUser, csakTulaj, jelentkezesController.getOne);
 
     const szerzodesController = new SzerzodesController();
 
-    router.post('/szerzodes', checkUser, csakTulaj, szerzodesController.create);
+    router.post('/szerzodes/jelentkezes/:jelentkezesId', checkUser, csakTulaj, szerzodesController.create);
     router.get('/szerzodes', checkUser, szerzodesController.getAll);
     router.get('/szerzodes/sajat', checkUser, csakTulaj, szerzodesController.getTulaj);
     router.get('/szerzodes/:id', checkUser, szerzodesController.getOne);

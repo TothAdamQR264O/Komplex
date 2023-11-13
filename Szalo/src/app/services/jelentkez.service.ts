@@ -10,7 +10,7 @@ export class JelentkezService {
   constructor(private http: HttpClient) { }
 
   getAll(hazId: number){
-    return this.http.get<JelentkezesDTO[]>(`/api/jelentkez/${hazId}`);
+    return this.http.get<JelentkezesDTO[]>(`/api/jelentkezes/osszes/${hazId}`);
   }
 
   create(hazId: number){

@@ -17,12 +17,31 @@ import { SzamlaIntegracioComponent } from './Components/foberlo/szamla-integraci
 import { JelentkezesLetrehozasaComponent } from './Components/berlo/jelentkezes-letrehozasa/jelentkezes-letrehozasa.component';
 
 const routes: Routes = [
-  { path: '', component: BejelentkezesComponent },
-  { path: 'reg', component: RegisztralasComponent },
-  { path: 'home', component: HazComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
-  { path: 'home/:email', component: HazComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
-  { path: 'lak', component: LakasComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakBerlo() ] },
-  { path: 'keres', component: KeresoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
+  {
+    path: '',
+    component: BejelentkezesComponent
+  },
+  {
+    path: 'reg',
+    component: RegisztralasComponent
+  },
+  {
+    path: 'home',
+    component: HazComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess(),
+      () => inject(AuthService).csakTulaj() ]
+  },
+  {
+    path: 'lak',
+    component: LakasComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess(),
+      () => inject(AuthService).csakBerlo() ]
+  },
+  {
+    path: 'keres',
+    component: KeresoComponent,
+    canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+  },
   { path: 'appys/:hazId', component: JelentkezokComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
   { path: 'contract/:id', component: SzerzodesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
   {
@@ -30,9 +49,9 @@ const routes: Routes = [
     canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ]
   },
   { path: 'event', component: EsemenyComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
-  { path: 'event/:id', component: EsemenyComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
+  { path: 'event/:id', component: EsemenyComponent, canActivate: [ () => inject(AuthService).preventGuestAccess()] },
   { path: 'osszesito/:id', component: HaviosszesitoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
-  { path: 'resident/:szerzodesId', component: LakoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
+  { path: 'resident/:szerzodesId', component: LakoComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },
   { path: 'jelentkezes/:id', component: JelentkezesLetrehozasaComponent, canActivate: [ () => inject(AuthService).preventGuestAccess() ] },
   { path: 'szerk/:id', component: SzerkesztesComponent, canActivate: [ () => inject(AuthService).preventGuestAccess(), () => inject(AuthService).csakTulaj() ] },

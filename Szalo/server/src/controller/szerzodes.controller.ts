@@ -23,18 +23,18 @@ export class SzerzodesController extends Controller{
             if (!tulaj) {
                 return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
             }
-            const apply= await this.jelntkezrepository.findOneBy({
-                id: req.params.applyId
+            const jelentkezes= await this.jelntkezrepository.findOneBy({
+                id: req.params.jelentkezesId
             });
-            if (!apply) {
-                return this.handleError(res, null, 400, "A megadott azonosítóval nem található ingatlan.");
+            if (!jelentkezes) {
+                return this.handleError(res, null, 400, "A megadott azonosítóval nem található jelentkezés.");
             }
 
             const entity = this.repository.create(req.body as object);
             entity.id = null;
             entity.tulajdonos = tulaj;
-            entity.lakas = apply.haz;
-            entity.berlo = apply.berlo;
+            entity.lakas = jelentkezes.haz;
+            entity.berlo = jelentkezes.berlo;
             
             const result = await this.repository.insert(entity);
             const inserted = await this.repository.findOneBy({ id: result.raw.insertId });

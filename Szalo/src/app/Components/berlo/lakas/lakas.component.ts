@@ -43,50 +43,14 @@ export class LakasComponent {
         this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');
       }
     });
-
-    this.esemenyService.getAll(this.szerzodesId).subscribe({
-      next: (esemeny) => {
-        this.esemenyek = esemeny;
-      },
-      error: (err) => {
-        this.toastrService.error('Az események lista betöltésében hiba keletkezett.', 'Hiba');
-      }
-    });
-
-    this.osszesitokFrissitese();
+  
   }
 
-  osszesitokFrissitese() {
-    this.haviosszesitoService.getAll(this.szerzodesId).subscribe({
-      next: (osszesitok) => this.osszesitok = osszesitok,
-      error: (err) => {
-        console.error(err);
-      }
-    })
-
-    this.haviosszesitoService.getLehetosegek(this.szerzodesId).subscribe({
-      next: (lehetosegek) => {
-        this.osszesitoLehetosegek = lehetosegek;
-        if (lehetosegek.length > 0) {
-          this.osszesitoLehetoseg = lehetosegek[0];
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    })
+  reszletek(szerzodesId: number) {
+    this.router.navigate(['resident', szerzodesId ]);
   }
 
-  osszesitoMegtekintes(osszesitoId: number) {
-    this.router.navigate([ 'osszesito', osszesitoId ]);
-  }
 
-  szamlaLetoltes(id: number) {
-    this.szamlaService.letoltes(id);
-  }
 
-  eventMake() {
-    this.router.navigate(['/event']);
-  }
 
 }
