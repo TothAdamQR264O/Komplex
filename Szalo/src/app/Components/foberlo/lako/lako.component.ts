@@ -17,12 +17,12 @@ import moment from 'moment';
   styleUrls: ['./lako.component.css']
 })
 export class LakoComponent {
-  isNewEvent = true;
-
-  szerzodesId!: number;
   szerzodes?: SzerzodesDTO;
+
   esemenyek: EsemenyDTO[] = [];
+
   osszesitok: HaviosszesitoDTO[] = [];
+
   osszesitoLehetosegek: OsszesitoLehetosegDTO[] = [];
 
   osszesitoLehetoseg!: OsszesitoLehetosegDTO;
@@ -52,9 +52,9 @@ export class LakoComponent {
   ) { }
 
   ngOnInit(): void {
-    this.szerzodesId = this.activatedRoute.snapshot.params['szerzodesId'];
+    const szerzodesId = this.activatedRoute.snapshot.params['szerzodesId'];
 
-    this.szerzodesService.getOne(this.szerzodesId).subscribe({
+    this.szerzodesService.getOne(szerzodesId).subscribe({
       next: (szerzodes) => {
         this.szerzodes = szerzodes;
       },
@@ -64,7 +64,7 @@ export class LakoComponent {
       }
     });
 
-    this.esemenyService.getAll(this.szerzodesId).subscribe({
+    this.esemenyService.getAll(szerzodesId).subscribe({
       next: (esemeny) => this.esemenyek = esemeny,
       error: (err) => {
         console.error(err);
@@ -84,14 +84,18 @@ export class LakoComponent {
   }
 
   osszesitokFrissitese() {
-    this.haviosszesitoService.getAll(this.szerzodesId).subscribe({
+    if (!this.szerzodes) {
+      return;
+    }
+
+    this.haviosszesitoService.getAll(this.szerzodes.id).subscribe({
       next: (osszesitok) => this.osszesitok = osszesitok,
       error: (err) => {
         console.error(err);
       }
     })
 
-    this.haviosszesitoService.getLehetosegek(this.szerzodesId).subscribe({
+    this.haviosszesitoService.getLehetosegek(this.szerzodes.id).subscribe({
       next: (lehetosegek) => {
         this.osszesitoLehetosegek = lehetosegek;
         if (lehetosegek.length > 0) {
@@ -133,6 +137,4 @@ export class LakoComponent {
   osszesitoMegtekintes(osszesitoId: number) {
     this.router.navigate([ 'osszesito', osszesitoId ]);
   }
-
-  
 }

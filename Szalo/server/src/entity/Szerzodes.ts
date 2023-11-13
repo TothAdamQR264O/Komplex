@@ -20,7 +20,7 @@ export class Szerzodes implements SzerzodesDTO {
     @Column({ default: true })
     aktiv: boolean;
 
-    @Column({ type: 'date' })
+    @Column({ type: 'date', nullable: true })
     lezarasDatum: string;
     
     @Column()

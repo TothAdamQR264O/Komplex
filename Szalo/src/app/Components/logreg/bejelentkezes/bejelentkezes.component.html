@@ -1,29 +1,24 @@
 <div class="p-5 function-box">
     <div class="row">
-        <div class="user-interface">
-                
-            
-            <div *ngFor="let user of userArr">
-                <input type="radio" name="user" value="{{user.value}}" (change)="onRadioChange($event)">
-                <label>{{user.label}}</label>
-            </div>
-            
-            
-            <form [formGroup]="loginForm">
-                <div class="mb-3">
-                    <label for="email" class="form-label">E-mail cím</label>
-                    <input type="email" class="form-control" id="email" formControlName="email" [(ngModel)]="email">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Jelszó</label>
-                    <input type="password" class="form-control" id="password" formControlName="password">
-                </div>
-                    
-                <div class="text-center">
-                    <button class="btn btn-secondary" (click)="login()">Belépés</button>
-                    <button class="btn btn-secondary" (click)="goToReg()">Regisztrálás</button>
-                </div>
-            </form>
+        <div *ngFor="let szerep of szerepkorok">
+            <input type="radio" name="user" [value]="szerep.value" [(ngModel)]="szerepkor">
+            <label>{{szerep.label}}</label>
         </div>
+
+        <form [formGroup]="loginForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail cím</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Jelszó</label>
+                <input type="password" class="form-control" id="password" formControlName="password">
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-secondary" (click)="login()">Belépés</button>
+                <button class="btn btn-secondary ms-2" (click)="goToReg()">Regisztrálás</button>
+            </div>
+        </form>
     </div>
 </div>

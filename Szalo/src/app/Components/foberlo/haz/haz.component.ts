@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HazDTO, FoberloDTO, SzerzodesDTO } from 'models';
+import { Router } from '@angular/router';
+import { HazDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
-import { FoberloService } from 'src/app/services/foberlo.service';
 import { HouseService } from 'src/app/services/house.service';
 
 import * as _ from 'lodash';
@@ -17,7 +15,8 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
 })
 export class HazComponent {
   hazak: HazDTO[] = [];
-  hazakNoAd: HazDTO[] = [];
+
+  nemHirdetettHazak: HazDTO[] = [];
 
   sajatSzerzodesek: SzerzodesDTO[] = [];
 
@@ -26,10 +25,7 @@ export class HazComponent {
     public authService: AuthService,
     private toastrService: ToastrService,
     private router: Router,
-    private formBuilder: FormBuilder,
-    private foberloService: FoberloService,
-    private szerzodesService: SzerzodesService,
-    private activatedRoute: ActivatedRoute
+    private szerzodesService: SzerzodesService
   ) { }
 
 
@@ -63,19 +59,8 @@ export class HazComponent {
   ngOnInit(): void {
     this.houseService.getAll().subscribe({
       next: (hazak) => {
-        var hir = 0;
-        var noHir = 0;
-        for(var i = 0; i < hazak.length; i++){
-          
-          if(hazak[i].hirdet == "Igen"){
-            this.hazak[hir] = hazak[i];
-            hir++;
-          }
-          else{
-            this.hazakNoAd[noHir] = hazak[i];
-            noHir++;
-          }
-        }
+        this.hazak = hazak.filter(haz => haz.hirdet === 'Igen');
+        this.nemHirdetettHazak = hazak.filter(haz => haz.hirdet == 'Nem');
       },
       error: (err) => {
         this.toastrService.error('A házak lista betöltésében hiba keletkezett.', 'Hiba');

@@ -1,7 +1,9 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { BerloDTO, FoberloDTO, HazDTO, JelentkezesDTO, SzerzodesDTO } from 'models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JelentkezesDTO, SzerzodesDTO } from 'models';
+import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { JelentkezService } from 'src/app/services/jelentkez.service';
@@ -15,11 +17,9 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
 export class SzerzodesComponent {
   visable = true;
 
-
-  // TODO: oraallasok
   szerzodesForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
-    kezdido: this.formBuilder.control(new Date(), [Validators.required]),
+    kezdido: this.formBuilder.control(this.getNow(), [Validators.required]),
     vegido: this.formBuilder.control(this.getNowPlus1Year(), [Validators.required]),
     kaucio: this.formBuilder.control(0, [Validators.required]),
     gazOraGyariszam: this.formBuilder.control(0, [Validators.required]),
@@ -28,7 +28,7 @@ export class SzerzodesComponent {
     gazOraKezdoAllas: this.formBuilder.control(0, [Validators.required]),
     villanyOraKezdoAllas: this.formBuilder.control(0, [Validators.required]),
     vizOraKezdoAllas: this.formBuilder.control(0, [Validators.required])
-  })
+  });
 
   jelentkezes?: JelentkezesDTO;
 
@@ -39,6 +39,8 @@ export class SzerzodesComponent {
     private szerzodesService: SzerzodesService,
     private jelentkezService: JelentkezService,
     private activatedRoute: ActivatedRoute,
+    private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -56,33 +58,35 @@ export class SzerzodesComponent {
     }
   }
 
+  getNow() {
+    return moment().format('YYYY-MM-DD');
+  }
+
   getNowPlus1Year() {
     const now = new Date();
     now.setFullYear(now.getFullYear() + 1);
 
-    return now;
+    return moment(now).format('YYYY-MM-DD');
   }
 
-
-  saveContract(){
+  saveContract() {
     if (!this.jelentkezes) {
       return;
     }
 
-    const szerzodes = this.szerzodesForm.value as SzerzodesDTO;
+    const szerzodes = this.szerzodesForm.value as any as SzerzodesDTO;
     this.szerzodesService.create(this.jelentkezes.id, szerzodes).subscribe({
-      next: (apply) => { 
+      next: (apply) => {
         this.toastrService.success('A szerződés sikeresen létre lett hozva.', 'Siker');
-        },
-        error: (err) => {
-          this.toastrService.error('Nem sikerült létrehozni a szerződést.', 'Hiba');
-        }
+        this.router.navigateByUrl('/home');
+      },
+      error: (err) => {
+        this.toastrService.error('Nem sikerült létrehozni a szerződést.', 'Hiba');
+      }
     });
-
   }
 
   canceled() {
-    this.visable = true;
+    this.location.back();
   }
-
 }

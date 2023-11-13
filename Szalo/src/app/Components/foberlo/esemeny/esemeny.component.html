@@ -9,12 +9,12 @@
                 </small>
             </div>
            
-            <div *ngFor="let tipus of tipusArr">
-                <input type="radio" name="tipus" id="tipus" for="tipus" formControlName="tipus" value="{{tipus.value}}" (change)="onRadioChange($event)">
+            <div *ngFor="let tipus of tipusok">
+                <input type="radio" name="tipus" id="tipus" for="tipus" formControlName="tipus" [value]="tipus.value">
                 <label>{{tipus.label}}</label>
             </div>
             <small class="text-danger" *ngIf="(esemenyForm.get('tipus')?.touched || esemenyForm.get('tipus')?.dirty) && esemenyForm.get('tipus')?.hasError('required')">
-                    A tipus megadása kötelező.
+                    A típus megadása kötelező.
             </small>
 
             <div class="form-check form-switch">
@@ -30,27 +30,26 @@
             </div>
   
             <div class="mb-3">
-              <label for="koltsegviselo" class="form-label">Költség viselő</label>
+              <label for="koltsegviselo" class="form-label">Költségviselő</label>
               <select name="koltsegviselo" id="koltsegviselo" class="form-select" formControlName="koltsegviselo">
-                  <option value="Nem megállapítot">Nem megállapítot</option>
-                  <option value="Tulaj">Tulaj</option>
+                  <option value="Nem megállapított">Nem megállapított</option>
+                  <option value="Tulaj">Tulajdonos</option>
                   <option value="Bérlő">Bérlő</option>
               </select>
               <small class="text-danger" *ngIf="(esemenyForm.get('koltsegviselo')?.touched || esemenyForm.get('koltsegviselo')?.dirty) && esemenyForm.get('koltsegviselo')?.hasError('required')">
-                  A költség viselő megadása kötelező.
+                  A költségviselő megadása kötelező.
               </small>
             </div>
   
-  
             <div class="mb-3">
-              <label for="allapot" class="form-label">Álapot</label>
+              <label for="allapot" class="form-label">Állapot</label>
               <select name="allapot" id="allapot" class="form-select" formControlName="allapot">
                   <option value="Új esemény">Új esemény</option>
-                  <option value="Fojamatban">Fojamatban</option>
+                  <option value="Folyamatban">Folyamatban</option>
                   <option value="Lezárt">Lezárt</option>
               </select>
               <small class="text-danger" *ngIf="(esemenyForm.get('allapot')?.touched || esemenyForm.get('allapot')?.dirty) && esemenyForm.get('allapot')?.hasError('required')">
-                  Az álapot megadása kötelező.
+                  Az állapot megadása kötelező.
               </small>
             </div>
   
@@ -63,7 +62,7 @@
             </div>
   
             <div class="input-group" *ngIf="!esemenyForm.disabled">
-                <button class="btn btn-outline-primary" >Mégse</button>
+                <button class="btn btn-outline-primary" (click)="location.back()">Mégse</button>
                 <button class="btn btn-outline-primary" (click)="saveEvent()">Mentés</button>
             </div>
         </form>

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BerloService } from 'src/app/services/berlo.service';
 import { FoberloService } from 'src/app/services/foberlo.service';
-import { FoberloDTO, BerloDTO} from 'models';
+import { FoberloDTO, BerloDTO } from 'models';
 
 @Component({
   selector: 'app-regisztralas',
@@ -12,15 +12,14 @@ import { FoberloDTO, BerloDTO} from 'models';
   styleUrls: ['./regisztralas.component.css']
 })
 export class RegisztralasComponent {
-  changeVisable = true;
-  valide = true;
+  changeVisible = true;
 
   foberloForm = this.formBuilder.group({
     nev: this.formBuilder.control('', [Validators.required]),
     email: this.formBuilder.control('', [Validators.required, Validators.email]),
     password: this.formBuilder.control('', [Validators.required]),
     szamlaszam: this.formBuilder.control('', [Validators.required]),
-    telefonszam: this.formBuilder.control(301234567, [Validators.required]),
+    telefonszam: this.formBuilder.control<number | null>(null, [Validators.required]),
     bank: this.formBuilder.control('', [Validators.required]),
   });
 
@@ -28,85 +27,67 @@ export class RegisztralasComponent {
     nev: this.formBuilder.control('', [Validators.required]),
     email: this.formBuilder.control('', [Validators.required, Validators.email]),
     password: this.formBuilder.control('', [Validators.required]),
-    telefonszam: this.formBuilder.control(301234567, [Validators.required]),
+    telefonszam: this.formBuilder.control<number | null>(null, [Validators.required]),
     irsz: this.formBuilder.control<number | null>(null, [Validators.required, Validators.min(1000), Validators.max(9999)]),
     telepules: this.formBuilder.control('', [Validators.required]),
     cim: this.formBuilder.control('', [Validators.required]),
   });
+
+  valasztottSzerepkor: 'foberlo' | 'berlo' | null = null;
+
+  szerepkorok = [
+    {
+      label: 'Főbérlő',
+      value: 'foberlo'
+    },
+    {
+      label: 'Bérlő',
+      value: 'berlo'
+    },
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
     private foberloService: FoberloService,
     private berloService: BerloService,
     private router: Router,
-    private toastrService: ToastrService,
-    private activatedRoute: ActivatedRoute
-    ) { }
-
-    selectedUser: any = '';
-  userArr = [
-    {
-      label:'Főbérlő',
-      value: 'f'
-    },
-    {
-      label:'Bérlő',
-      value: 'b'
-    },
-  ];
+    private toastrService: ToastrService
+  ) { }
 
   goToPage(pageName: string): void {
     this.router.navigate([`${pageName}`]);
   }
 
-  onRadioChange(event:any){
-    // Kiválasztja az értéket
-    this.selectedUser = event.target.value;
-    if(event.target.value == "f"){
-      this.changeVisable = true;
-    }else if(event.target.value == "b"){
-      this.changeVisable = false;
-    }
-  }
-
-  valueValidate(): boolean{
-
-    if(this.changeVisable){
+  valueValidate(): boolean {
+    if (this.changeVisible) {
       this.foberloForm.markAllAsTouched();
       return this.foberloForm.valid;
     }
-    else{
+    else {
       this.berloForm.markAllAsTouched();
       return this.berloForm.valid;
     }
-
-    
   }
 
   saveUser() {
-
     if (!this.valueValidate()) {
-      console.log('invalid');
+      this.toastrService.error('A megadott adatok hibásak.', 'Hiba');
       return;
     }
 
-    if (this.changeVisable) {
+    if (this.changeVisible) {
       const foberlo = this.foberloForm.value as FoberloDTO;
       this.foberloService.create(foberlo).subscribe({
         next: (foberlo) => {
           this.toastrService.success('Regisztráció sikeresen megtörtént', 'Siker');
         },
         error: (err) => {
-          if(err.error.error == "Adatbázis hiba történt."){
-            this.toastrService.error('Ez az email már regisztrálvavan!.', 'Hiba');
-          }
-          else{
-            this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
-          }
+          this.toastrService.error('A regisztráció nem sikerült.', 'Hiba');
         }
       });
     }
-    else if (!this.changeVisable){
+
+    if (!this.changeVisible) {
       const berlo = this.berloForm.value as BerloDTO;
       this.berloService.create(berlo).subscribe({
         next: (berlo) => {
@@ -121,11 +102,7 @@ export class RegisztralasComponent {
     this.goToPage("/");
   }
 
-  changeUserVisable(): boolean{
-    return this.changeVisable;
-  }
-
-  compareObjects(obj1: any, obj2: any) {
-    return obj1 && obj2 && obj1.id == obj2.id;
+  changeUserVisible(): boolean {
+    return this.changeVisible;
   }
 }

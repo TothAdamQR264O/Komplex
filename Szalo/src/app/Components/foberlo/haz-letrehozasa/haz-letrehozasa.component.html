@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
-        <h4>Ház felivitel</h4>
+        <h4>Ház felvitel</h4>
         <hr>
     </div>
     
@@ -30,21 +30,21 @@
                 </small>
             </div>
             <div class="mb-3">
-                <label for="telepules" class="form-label">Telepules</label>
-                <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Msikolc" formControlName="telepules">
+                <label for="telepules" class="form-label">Település</label>
+                <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Miskolc" formControlName="telepules">
                 <small class="text-danger" *ngIf="(hazForm.get('telepules')?.touched || hazForm.get('telepules')?.dirty) && hazForm.get('telepules')?.hasError('required')">
-                    A telepules megadása kötelező.
+                    A település megadása kötelező.
                 </small>
             </div>
             <div class="mb-3">
                 <label for="cim" class="form-label">Cím</label>
-                <input type="text" class="form-control" id="cim" name="cim" placeholder="Csermőkei dülő 25" formControlName="cim">
+                <input type="text" class="form-control" id="cim" name="cim" placeholder="Csermőkei dűlő 25." formControlName="cim">
                 <small class="text-danger" *ngIf="(hazForm.get('cim')?.touched || hazForm.get('cim')?.dirty) && hazForm.get('cim')?.hasError('required')">
                     A cím megadása kötelező.
                 </small>
             </div>
 
-            <label for="rezsi" class="form-label">rezsi</label>
+            <label for="rezsi" class="form-label">Rezsi</label>
             <div class="input-group mb-3">
                 <input type="number" class="form-control" id="rezsi" name="rezsi" placeholder="4000" formControlName="rezsi"> 
                 <div class="input-group-prepend">
@@ -55,7 +55,7 @@
                 A rezsi megadása kötelező.
             </small>
             <small class="text-danger" *ngIf="(hazForm.get('rezsi')?.touched || hazForm.get('rezsi')?.dirty) && hazForm.get('rezsi')?.hasError('min')">
-                A rezsi értéke nem lehet minusz.
+                A rezsi értéke nem lehet negatív.
             </small>
 
             <div>
@@ -85,7 +85,7 @@
                 </small>
             </div>
 
-            <label for="meret" class="form-label">Méret</label>
+            <label for="meret" class="form-label">Alapterület</label>
             <div class="input-group mb-3">
                 <input type="number" class="form-control" id="meret" name="meret" placeholder="30" formControlName="meret">
                 <div class="input-group-prepend">
@@ -100,37 +100,21 @@
             </small>
 
             <div class="mb-3">
-                <label for="allapot" class="form-label">Álapot</label>
+                <label for="allapot" class="form-label">Állapot</label>
                 <select name="allapot" id="allapot" class="form-select" formControlName="allapot">
-                    <option value="Új építésű">Új építésű</option>
+                    <option value="Új építésű">Újépítésű</option>
                     <option value="Újszerű">Újszerű</option>
                     <option value="Felújított">Felújított</option>
-                    <option value="Jó állapotú">Jó állapotú</option>
-                    <option value="Közepes állapotú">Közepes állapotú</option>
                     <option value="Felújítandó">Felújítandó</option>
-                    <option value="Befejezetlen">Befejezetlen</option>
                 </select>
                 <small class="text-danger" *ngIf="(hazForm.get('allapot')?.touched || hazForm.get('allapot')?.dirty) && hazForm.get('allapot')?.hasError('required')">
-                    Az álapot megadása kötelező.
+                    Az állapot megadása kötelező.
                 </small>
             </div>
-            <!--<div class="mb-3">
-                <label for="komfort" class="form-label">komfort</label>
-                <select name="komfort" id="komfort" class="form-select" formControlName="komfort">
-                    <option value="Luxus">Luxus</option>
-                    <option value="Duplakomfort">Duplakomfort</option>
-                    <option value="Összkomfort">Összkomfort</option>
-                    <option value="komfortos">komfortos</option>
-                    <option value="Félkomfortos">Félkomfortos</option>
-                    <option value="komfort nélküli">komfort nélküli</option>
-                </select>
-                <small class="text-danger" *ngIf="(hazForm.get('komfort')?.touched || hazForm.get('komfort')?.dirty) && hazForm.get('komfort')?.hasError('required')">
-                    A komfort megadása kötelező.
-                </small>
-            </div>-->
 
+            <span>Komfortfokozat</span>
             <div *ngFor="let komfort of komfortArr">
-            <input type="radio" name="komfort" id="komfort" for="komfort" formControlName="komfort" value="{{komfort.value}}" (change)="onRadioChange($event)">
+            <input type="radio" name="komfort" id="komfort" for="komfort" formControlName="komfort" [value]="komfort.value">
             <label>{{komfort.label}}</label>
             </div>
             <small class="text-danger" *ngIf="(hazForm.get('komfort')?.touched || hazForm.get('komfort')?.dirty) && hazForm.get('komfort')?.hasError('required')">
@@ -145,7 +129,7 @@
                     Az emelet megadása kötelező.
                 </small>
                 <small class="text-danger" *ngIf="(hazForm.get('emelet')?.touched || hazForm.get('emelet')?.dirty) && hazForm.get('emelet')?.hasError('min')">
-                    Az emelet értéke nem lehet minusz.
+                    Az emelet értéke nem lehet negatív.
                 </small>
                 <small class="text-danger" *ngIf="(hazForm.get('emelet')?.touched || hazForm.get('emelet')?.dirty) && hazForm.get('emelet')?.hasError('elteroEmelet')">
                     Az épület szintjéhez képest ez már nem létező emelet.
@@ -155,26 +139,14 @@
                 <label for="szint" class="form-label">Épület szintjeinek száma</label>
                 <input type="number" class="form-control" id="szint" name="szint" placeholder="10" formControlName="szint">
                 <small class="text-danger" *ngIf="(hazForm.get('szint')?.touched || hazForm.get('szint')?.dirty) && hazForm.get('szint')?.hasError('required')">
-                    Az épület szintjeinek számának megadása kötelező.
+                    Az épület szintjeinek megadása kötelező.
                 </small>
                 <small class="text-danger" *ngIf="(hazForm.get('szint')?.touched || hazForm.get('szint')?.dirty) && hazForm.get('szint')?.hasError('min')">
-                    Az épület szintjeinek számának értéke nem lehet minusz.
+                    Az épület szintjeinek értéke nem lehet negatív.
                 </small>
             </div>
-
-            <!--<div class="mb-3">
-                <label for="lift" class="form-label">Lift</label>
-                <select name="lift" id="lift" class="form-select" formControlName="lift">
-                    <option value="Nincs">Nincs</option>
-                    <option value="Van">Van</option>
-                </select>
-                <small class="text-danger" *ngIf="(hazForm.get('lift')?.touched || hazForm.get('lift')?.dirty) && hazForm.get('lift')?.hasError('required')">
-                    A lift megadása kötelező.
-                </small>
-            </div>-->
-
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="lift" (change)="onSwicChange($event)">
+                <input class="form-check-input" type="checkbox" id="lift" formControlName="lift" (change)="onSwitchChange($event)">
                 <label class="form-check-label" for="lift">Lift</label>
             </div>
             
@@ -201,8 +173,8 @@
             <div class="mb-3">
                 <label for="koltozheto" class="form-label">Költözhető</label>
                 <select name="koltozheto" id="koltozheto" class="form-select" formControlName="koltozheto">
-                    <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
+                    <option value="Nem">Nem</option>
                 </select>
                 <small class="text-danger" *ngIf="(hazForm.get('koltozheto')?.touched || hazForm.get('koltozheto')?.dirty) && hazForm.get('koltozheto')?.hasError('required')">
                     A költözhető megadása kötelező.
@@ -213,31 +185,31 @@
             <div class="input-group mb-3">
                 <input type="number" class="form-control" id="minberido" name="minberido" placeholder="6" formControlName="minberido">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">hó</span>
+                    <span class="input-group-text">hónap</span>
                 </div>
             </div>
             <small class="text-danger" *ngIf="(hazForm.get('minberido')?.touched || hazForm.get('minberido')?.dirty) && hazForm.get('minberido')?.hasError('required')">
                 A minimális bérlési idő megadása kötelező.
             </small>
             <small class="text-danger" *ngIf="(hazForm.get('minberido')?.touched || hazForm.get('minberido')?.dirty) && hazForm.get('minberido')?.hasError('min')">
-                A minimális bérlési időnek több nek kell lenie 0-nál.
+                A minimális bérlési időnek több nek kell lennie 0-nál.
             </small>
 
             <div class="mb-3">
-                <label for="fureswc" class="form-label">Fűrdő és WC</label>
+                <label for="fureswc" class="form-label">Fürdő és WC</label>
                 <select name="fureswc" id="fureswc" class="form-select" formControlName="fureswc">
                     <option value="Külön helyiségben">Külön helyiségben</option>
                     <option value="Egy helyiségben">Egy helyiségben</option>
                     <option value="Külön és egyben is">Külön és egyben is</option>
                 </select>
                 <small class="text-danger" *ngIf="(hazForm.get('fureswc')?.touched || hazForm.get('fureswc')?.dirty) && hazForm.get('fureswc')?.hasError('required')">
-                    A fűrdő és wc megadása kötelező.
+                    A fürdő és wc megadása kötelező.
                 </small>
             </div>
             <div class="mb-3">
-                <label for="kilatas" class="form-label">Kilását</label>
+                <label for="kilatas" class="form-label">Kilátás</label>
                 <select name="kilatas" id="kilatas" class="form-select" formControlName="kilatas">
-                    <option value="Udvari">Udvari</option>
+                    <option value="Udvari">Udvarra néző</option>
                     <option value="Utcára néző">Utcára néző</option>
                     <option value="Panorámás">Panorámás</option>
                     <option value="Kertre néző">Kertre néző</option>
@@ -247,17 +219,17 @@
                 </small>
             </div>
             <div class="mb-3">
-                <label for="gepesitett" class="form-label">Gépesítet</label>
+                <label for="gepesitett" class="form-label">Gépesített</label>
                 <select name="gepesitett" id="gepesitett" class="form-select" formControlName="gepesitett">
-                    <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
+                    <option value="Nem">Nem</option>
                 </select>
                 <small class="text-danger" *ngIf="(hazForm.get('gepesitett')?.touched || hazForm.get('gepesitett')?.dirty) && hazForm.get('gepesitett')?.hasError('required')">
                     A gépesítés megadása kötelező.
                 </small>
             </div>
 
-            <label for="erkelymeret" class="form-label">Erkély mérete</label>
+            <label for="erkelymeret" class="form-label">Erkély alapterülete</label>
             <div class="input-group mb-3">
                 <input type="number" class="form-control" id="erkelymeret" name="erkelymeret" placeholder="3" formControlName="erkelymeret">
                 <div class="input-group-prepend">
@@ -273,8 +245,8 @@
             <div class="mb-3">
                 <label for="hirdet" class="form-label">Meghirdet</label>
                 <select name="hirdet" id="hirdet" class="form-select" formControlName="hirdet">
-                    <option value="Nem">Nem</option>
                     <option value="Igen">Igen</option>
+                    <option value="Nem">Nem</option>
                 </select>
                 <small class="text-danger" *ngIf="(hazForm.get('hirdet')?.touched || hazForm.get('hirdet')?.dirty) && hazForm.get('hirdet')?.hasError('required')">
                     A meghirdetés megadása kötelező.

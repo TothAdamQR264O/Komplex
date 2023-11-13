@@ -1,33 +1,39 @@
 <div class="row">
   <h4>Aktív szerződések</h4>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Helyrajzi szám</th>
-            <th scope="col">Írszám</th>
-            <th scope="col">Település</th>
-            <th scope="col">Cím</th>
-            <th scope="col">Rezsi</th>
-            <th scope="col">Ár</th>
-            <th scope="col">Főbérlő neve</th>
-            <th scope="col">Email</th>
-            <th scope="col">Telefon szám</th>
-            <th scope="col">Részletek</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr *ngFor="let szer of Szer">
-            <th scope="col">{{ szer.lakas.hrsz }}</th>
-            <th scope="col">{{ szer.lakas.irsz }}</th>
-            <th scope="col">{{ szer.lakas.telepules }}</th>
-            <th scope="col">{{ szer.lakas.cim }}</th>
-            <th scope="col">{{ szer.lakas.rezsi }}</th>
-            <th scope="col">{{ szer.lakas.ar }}</th>
-            <th scope="col">{{ szer.tulajdonos.nev }}</th>
-            <th scope="col">{{ szer.tulajdonos.email }}</th>
-            <th scope="col">{{ szer.tulajdonos.telefonszam }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="reszletek(szer.id)">Részletek</button></th>
-          </tr>
-        </tbody>
-      </table>
+  
+  <p *ngIf="!szerzodesek || szerzodesek.length === 0">
+    Nincs aktív szerződése.
+  </p>
+
+  <table class="table" *ngIf="szerzodesek && szerzodesek.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">Helyrajzi szám</th>
+        <th scope="col">Irányítószám</th>
+        <th scope="col">Település</th>
+        <th scope="col">Cím</th>
+        <th scope="col">Rezsi</th>
+        <th scope="col">Ár</th>
+        <th scope="col">Főbérlő neve</th>
+        <th scope="col">Email</th>
+        <th scope="col">Telefonszám</th>
+        <th scope="col">Részletek</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let szerzodes of szerzodesek">
+        <td scope="col">{{ szerzodes.lakas.hrsz }}</td>
+        <td scope="col">{{ szerzodes.lakas.irsz }}</td>
+        <td scope="col">{{ szerzodes.lakas.telepules }}</td>
+        <td scope="col">{{ szerzodes.lakas.cim }}</td>
+        <td scope="col">{{ szerzodes.lakas.rezsi }}</td>
+        <td scope="col">{{ szerzodes.lakas.ar }}</td>
+        <td scope="col">{{ szerzodes.tulajdonos.nev }}</td>
+        <td scope="col">{{ szerzodes.tulajdonos.email }}</td>
+        <td scope="col">{{ szerzodes.tulajdonos.telefonszam }}</td>
+        <td scope="col"><button class="btn btn-outline-primary" (click)="reszletek(szerzodes.id)">Részletek</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

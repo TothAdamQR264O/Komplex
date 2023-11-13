@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BerloDTO, FoberloDTO, HazDTO, LoginDTO} from 'models';
+import { LoginDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { BerloService } from 'src/app/services/berlo.service';
@@ -18,10 +18,7 @@ export class BejelentkezesComponent {
     password: this.formBuilder.control('')
   });
 
-  serviceChoice = 0;
-  email = "";
-  valide = true;
-  fberlo?: FoberloDTO;
+  szerepkor: 'foberlo' | 'berlo' | null = null;
 
   foberloForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
@@ -42,76 +39,62 @@ export class BejelentkezesComponent {
   ) { }
 
 
-  goToReg(){
+  goToReg() {
     this.router.navigateByUrl('/reg');
   }
 
-  selectedUser: any = '';
-  userArr = [
+  szerepkorok = [
     {
-      label:'Főbérlő',
-      value: 'f'
+      label: 'Főbérlő',
+      value: 'foberlo'
     },
     {
-      label:'Bérlő',
-      value: 'b'
+      label: 'Bérlő',
+      value: 'berlo'
     },
   ];
-  
-  // Rádió gomb értékének változását ellenörzi
-  onRadioChange(event:any){
-    
-    // Kiválasztja az értéket
-    this.selectedUser = event.target.value;
-    if(event.target.value == "f"){
-      this.serviceChoice = 1;
-    }else if(event.target.value == "b"){
-      this.serviceChoice = 2;
-    }
-  }
 
-  valueValidate(): boolean{
-    this.valide = true;
-    if(!this.loginForm.value.email || !this.loginForm.value.password || this.serviceChoice == 0){
-      this.valide = false;
-    }
-    return this.valide;
+  valueValidate(): boolean {
+    return Boolean(this.loginForm.value.email && this.loginForm.value.password && this.szerepkor);
   }
 
   login() {
     const loginData = this.loginForm.value as LoginDTO;
-    
-    if(this.valueValidate()){
-      if(this.serviceChoice == 1){
-        this.foberloService.login(loginData).subscribe({
-          next: (response) => {
-            this.authService.setToken(response.accessToken);
-            this.authService.setRole(response.role);
-            this.authService.setName(response.name);
-            this.authService.loggedInEvent.emit();
-            this.router.navigateByUrl('/home');
-          },
-          error: (err) => {
-            this.toastrService.error(err.error.error, 'Error');
-          }
-        });
-      }else if(this.serviceChoice == 2){
-        this.berloService.login(loginData).subscribe({
-          next: (response) => {
-            this.authService.setToken(response.accessToken);
-            this.authService.setRole(response.role);
-            this.authService.setName(response.name);
-            this.authService.loggedInEvent.emit();
-            this.router.navigateByUrl('/lak');
-          },
-          error: (err) => {
-            this.toastrService.error(err.error.error, 'Error');
-          }
-        });
-      }
+
+    if (!this.valueValidate()) {
+      this.toastrService.error("Minden adat kitöltése kötelező!", 'Hiba');
+      return;
     }
-    else{
-      this.toastrService.error("Nem töltötted ki valameylki adatot, vagy nem jelölted meg, milyen felhasználó vagy!", 'Error');
+
+    if (this.szerepkor === 'foberlo') {
+      this.foberloService.login(loginData).subscribe({
+        next: (response) => {
+          this.authService.setToken(response.accessToken);
+          this.authService.setRole(response.role);
+          this.authService.setName(response.name);
+          this.authService.loggedInEvent.emit();
+          this.router.navigateByUrl('/home');
+        },
+        error: (err) => {
+          this.toastrService.error(err.error.error, 'Error');
+        }
+      });
+    }
+
+    if (this.szerepkor === 'berlo') {
+      this.berloService.login(loginData).subscribe({
+        next: (response) => {
+          this.authService.setToken(response.accessToken);
+          this.authService.setRole(response.role);
+          this.authService.setName(response.name);
+          this.authService.loggedInEvent.emit();
+          this.router.navigateByUrl('/lak');
+        },
+        error: (err) => {
+          this.toastrService.error(err.error.error, 'Error');
+        }
+      });
     }
   }
+
 }

@@ -7,32 +7,32 @@
 
 <div class="row justify-content-center">
     <div class="col-md-9">
-        <div *ngFor="let user of userArr">
-            <input type="radio" name="user" value="{{user.value}}" (change)="onRadioChange($event)">
-            <label>{{user.label}}</label>
+        <div *ngFor="let szerepkor of szerepkorok">
+            <input type="radio" name="user" [value]="szerepkor.value" [(ngModel)]="valasztottSzerepkor">
+            <label>{{szerepkor.label}}</label>
         </div>
 
-        <form [formGroup]="foberloForm" *ngIf="changeUserVisable()">
+        <form [formGroup]="foberloForm" *ngIf="changeUserVisible()">
             <div class="mb-3">
-                <label for="nev" class="form-label">Főbérlő Név</label>
+                <label for="nev" class="form-label">Főbérlő neve</label>
                 <input type="text" class="form-control" id="nev" name="nev" placeholder="Példa Béla" formControlName="nev">
                 <small class="text-danger" *ngIf="(foberloForm.get('nev')?.touched || foberloForm.get('nev')?.dirty) && foberloForm.get('nev')?.hasError('required')">
-                    A tulaj név megadása kötelező.
+                    A főbérlő nevének megadása kötelező.
                 </small>
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">E-mail</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="pelda@bela.hu" formControlName="email">
                 <small class="text-danger" *ngIf="(foberloForm.get('email')?.touched || foberloForm.get('email')?.dirty) && foberloForm.get('email')?.hasError('required')">
-                    Az email cím megadása kötelező.
+                    Az e-mail cím megadása kötelező.
                 </small>
                 <small class="text-danger" *ngIf="(foberloForm.get('email')?.touched || foberloForm.get('email')?.dirty) && foberloForm.get('email')?.hasError('email')">
-                    Érvényes email címet kell megadni.
+                    Érvényes e-mail címet kell megadni.
                 </small>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Jelszó</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Példa12" formControlName="password">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Jelszó" formControlName="password">
                 <small class="text-danger" *ngIf="(foberloForm.get('password')?.touched || foberloForm.get('password')?.dirty) && foberloForm.get('password')?.hasError('required')">
                     A jelszó megadása kötelező.
                 </small>
@@ -48,7 +48,7 @@
                 <label for="telefonszam" class="form-label">Telefonszám</label>
                 <input type="text" class="form-control" id="telefonszam" name="telefonszam" placeholder="301234567" formControlName="telefonszam">
                 <small class="text-danger" *ngIf="(foberloForm.get('telefonszam')?.touched || foberloForm.get('telefonszam')?.dirty) && foberloForm.get('telefonszam')?.hasError('required')">
-                    A Telefonszám megadása kötelező.
+                    A telefonszám megadása kötelező.
                 </small>
             </div>
             <div class="mb-3">
@@ -59,32 +59,31 @@
                 </small>
             </div>
             <div class="text-end">
-                <button class="btn btn-outline-primary"
-                    (click)="saveUser()">Mentés</button>
+                <button class="btn btn-outline-primary" (click)="saveUser()">Mentés</button>
             </div>
         </form>
 
-        <form [formGroup]="berloForm" *ngIf="!changeUserVisable()">
+        <form [formGroup]="berloForm" *ngIf="!changeUserVisible()">
             <div class="mb-3">
-                <label for="nev" class="form-label">Bérlő Név</label>
+                <label for="nev" class="form-label">Bérlő neve</label>
                 <input type="text" class="form-control" id="nev" name="nev" placeholder="Példa Béla" formControlName="nev">
                 <small class="text-danger" *ngIf="(berloForm.get('nev')?.touched || berloForm.get('nev')?.dirty) && berloForm.get('nev')?.hasError('required')">
                     A név megadása kötelező.
                 </small>
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">E-mail</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="pelda@bela.hu" formControlName="email">
                 <small class="text-danger" *ngIf="(berloForm.get('email')?.touched || berloForm.get('email')?.dirty) && berloForm.get('email')?.hasError('required')">
-                    Az email cím megadása kötelező.
+                    Az e-mail cím megadása kötelező.
                 </small>
                 <small class="text-danger" *ngIf="(berloForm.get('email')?.touched || berloForm.get('email')?.dirty) && berloForm.get('email')?.hasError('email')">
-                    Érvényes email címet kell megadni.
+                    Érvényes e-mail címet kell megadni.
                 </small>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Jelszó</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Példa12" formControlName="password">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Jelszó" formControlName="password">
                 <small class="text-danger" *ngIf="(berloForm.get('password')?.touched || berloForm.get('password')?.dirty) && berloForm.get('password')?.hasError('required')">
                     A jelszó megadása kötelező.
                 </small>
@@ -93,7 +92,7 @@
                 <label for="telefonszam" class="form-label">Telefonszám</label>
                 <input type="text" class="form-control" id="telefonszam" name="telefonszam" placeholder="301234567" formControlName="telefonszam">
                 <small class="text-danger" *ngIf="(berloForm.get('telefonszam')?.touched || berloForm.get('telefonszam')?.dirty) && berloForm.get('telefonszam')?.hasError('required')">
-                    A Telefonszám megadása kötelező.
+                    A telefonszám megadása kötelező.
                 </small>
             </div>
             <div class="mb-3">
@@ -110,10 +109,10 @@
                 </small>
             </div>
             <div class="mb-3">
-                <label for="telepules" class="form-label">Telepules</label>
+                <label for="telepules" class="form-label">Település</label>
                 <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Msikolc" formControlName="telepules">
                 <small class="text-danger" *ngIf="(berloForm.get('telepules')?.touched || berloForm.get('telepules')?.dirty) && berloForm.get('telepules')?.hasError('required')">
-                    A telepules megadása kötelező.
+                    A település megadása kötelező.
                 </small>
             </div>
             <div class="mb-3">

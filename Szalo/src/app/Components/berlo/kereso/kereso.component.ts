@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BerloDTO, FoberloDTO, HazDTO, JelentkezesDTO} from 'models';
+import { Router } from '@angular/router';
+import { HazDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
-import { FoberloService } from 'src/app/services/foberlo.service';
 import { HouseService } from 'src/app/services/house.service';
-import { JelentkezService } from 'src/app/services/jelentkez.service';
 
 @Component({
   selector: 'app-kereso',
@@ -31,12 +29,8 @@ export class KeresoComponent {
     public authService: AuthService,
     private toastrService: ToastrService,
     private router: Router,
-    private jelentkezService: JelentkezService,
-    private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
-    private foberloService: FoberloService
+    private formBuilder: FormBuilder
   ) {}
-
 
   ngOnInit(): void {
 
@@ -54,12 +48,11 @@ export class KeresoComponent {
     }
     else{
       this.hazak.splice(0);
-      var maxAr = 9999999999;
+      var maxAr = Number.MAX_SAFE_INTEGER;
 
       if(Number(this.keresForm.value.maximumAr) > 0){
         maxAr = Number(this.keresForm.value.maximumAr);
       }
-
 
       this.houseService.getAd().subscribe({
         next: (haz) => {
@@ -118,7 +111,6 @@ export class KeresoComponent {
     this.router.navigate(['jelentkezes', id]);
   }
 
-
   keresRoom(){
     this.szures = true;
     this.ngOnInit();
@@ -135,12 +127,7 @@ export class KeresoComponent {
   }
 
   showAppy(): boolean {
-    if(this.szerep() == "berlo"){
-      return true;
-    }
-    else{
-      return false;
-    }
+    return this.szerep() == "berlo";
   }
   
 }

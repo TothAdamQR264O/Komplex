@@ -11,7 +11,6 @@ import { SzerzodesService } from 'src/app/services/szerzodes.service';
   styleUrls: ['./szerzodes-lezaras.component.css']
 })
 export class SzerzodesLezarasComponent implements OnInit {
-
   szerzodes?: SzerzodesDTO;
 
   szerzodesZarasForm = this.formBuilder.group({

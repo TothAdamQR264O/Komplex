@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FoberloDTO, HazDTO } from 'models';
+import { HazDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
-import { FoberloService } from 'src/app/services/foberlo.service';
 import { HouseService } from 'src/app/services/house.service';
 
 @Component({
@@ -13,10 +12,8 @@ import { HouseService } from 'src/app/services/house.service';
   styleUrls: ['./haz-letrehozasa.component.css']
 })
 export class SzerkesztesComponent {
- 
   valide = true;
   isNewHouse = true;
-  
 
   hazForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
@@ -44,77 +41,45 @@ export class SzerkesztesComponent {
     hirdet: this.formBuilder.control("", [Validators.required]),
   });
 
+  komfortArr = [
+    {
+      label: 'Luxus',
+      value: 'Luxus'
+    },
+    {
+      label: 'Összkomfortos',
+      value: 'Összkomfortos'
+    },
+    {
+      label: 'Félkomfortos',
+      value: 'Félkomfortos'
+    },
+    {
+      label: 'Komfort nélküli',
+      value: 'Komfort nélküli'
+    },
+  ];
+  
+  switchVolume = -1;
+
   constructor(
     private houseService: HouseService,
     public authService: AuthService,
     private toastrService: ToastrService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private foberloService: FoberloService,
     private activatedRoute: ActivatedRoute
-    ) {}
+  ) { }
 
-    
-  selectedkomfort: any = ';'
-  komfortArr = [
-    {
-      label:'Luxus',
-      value: 'Luxus'
-    },
-    {
-      label:'Duplakomfort',
-      value: 'Duplakomfort'
-    },
-    {
-      label:'Összkomfort',
-      value: 'Összkomfort'
-    },
-    {
-      label:'komfortos',
-      value: 'komfortos'
-    },
-    {
-      label:'Félkomfortos',
-      value: 'Félkomfortos'
-    },
-    {
-      label:'komfort nélküli',
-      value: 'komfort nélküli'
-    },
-  ];
+  onSwitchChange(event: any) {
+    this.switchVolume *= -1;
 
-  onRadioChange(event:any){
-    
-    // Kiválasztja az értéket
-    this.selectedkomfort = event.target.value;
-    if(event.target.value == "Luxus"){
-      this.hazForm.value.komfort = event.target.value;
-    }else if(event.target.value == "Duplakomfort"){
-      this.hazForm.value.komfort = event.target.value;
-    }else if(event.target.value == "Összkomfort"){
-      this.hazForm.value.komfort = event.target.value;
-    }else if(event.target.value == "komfortos"){
-      this.hazForm.value.komfort = event.target.value;
-    }else if(event.target.value == "Félkomfortos"){
-      this.hazForm.value.komfort = event.target.value;
-    }else if(event.target.value == "komfort nélküli"){
-      this.hazForm.value.komfort = event.target.value;
-    }
-  }
-
-  switchVolume = -1;
-  onSwicChange(event:any){
-    this.switchVolume *=-1;
-  }
-
-  liftVolume(){
-    if(this.switchVolume == 1){
+    if (this.switchVolume == 1) {
       this.hazForm.value.lift = "Igen";
-    }else{
+    } else {
       this.hazForm.value.lift = "Nem";
     }
   }
-
 
   logout() {
     this.authService.removeToken();
@@ -122,8 +87,7 @@ export class SzerkesztesComponent {
     this.toastrService.success('Sikeresen kijelentkezett.', 'Kilépés');
   }
 
-  
-  goToPage(pageName:string):void {
+  goToPage(pageName: string): void {
     this.router.navigate([`${pageName}`]);
   }
 
@@ -146,8 +110,7 @@ export class SzerkesztesComponent {
     });
   }
 
-
-  valueValidate(): boolean{
+  valueValidate(): boolean {
     this.hazForm.markAllAsTouched();
     return this.hazForm.valid;
   }
@@ -181,10 +144,9 @@ export class SzerkesztesComponent {
         }
       });
     }
-    //location.reload();
   }
 
-  canceled(){
+  canceled() {
     this.router.navigate(['/home']);
   }
 }

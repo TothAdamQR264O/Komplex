@@ -1,10 +1,10 @@
-<div class="row">
-    <div>Hirdetett házak</div>
+<div class="row mt-2">
+    <h4>Hirdetett házak</h4>
     <table class="table">
         <thead>
           <tr>
             <th scope="col">Helyrajzi szám</th>
-            <th scope="col">Írszám</th>
+            <th scope="col">Irányítószám</th>
             <th scope="col">Település</th>
             <th scope="col">Cím</th>
             <th scope="col">Szerkesztés</th>
@@ -13,12 +13,12 @@
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor="let haz of hazak">
-            <th scope="col">{{ haz.hrsz }}</th>
-            <th scope="col">{{ haz.irsz }}</th>
-            <th scope="col">{{ haz.telepules }}</th>
-            <th scope="col">{{ haz.cim }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button></th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheApplys(haz.id)">Jelentkezők</button></th>
+            <td scope="col">{{ haz.hrsz }}</td>
+            <td scope="col">{{ haz.irsz }}</td>
+            <td scope="col">{{ haz.telepules }}</td>
+            <td scope="col">{{ haz.cim }}</td>
+            <td scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button></td>
+            <td scope="col"><button class="btn btn-outline-primary" (click)="goToTheApplys(haz.id)">Jelentkezők</button></td>
           </tr>
         </tbody>
       </table>
@@ -27,8 +27,8 @@
     </div>
 </div>
 
-<div class="row">
-    <div>Aktív szerződések</div>
+<div class="row mt-2">
+    <h4>Aktív szerződések</h4>
     <table class="table">
         <thead>
           <tr>
@@ -42,36 +42,36 @@
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor="let szerzodes of sajatSzerzodesek">
-            <th scope="col">{{ szerzodes.lakas.telepules }}</th>
-            <th scope="col">{{ szerzodes.lakas.cim }}</th>
-            <th scope="col">{{ szerzodes.kezdido }}</th>
-            <th scope="col">{{ szerzodes.vegido }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="goToTheApply(szerzodes.id)">Kezelés</button></th>
-            <th scope="col"><button class="btn btn-outline-danger" (click)="szerzodesLezaras(szerzodes.id)">Lezárás</button></th>
+            <td scope="col">{{ szerzodes.lakas.telepules }}</td>
+            <td scope="col">{{ szerzodes.lakas.cim }}</td>
+            <td scope="col">{{ szerzodes.kezdido }}</td>
+            <td scope="col">{{ szerzodes.vegido }}</td>
+            <td scope="col"><button class="btn btn-outline-primary" (click)="goToTheApply(szerzodes.id)">Kezelés</button></td>
+            <td scope="col"><button class="btn btn-outline-danger" (click)="szerzodesLezaras(szerzodes.id)">Lezárás</button></td>
           </tr>
         </tbody>
       </table>
 </div>
 
-<div class="row">
-    <div>Nem hírdetett házak</div>
+<div class="row mt-2">
+    <h4>Nem hirdetett házak</h4>
     <table class="table">
         <thead>
           <tr>
             <th scope="col">Helyrajzi szám</th>
-            <th scope="col">Írszám</th>
+            <th scope="col">Irányítószám</th>
             <th scope="col">Település</th>
             <th scope="col">Cím</th>
             <th scope="col">Szerkesztés</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr *ngFor="let haziko of hazakNoAd">
-            <th scope="col">{{ haziko.hrsz }}</th>
-            <th scope="col">{{ haziko.irsz }}</th>
-            <th scope="col">{{ haziko.telepules }}</th>
-            <th scope="col">{{ haziko.cim }}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haziko.id)">Szerkesztés</button></th>
+          <tr *ngFor="let haz of nemHirdetettHazak">
+            <td scope="col">{{ haz.hrsz }}</td>
+            <td scope="col">{{ haz.irsz }}</td>
+            <td scope="col">{{ haz.telepules }}</td>
+            <td scope="col">{{ haz.cim }}</td>
+            <td scope="col"><button class="btn btn-outline-primary" (click)="changeHouseValue(haz.id)">Szerkesztés</button></td>
           </tr>
         </tbody>
       </table>

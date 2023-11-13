@@ -5,9 +5,8 @@ import { EsemenyDTO, SzerzodesDTO } from 'models';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { EsemenyService } from 'src/app/services/esemeny.service';
-import { SzerzodesService } from 'src/app/services/szerzodes.service';
-
 import moment from 'moment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-esemeny',
@@ -16,9 +15,11 @@ import moment from 'moment';
 })
 export class EsemenyComponent {
   szerzodes?: SzerzodesDTO;
+
   esemeny?: EsemenyDTO;
-  esemenySzerkesztheto = true;
+
   ujEsemeny = true;
+
   esemenyForm = this.formBuilder.group({
     id: this.formBuilder.control(0),
     datum: this.formBuilder.control(moment().format('YYYY-MM-DD'), [Validators.required]),
@@ -30,51 +31,31 @@ export class EsemenyComponent {
     megjegyzes: this.formBuilder.control("", [Validators.required]),
     zarasDatum: this.formBuilder.control(moment().format('YYYY-MM-DD')),
     dokumentum: this.formBuilder.control(this.szerzodes),
-  })
+  });
+
+  tipusok = [
+    {
+      label: 'Tervezett karbantartás',
+      value: 'Tervezett'
+    },
+    {
+      label: 'Váratlan esemény',
+      value: 'Váratlan'
+    },
+    {
+      label: 'Egyéb',
+      value: 'Egyéb'
+    },
+  ];
 
   constructor(
     public authService: AuthService,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
-    private szerzodesService: SzerzodesService,
     private esemenyService: EsemenyService,
     private activatedRoute: ActivatedRoute,
+    public location: Location
   ) { }
-
-  selectedtipus: any = ';'
-  tipusArr = [
-    {
-      label: 'Tervezett',
-      value: 'Tervezett'
-    },
-    {
-      label: 'Váratlan',
-      value: 'Váratlan'
-    },
-    {
-      label: 'Egyébb',
-      value: 'Egyébb'
-    },
-  ];
-
-  onRadioChange(event: any) {
-
-    // Kiválasztja az értéket
-    this.selectedtipus = event.target.value;
-    if (event.target.value == "Tervezett") {
-      this.esemenyForm.value.tipus = event.target.value;
-    } else if (event.target.value == "Váratlan") {
-      this.esemenyForm.value.tipus = event.target.value;
-    } else if (event.target.value == "Egyébb") {
-      this.esemenyForm.value.tipus = event.target.value;
-    }
-  }
-
-  switchVolume = -1;
-  onSwicChange(event: any) {
-    this.switchVolume *= -1;
-  }
-
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
@@ -120,9 +101,6 @@ export class EsemenyComponent {
         }
       });
     }
-
-
-
   }
 
 }

@@ -17,32 +17,38 @@ export class SzerzodesController extends Controller{
 
     create = async (req, res) => {
         try {
-            const tulaj = await this.foberloRepository.findOneBy({
-                id: req.auth.id
-            });
+            const tulaj = await this.foberloRepository.findOneBy({ id: req.auth.id });
             if (!tulaj) {
                 return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
             }
-            const jelentkezes= await this.jelntkezrepository.findOneBy({
-                id: req.params.jelentkezesId
-            });
+
+            const jelentkezes = await this.jelntkezrepository.findOneBy({ id: req.params.jelentkezesId });
             if (!jelentkezes) {
                 return this.handleError(res, null, 400, "A megadott azonosítóval nem található jelentkezés.");
             }
 
-            const entity = this.repository.create(req.body as object);
-            entity.id = null;
-            entity.tulajdonos = tulaj;
-            entity.lakas = jelentkezes.haz;
-            entity.berlo = jelentkezes.berlo;
+            const szerzodes = this.repository.create(req.body as object);
+            szerzodes.tulajdonos = tulaj;
+            szerzodes.lakas = jelentkezes.haz;
+            szerzodes.berlo = jelentkezes.berlo;
+
+            szerzodes.id = null;
+            szerzodes.aktiv = true;
+            szerzodes.lezarasDatum = null;
+            szerzodes.gazOraVegAllas = 0;
+            szerzodes.villanyOraVegAllas = 0;
+            szerzodes.vizOraVegAllas = 0;
             
-            const result = await this.repository.insert(entity);
+            const result = await this.repository.insert(szerzodes);
             const inserted = await this.repository.findOneBy({ id: result.raw.insertId });
 
             const masJelentkezesek = await this.jelntkezrepository.findBy({
-                haz: { id: entity.lakas.id }
+                haz: { id: szerzodes.lakas.id }
             });
             await this.jelntkezrepository.remove(masJelentkezesek);
+
+            jelentkezes.haz.hirdet = 'Nem';
+            await this.hazRepository.save(jelentkezes.haz);
  
             res.json(inserted);
         } catch (err) {
