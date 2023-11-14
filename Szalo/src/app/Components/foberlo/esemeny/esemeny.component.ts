@@ -68,11 +68,11 @@ export class EsemenyComponent {
       });
     }
 
-    const id = this.activatedRoute.snapshot.params['eventId'];
-    if (id) {
+    const eventId = this.activatedRoute.snapshot.params['eventId'];
+    if (eventId) {
       this.ujEsemeny = false;
 
-      this.esemenyService.getOne(id).subscribe({
+      this.esemenyService.getOne(eventId).subscribe({
         next: (event) => {
           this.esemeny = event;
           this.esemenyForm.setValue(event);
@@ -84,7 +84,7 @@ export class EsemenyComponent {
       });
     }
 
-    if (this.authService.getRole() == 'berlo') {
+    if (this.authService.getRole() == 'berlo' && !this.ujEsemeny) {
       this.esemenyForm.disable();
     }
   }
