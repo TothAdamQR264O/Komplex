@@ -70,12 +70,12 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'event',
+    path: 'event/create/:contractId',
     component: EsemenyComponent,
     canActivate: [() => inject(AuthService).preventGuestAccess()]
   },
   {
-    path: 'event/:id',
+    path: 'event/manage/:contractId/:eventId',
     component: EsemenyComponent,
     canActivate: [() => inject(AuthService).preventGuestAccess()]
   },

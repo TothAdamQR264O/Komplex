@@ -57,7 +57,7 @@ export function getRoutes() {
     
     const esemenyController = new EsemenyController();
 
-    router.post('/esemeny', checkUser, esemenyController.create);
+    router.post('/esemeny/:szerzodesId', checkUser, esemenyController.create);
     router.get('/esemeny/osszes/:szerzodesId', checkUser, esemenyController.getAll);
     router.get('/esemeny/:id', checkUser, esemenyController.getOne);
     router.put('/esemeny', checkUser, csakTulaj, esemenyController.update);

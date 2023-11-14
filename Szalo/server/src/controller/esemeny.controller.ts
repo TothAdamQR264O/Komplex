@@ -18,7 +18,7 @@ export class EsemenyController extends Controller{
     create = async (req, res) => {
         try {
             const szerzodes = await this.szerzodesRepository.findOneBy({
-                id: req.params.dokumentum
+                id: req.params.szerzodesId
             });
             if (!szerzodes) {
                 return this.handleError(res, null, 400, "A megadott azonosítóval nem található ház.");

@@ -10,22 +10,22 @@
           <th scope="col">Cím</th>
           <th scope="col">Rezsi</th>
           <th scope="col">Ár</th>
-          <th scope="col">Bbérlő neve</th>
+          <th scope="col">Bérlő neve</th>
           <th scope="col">Email</th>
           <th scope="col">Telefonszám</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
         <tr>
-          <th scope="col">{{ szerzodes?.lakas?.hrsz }}</th>
-          <th scope="col">{{ szerzodes?.lakas?.irsz }}</th>
-          <th scope="col">{{ szerzodes?.lakas?.telepules }}</th>
-          <th scope="col">{{ szerzodes?.lakas?.cim }}</th>
-          <th scope="col">{{ szerzodes?.lakas?.rezsi }}</th>
-          <th scope="col">{{ szerzodes?.lakas?.ar }}</th>
-          <th scope="col">{{ szerzodes?.berlo?.nev }}</th>
-          <th scope="col">{{ szerzodes?.berlo?.email }}</th>
-          <th scope="col">{{ szerzodes?.berlo?.telefonszam }}</th>
+          <td scope="col">{{ szerzodes?.lakas?.hrsz }}</td>
+          <td scope="col">{{ szerzodes?.lakas?.irsz }}</td>
+          <td scope="col">{{ szerzodes?.lakas?.telepules }}</td>
+          <td scope="col">{{ szerzodes?.lakas?.cim }}</td>
+          <td scope="col">{{ szerzodes?.lakas?.rezsi }}</td>
+          <td scope="col">{{ szerzodes?.lakas?.ar }}</td>
+          <td scope="col">{{ szerzodes?.berlo?.nev }}</td>
+          <td scope="col">{{ szerzodes?.berlo?.email }}</td>
+          <td scope="col">{{ szerzodes?.berlo?.telefonszam }}</td>
         </tr>
       </tbody>
     </table>
@@ -48,12 +48,12 @@
       </thead>
       <tbody class="table-group-divider">
         <tr *ngFor="let event of esemenyek">
-          <th scope="col">{{ event.id }}</th>
-          <th scope="col">{{ event.datum }}</th>
-          <th scope="col">{{ event.koltseg }}</th>
-          <th scope="col">{{ event.megjegyzes }}</th>
-          <th scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">{{ authService.getRole() == 'berlo' ? 'Megtekintés' : 'Szerkesztés'}}</button>
-          </th>
+          <td scope="col">{{ event.id }}</td>
+          <td scope="col">{{ event.datum }}</td>
+          <td scope="col">{{ event.koltseg }}</td>
+          <td scope="col">{{ event.megjegyzes }}</td>
+          <td scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">{{ authService.getRole() == 'berlo' ? 'Megtekintés' : 'Szerkesztés'}}</button>
+          </td>
         </tr>
       </tbody>
     </table>

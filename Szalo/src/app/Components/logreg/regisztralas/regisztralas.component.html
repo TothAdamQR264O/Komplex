@@ -8,11 +8,11 @@
 <div class="row justify-content-center">
     <div class="col-md-9">
         <div *ngFor="let szerepkor of szerepkorok">
-            <input type="radio" name="user" [value]="szerepkor.value" [(ngModel)]="valasztottSzerepkor">
+            <input type="radio" name="user" [value]="szerepkor.value" [(ngModel)]="valasztottSzerepkor" (ngModelChange)="szerepkorValtas($event)">
             <label>{{szerepkor.label}}</label>
         </div>
 
-        <form [formGroup]="foberloForm" *ngIf="changeUserVisible()">
+        <form [formGroup]="foberloForm" *ngIf="valasztottSzerepkor === 'foberlo'">
             <div class="mb-3">
                 <label for="nev" class="form-label">Főbérlő neve</label>
                 <input type="text" class="form-control" id="nev" name="nev" placeholder="Példa Béla" formControlName="nev">
@@ -63,7 +63,7 @@
             </div>
         </form>
 
-        <form [formGroup]="berloForm" *ngIf="!changeUserVisible()">
+        <form [formGroup]="berloForm" *ngIf="valasztottSzerepkor === 'berlo'">
             <div class="mb-3">
                 <label for="nev" class="form-label">Bérlő neve</label>
                 <input type="text" class="form-control" id="nev" name="nev" placeholder="Példa Béla" formControlName="nev">
@@ -110,7 +110,7 @@
             </div>
             <div class="mb-3">
                 <label for="telepules" class="form-label">Település</label>
-                <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Msikolc" formControlName="telepules">
+                <input type="text" class="form-control" id="telepules" name="telepules" placeholder="Miskolc" formControlName="telepules">
                 <small class="text-danger" *ngIf="(berloForm.get('telepules')?.touched || berloForm.get('telepules')?.dirty) && berloForm.get('telepules')?.hasError('required')">
                     A település megadása kötelező.
                 </small>

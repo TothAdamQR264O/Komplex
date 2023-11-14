@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { EsemenyService } from 'src/app/services/esemeny.service';
 import moment from 'moment';
 import { Location } from '@angular/common';
+import { SzerzodesService } from 'src/app/services/szerzodes.service';
 
 @Component({
   selector: 'app-esemeny',
@@ -53,12 +54,21 @@ export class EsemenyComponent {
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
     private esemenyService: EsemenyService,
+    private szerzodesService: SzerzodesService,
     private activatedRoute: ActivatedRoute,
     public location: Location
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
+    const szerzodesId = this.activatedRoute.snapshot.params['contractId'];
+    if (szerzodesId) {
+      this.szerzodesService.getOne(szerzodesId).subscribe({
+        next: szerzodes => this.szerzodes = szerzodes,
+        error: () => this.toastrService.error('A szerződés nem tölthető be.', 'Hiba')
+      });
+    }
+
+    const id = this.activatedRoute.snapshot.params['eventId'];
     if (id) {
       this.ujEsemeny = false;
 
@@ -80,12 +90,17 @@ export class EsemenyComponent {
   }
 
   saveEvent() {
+    if (!this.szerzodes) {
+      return;
+    }
+
     const esemeny = this.esemenyForm.value as EsemenyDTO;
 
     if (this.ujEsemeny) {
-      this.esemenyService.create(esemeny).subscribe({
+      this.esemenyService.create(this.szerzodes.id, esemeny).subscribe({
         next: (apply) => {
           this.toastrService.success('Az esemény sikeresen létre lett hozva.', 'Siker');
+          this.location.back();
         },
         error: (err) => {
           this.toastrService.error('Nem sikerült létrehozni az eseményt.', 'Hiba');
@@ -95,6 +110,7 @@ export class EsemenyComponent {
       this.esemenyService.update(esemeny).subscribe({
         next: (apply) => {
           this.toastrService.success('Az esemény sikeresen módosult.', 'Siker');
+          this.location.back();
         },
         error: (err) => {
           this.toastrService.error('Nem sikerült módosítani az eseményt.', 'Hiba');

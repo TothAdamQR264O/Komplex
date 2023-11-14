@@ -57,6 +57,7 @@ export class LakoComponent {
     this.szerzodesService.getOne(szerzodesId).subscribe({
       next: (szerzodes) => {
         this.szerzodes = szerzodes;
+        this.osszesitokFrissitese();
       },
       error: (err) => {
         console.error(err);
@@ -71,16 +72,14 @@ export class LakoComponent {
         this.toastrService.error('Nem létezik esemény, vagy nem lehet betölteni', 'Hiba');
       }
     })
-
-    this.osszesitokFrissitese();
   }
 
   eventMake() {
-    this.router.navigate(['/event']);
+    this.router.navigate(['event', 'create', this.szerzodes?.id ]);
   }
 
   goToEvent(id: number) {
-    this.router.navigate(['event', id]);
+    this.router.navigate(['event', 'manage', this.szerzodes?.id, id]);
   }
 
   osszesitokFrissitese() {
