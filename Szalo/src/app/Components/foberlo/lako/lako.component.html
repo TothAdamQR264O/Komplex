@@ -50,7 +50,7 @@
         <tr *ngFor="let event of esemenyek">
           <td scope="col">{{ event.id }}</td>
           <td scope="col">{{ event.datum }}</td>
-          <td scope="col">{{ event.koltseg }}</td>
+          <td scope="col">{{ event.koltseg | currency:'HUF':true:'1.0-3' }}</td>
           <td scope="col">{{ event.megjegyzes }}</td>
           <td scope="col"><button class="btn btn-outline-primary" (click)="goToEvent(event.id)">{{ authService.getRole() == 'berlo' ? 'Megtekintés' : 'Szerkesztés'}}</button>
           </td>

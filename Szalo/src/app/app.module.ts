@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,11 @@ import { HaviosszesitoComponent } from './Components/foberlo/haviosszesito/havio
 import { SzerzodesLezarasComponent } from './Components/foberlo/szerzodes-lezaras/szerzodes-lezaras.component';
 import { SzamlaIntegracioComponent } from './Components/foberlo/szamla-integracio/szamla-integracio.component';
 import { JelentkezesLetrehozasaComponent } from './Components/berlo/jelentkezes-letrehozasa/jelentkezes-letrehozasa.component';
+import { registerLocaleData } from '@angular/common';
+import localeHu from '@angular/common/locales/hu';
+import localeHuExtra from '@angular/common/locales/extra/hu';
+
+registerLocaleData(localeHu, 'hu-HU', localeHuExtra);
 
 @NgModule({
   declarations: [
@@ -63,7 +68,9 @@ import { JelentkezesLetrehozasaComponent } from './Components/berlo/jelentkezes-
         provide: HTTP_INTERCEPTORS,
         useClass: UnauthorizedInterceptor,
         multi: true
-    }
+    },
+    { provide: LOCALE_ID, useValue: 'hu-HU' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'Ft' }
   ],
   bootstrap: [AppComponent]
 })
