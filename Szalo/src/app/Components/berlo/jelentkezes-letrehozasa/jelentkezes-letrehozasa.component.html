@@ -1,106 +1,110 @@
 <div class="row justify-content-center">
-    <div class="col-md-12">
-        <h4>Ház adatai</h4>
-        <hr>
-    </div>
-    
+  <div class="col-md-8">
+    <h4>Ház adatai</h4>
+    <hr>
   </div>
-  
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-      <table class="table">
+
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <table class="table table-striped">
+      <tbody>
         <tr>
-          <th scope="col">Település</th>
-          <th scope="col">{{ haz?.telepules }}</th>
+          <td class="fw-bold">Település:</td>
+          <td>{{ haz?.telepules }}</td>
         </tr>
         <tr>
-          <th scope="col">Cím</th>
-          <th scope="col">{{ haz?.cim }}</th>
+          <td class="fw-bold">Cím:</td>
+          <td>{{ haz?.cim }}</td>
         </tr>
         <tr>
-          <th scope="col">Ár</th>
-          <th scope="col">{{ haz?.ar }} Ft</th>
+          <td class="fw-bold">Ár:</td>
+          <td>{{ haz?.ar }} Ft</td>
         </tr>
         <tr>
-          <th scope="col">Rezsi</th>
-          <th scope="col">{{ haz?.rezsi }} Ft</th>
+          <td class="fw-bold">Rezsi:</td>
+          <td>{{ haz?.rezsi }} Ft</td>
         </tr>
         <tr>
-          <th scope="col">Szobák száma</th>
-          <th scope="col">{{ haz?.szobakszama }}</th>
+          <td class="fw-bold">Szobák száma:</td>
+          <td>{{ haz?.szobakszama }}</td>
         </tr>
         <tr>
-          <th scope="col">Alapterület</th>
-          <th scope="col">{{ haz?.meret }} m<sup>2</sup></th>
+          <td class="fw-bold">Alapterület:</td>
+          <td>{{ haz?.meret }} m<sup>2</sup></td>
         </tr>
         <tr>
-          <th scope="col">Állapot</th>
-          <th scope="col">{{ haz?.allapot }}</th>
+          <td class="fw-bold">Állapot:</td>
+          <td>{{ haz?.allapot }}</td>
         </tr>
         <tr>
-          <th scope="col">Komfort</th>
-          <th scope="col">{{ haz?.komfort }}</th>
+          <td class="fw-bold">Komfort:</td>
+          <td>{{ haz?.komfort }}</td>
         </tr>
         <tr>
-          <th scope="col">Emelet</th>
-           <th scope="col">{{ haz?.emelet }}</th>
+          <td class="fw-bold">Emelet:</td>
+          <td>{{ haz?.emelet }}</td>
         </tr>
         <tr>
-          <th scope="col">Épület szintjei</th>
-          <th scope="col">{{ haz?.szint }}</th>
+          <td class="fw-bold">Épület szintjei:</td>
+          <td>{{ haz?.szint }}</td>
         </tr>
         <tr>
-          <th scope="col">Lift</th>
-          <th scope="col">{{ haz?.lift }}</th>
+          <td class="fw-bold">Lift:</td>
+          <td>{{ haz?.lift }}</td>
         </tr>
         <tr>
-          <th scope="col">Légkondicionáló</th>
-          <th scope="col">{{ haz?.legkondi }}</th>
+          <td class="fw-bold">Légkondicionáló:</td>
+          <td>{{ haz?.legkondi }}</td>
         </tr>
         <tr>
-          <th scope="col">Bútorozott</th>
-          <th scope="col">{{ haz?.butorozott }}</th>
+          <td class="fw-bold">Bútorozott:</td>
+          <td>{{ haz?.butorozott }}</td>
         </tr>
         <tr>
-          <th scope="col">Költözhető</th>
-          <th scope="col">{{ haz?.koltozheto }}</th>
+          <td class="fw-bold">Költözhető:</td>
+          <td>{{ haz?.koltozheto }}</td>
         </tr>
         <tr>
-          <th scope="col">Minimum bérlési idő</th>
-          <th scope="col">{{ haz?.minberido }} hó</th>
+          <td class="fw-bold">Minimum bérlési idő:</td>
+          <td>{{ haz?.minberido }} hó</td>
         </tr>
         <tr>
-          <th scope="col">Fürdőszoba és WC</th>
-          <th scope="col">{{ haz?.fureswc }}</th>
+          <td class="fw-bold">Fürdőszoba és WC:</td>
+          <td>{{ haz?.fureswc }}</td>
         </tr>
         <tr>
-          <th scope="col">Kilátás</th>
-          <th scope="col">{{ haz?.kilatas }}</th>
+          <td class="fw-bold">Kilátás:</td>
+          <td>{{ haz?.kilatas }}</td>
         </tr>
         <tr>
-          <th scope="col">Erkély mérete</th>
-          <th scope="col">{{ haz?.erkelymeret }} m<sup>2</sup></th>
+          <td class="fw-bold">Erkély mérete:</td>
+          <td>{{ haz?.erkelymeret }} m<sup>2</sup></td>
         </tr>
         <tr>
-          <th scope="col">Gépesített</th>
-          <th scope="col">{{ haz?.gepesitett }}</th>
+          <td class="fw-bold">Gépesített:</td>
+          <td>{{ haz?.gepesitett }}</td>
         </tr>
         <tr>
-          <th scope="col">Tulaj neve</th>
-          <th scope="col">{{ haz?.tulaj?.nev}}</th>
+          <td class="fw-bold">Tulaj neve:</td>
+          <td>{{ haz?.tulaj?.nev}}</td>
         </tr>
         <tr>
-          <th scope="col">Tulajdonos e-mail címe</th>
-          <th scope="col">{{ haz?.tulaj?.email}}</th>
+          <td class="fw-bold">Tulajdonos e-mail címe:</td>
+          <td>{{ haz?.tulaj?.email}}</td>
         </tr>
         <tr>
-          <th scope="col">Tulajdonos telefonszáma</th>
-          <th scope="col">{{ haz?.tulaj?.telefonszam}}</th>
+          <td class="fw-bold">Tulajdonos telefonszáma:</td>
+          <td>{{ haz?.tulaj?.telefonszam}}</td>
         </tr>
-      </table>
-      <div class="input-group">
-        <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
-        <button class="btn btn-outline-primary" *ngIf="authService.isUser('berlo')" (click)="saveJelentkez()">Jelentkezés</button>
-      </div>
+      </tbody>
+
+    </table>
+    <div class="input-group">
+      <button class="btn btn-outline-primary" (click)="canceled()">Mégse</button>
+      <button class="btn btn-outline-primary" *ngIf="authService.isUser('berlo')"
+        (click)="saveJelentkez()">Jelentkezés</button>
     </div>
   </div>
+</div>

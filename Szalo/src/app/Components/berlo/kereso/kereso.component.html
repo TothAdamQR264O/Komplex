@@ -51,12 +51,12 @@
         </thead>
         <tbody class="table-group-divider">
           <tr *ngFor="let haz of hazak">
-            <th scope="col">{{ haz.telepules }}</th>
-            <th scope="col">{{ haz.cim }}</th>
-            <th scope="col">{{ haz.ar }}</th>
-            <th scope="col">{{ haz.rezsi }}</th>
-            <th scope="col">{{ haz.szobakszama}}</th>
-            <th scope="col"><button class="btn btn-outline-primary" (click)="details(haz.id)">Részletek</button></th>
+            <td scope="col">{{ haz.telepules }}</td>
+            <td scope="col">{{ haz.cim }}</td>
+            <td scope="col">{{ haz.ar }}</td>
+            <td scope="col">{{ haz.rezsi }}</td>
+            <td scope="col">{{ haz.szobakszama}}</td>
+            <td scope="col"><button class="btn btn-outline-primary" (click)="details(haz.id)">Részletek</button></td>
           </tr>
         </tbody>
       </table>

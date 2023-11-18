@@ -1,12 +1,19 @@
-import { Controller } from "./base.controller";
-import { Jelentkezes } from "../entity/Jelentkezes";
-import { Berlo } from "../entity/Berlo";
-import { Haz } from "../entity/Haz";
-import { AppDataSource } from "../data-source";
-import { Foberlo } from "../entity/Foberlo";
-import { Szerzodes } from "../entity/Szerzodes";
 import moment from "moment";
+import { Client } from 'szamlazz.js';
 import { SzerzodesZarasDTO } from "../../../models";
+import { AppDataSource } from "../data-source";
+import { Berlo } from "../entity/Berlo";
+import { Esemeny } from "../entity/Esemeny";
+import { Foberlo } from "../entity/Foberlo";
+import { Haviosszesito } from "../entity/Haviosszesito";
+import { Haz } from "../entity/Haz";
+import { Jelentkezes } from "../entity/Jelentkezes";
+import { OsszesitoTetel } from "../entity/OsszesitoTetel";
+import { SzamlazzHuIntegracio } from "../entity/SzamlazzHuIntegracio";
+import { Szerzodes } from "../entity/Szerzodes";
+import { Controller } from "./base.controller";
+import { OsszesitoService } from "./osszesito.service";
+import { Szamla } from "../entity/Szamla";
 
 export class SzerzodesController extends Controller{
     repository = AppDataSource.getRepository(Szerzodes);
@@ -14,6 +21,13 @@ export class SzerzodesController extends Controller{
     hazRepository = AppDataSource.getRepository(Haz);
     berloRepository = AppDataSource.getRepository(Berlo);
     foberloRepository = AppDataSource.getRepository(Foberlo);
+    osszesitoRepository = AppDataSource.getRepository(Haviosszesito);
+    osszesitoTetelRepository = AppDataSource.getRepository(OsszesitoTetel);
+    esemenyRepository = AppDataSource.getRepository(Esemeny);
+    osszesitoService = new OsszesitoService(this.osszesitoRepository, this.osszesitoTetelRepository, this.esemenyRepository);
+    
+    szamlazzHuIntegracioRepository = AppDataSource.getRepository(SzamlazzHuIntegracio);
+    szamlaRepository = AppDataSource.getRepository(Szamla);
 
     create = async (req, res) => {
         try {
@@ -58,15 +72,9 @@ export class SzerzodesController extends Controller{
 
     getBerlo = async (req, res) => {
         try {
-            const berlo = await this.berloRepository.findOneBy({
-                id: req.auth.id
-            });
-            if (!berlo) {
-                return this.handleError(res, null, 400, "A megadott azonosítóval nem található tulajdonos.");
-            }
-
             const entities = await this.repository.findBy({
-                berlo: { id: req.auth.id }
+                berlo: { id: req.auth.id },
+                aktiv: true
             });
             res.json(entities);
         } catch (err) {
@@ -77,7 +85,8 @@ export class SzerzodesController extends Controller{
     getTulaj = async (req, res) => {
         try {
             const szerzodesek = await this.repository.findBy({
-                tulajdonos: { id: req.auth.id }
+                tulajdonos: { id: req.auth.id },
+                aktiv: true
             });
 
             res.json(szerzodesek);
@@ -116,8 +125,44 @@ export class SzerzodesController extends Controller{
             szerzodes.villanyOraVegAllas = beallitasok.villanyOraZaroAllas;
             szerzodes.vizOraVegAllas = beallitasok.vizOraZaroAllas;
 
-            // TODO: összesítés
+            const osszesito = await this.osszesitoService.osszesito(szerzodes,
+                moment(szerzodes.lezarasDatum).get('date'), moment(szerzodes.lezarasDatum).get('month'), true);
 
+            // számla generálás
+
+            const szamlazzHuAdatok = await this.szamlazzHuIntegracioRepository.findOneBy({
+                tulajdonos: { id: szerzodes.tulajdonos.id }
+            });
+
+            if (!szamlazzHuAdatok || !szamlazzHuAdatok.apiKulcs) {
+                return this.handleError(res, null, 400, 'Nem létező Számlázz.hu integráció. Kérjük állítsa be API-kulcsát!');
+            }
+
+            const szamlaAdatok = this.osszesitoService.szamla(szerzodes, osszesito, szamlazzHuAdatok);
+
+            const szamlazzClient = new Client({
+                authToken: szamlazzHuAdatok.apiKulcs,
+                eInvoice: true,
+                requestInvoiceDownload: true,
+                downloadedInvoiceCount: 1,
+                responseVersion: 1,
+                timeout: 15000
+            });
+
+            try {
+                const szamla = await szamlazzClient.issueInvoice(szamlaAdatok);
+                const szamlaEntity = this.szamlaRepository.create({
+                    szamlaId: szamla.invoiceId,
+                    bruttoOsszeg: szamla.grossTotal,
+                    pdf: Buffer.from(szamla.pdf).toString('base64')
+                });
+
+                osszesito.szamla = szamlaEntity;
+            } catch (err) {
+                this.handleError(res, err, 500, "A számlagenerálás során hiba történt, kérjük kézzel állítsa ki a számlát!");
+            }
+
+            await this.osszesitoRepository.save(osszesito);
             await this.repository.save(szerzodes);
             res.json(szerzodes);
         } catch (err) {

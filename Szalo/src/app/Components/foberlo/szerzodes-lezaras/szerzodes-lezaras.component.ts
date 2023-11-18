@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +25,8 @@ export class SzerzodesLezarasComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private szerzodesService: SzerzodesService,
-    private toastrService: ToastrService) {}
+    private toastrService: ToastrService,
+    private location: Location) {}
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id') || '';
@@ -47,6 +49,7 @@ export class SzerzodesLezarasComponent implements OnInit {
     this.szerzodesService.zaras(beallitasok).subscribe({
       next: () => {
         this.toastrService.success('A szerződés sikeresen lezárásra került.', 'Siker');
+        this.location.back();
       },
       error: (err) => {
         this.toastrService.error(err.error.error, 'Hiba');

@@ -62,11 +62,11 @@
       <tr *ngFor="let tetel of osszesito?.tetelek">
         <td>{{ tetel.megnevezes }}</td>
         <td>{{ tetel.mennyiseg }} {{ tetel.egyseg }}</td>
-        <td class="text-end">{{ tetel.osszeg }} Ft</td>
+        <td class="text-end">{{ tetel.osszeg | currency:'HUF':true:'1.0-3' }}</td>
       </tr>
       <tr>
         <td colspan="2" class="fw-bold">Összesen:</td>
-        <td class="fw-bold text-end">{{ osszesito?.szamla?.bruttoOsszeg }} Ft</td>
+        <td class="fw-bold text-end">{{ osszesito?.szamla?.bruttoOsszeg | currency:'HUF':true:'1.0-3' }}</td>
       </tr>
       <tr *ngIf="osszesito?.szamla">
         <td colspan="3" class="text-end">
